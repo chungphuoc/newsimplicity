@@ -1,0 +1,36 @@
+<%= begin_page_title "הודעות הועד", true %>
+<%= end_page_title %>
+<%= begin_help_section%>כאן מתפרסמות הודעות ועד הבית.<%= end_help_section %>
+<br/>
+<% if (@anns.size > 0) %>
+
+<table cellspacing="0" class="data_table">
+  <tr>
+  	<th>כותרת</th>
+	<th>תאריך פרסום</th>
+	<th>קובץ</th>
+	<th>לינק</th>
+  </tr>
+  
+<% for ann in @anns %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+	<td><%= link_to h(ann.title), {:action=>"show_single_announcement", :id=>ann} %></td>
+	<td><%= link_to pp_date_time(ann.published_on), {:action=>"show_single_announcement", :id=>ann} %></td>	
+	<td><% if ann.has_file %>
+			<a href="<%=ann.web_file_path%>" target="_blank"><%= image_tag '/images/file.png' %></a>
+		<% else %>
+			<%= image_tag '/images/cross.png' %>
+		<% end %></td>
+	
+	<td><% if ann.link != "" %>
+			<a href="<%=ann.link%>" target="_blank"><%= image_tag '/images/link.png' %></a>
+		<% else %>
+			<%= image_tag '/images/cross.png' %>
+		<% end %></td>
+  </tr>
+<% end %>
+
+<% else %>
+<h2>אין הודעות ועד</h2>
+<% end %>
+</table>

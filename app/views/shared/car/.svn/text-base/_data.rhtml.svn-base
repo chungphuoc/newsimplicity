@@ -1,0 +1,28 @@
+<table class="report">
+	<tr>
+		<td class="key">מספר</td>
+		<td class="value"><%= pp_car(data.number) %></td>
+	</tr>
+	<tr>
+		<td class="key valign_top">תיאור</td>
+		<td class="value"><%= crlfs_to_brs(data.description) %></td>
+	</tr>
+	
+	<tr>
+		<td class="key valign_top">בעלים</td>
+		<td class="value">
+			<%- if data.has_tenant?
+				tnnt = data.tenant -%>
+					<%= pp_tenant(tnnt) %><br />
+					<%= h tnnt.mobile %><br />
+					<%= h tnnt.phone %>
+					<%- unless tnnt.email.blank? -%>
+						<br />
+						<%= mail_to h(tnnt.email), tnnt.email %>
+					<%- end -%>
+			<%- elsif data.has_business? -%>
+					<%= render :partial=>"/shared/business/data", :object=>data.business %>
+			<%- end -%>
+		</td>
+	</tr>
+</table>

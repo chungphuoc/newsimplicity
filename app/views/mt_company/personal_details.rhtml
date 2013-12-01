@@ -1,0 +1,34 @@
+<%= begin_page_title "פרטים אישיים" %>
+	<%= button_tag "עריכת פרטים", {:action=>"edit_personal_details"}, "edit",false %>
+<%= end_page_title %>
+<table class="report">
+	<tr>
+		<td class="key">שם פרטי</td>
+		<td class="value"><%= crlfs_to_brs @worker.first_name %></td>
+	</tr><tr>
+		<td class="key">שם משפחה</td>
+		<td class="value"><%= crlfs_to_brs @worker.surname %></td>
+	</tr><tr>
+		<td class="key">שם משתמש</td>
+		<td class="value"><%= crlfs_to_brs @worker.username %></td>
+	</tr><tr>
+		<td class="key">טלפון נייד</td>
+		<td class="value"><%= crlfs_to_brs @worker.mobile %></td>
+	</tr><tr>
+		<td class="key">ביפר</td>
+		<td class="value"><%= crlfs_to_brs @worker.beeper %></td>
+	</tr><tr>
+		<td class="key">דואר אלקטרוני</td>
+		<% if ! @worker.email.blank? %>
+			<td class="value ltr"><a href="mailto:<%= crlfs_to_brs @worker.email %>"><%= crlfs_to_brs @worker.email %></a></td>
+		<% else -%>
+			<td class="value">[אין]</td>
+		<% end %>
+	</tr><tr>
+		<td class="key">תפקיד</td>
+		<td class="value"><%= @worker.mt_company_role.name %></td>
+	</tr><tr>
+		<td class="key">פרטים</td>
+		<td class="value"><%= crlfs_to_brs @worker.details %></td>
+	</tr>
+</table>

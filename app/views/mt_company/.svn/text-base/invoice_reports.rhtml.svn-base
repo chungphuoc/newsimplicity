@@ -1,0 +1,36 @@
+<%= begin_page_title "יצירת דו\"ח חיובים ממתינים" %>
+<%= end_page_title %>
+
+<h3>דו"ח חודשי</h3>
+<%= start_form_tag :action=>"invoice_report_monthly" %>
+חודש:
+<%= select_month Date.today, :use_month_numbers=>true %>
+שנה:
+<%= select_year Date.today, :start_year=>2006, :end_year=>Date.today.year %>
+<%= submit_tag "צור דו\"ח" %>
+<%= end_form_tag %>
+<hr />
+
+<h3>דו"ח שנתי</h3>
+<%= start_form_tag :action=>"invoice_report_yearly" %>
+שנה:
+<%= select_year Date.today, :start_year=>2006, :end_year=>Date.today.year %>
+<%= submit_tag "צור דו\"ח" %>
+<%= end_form_tag %>
+<hr />
+
+<h3>דו"ח תקופתי</h3>
+<%= start_form_tag :action=>"invoice_report_periodic" %>
+<table>
+	<tr>
+		<td>מתאריך:</td>
+		<td><%= date_select 'start', 'clone', :start_year=>2006, :end_year=>Date.today.year, :use_month_numbers=>true %></td>
+	</tr>
+	<tr>
+		<td>עד תאריך:</td>
+		<td><%= date_select 'end', 'clone', :start_year=>2006, :end_year=>Date.today.year, :use_month_numbers=>true %></td>
+	</tr>
+</table>
+<br /><%= submit_tag "צור דו\"ח" %>
+<%= end_form_tag %>
+<hr/>

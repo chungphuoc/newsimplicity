@@ -1,0 +1,48 @@
+<%= begin_page_title "ניהול הודעות הועד" %>
+	<%= button_tag 'הודעה חדשה', {:action => 'new'}, "ann_add", false %>
+<%= end_page_title %>
+
+<table cellspacing="0" class="data_table">
+  <tr>
+  	<th>כותרת</th>
+	<th>תאריך פרסום</th>
+	<th>מוצג באתר</th>
+	<th>קובץ</th>
+	<th>לינק</th>
+	<th colspan="2">פעולות</th>
+  </tr>
+  
+<% for ann in @announcements %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+	<td><%= link_to h(ann.title), :action => 'show', :id => ann%></td>
+	<td><%= link_to pp_date_time(ann.published_on), :action => 'show', :id => ann%></td>
+	<td><% if ann.display_on_site %>
+			<%= link_to image_tag('/images/tick.png'), :action => 'show', :id => ann %>
+		<% else %>
+			<%= link_to image_tag('/images/cross.png'), :action => 'show', :id => ann%>
+		<% end %></td>
+	
+	<td><% if ann.has_file %>
+			<a href="<%=ann.web_file_path%>" target="_blank"><%= image_tag '/images/file.png' %></a>
+		<% else %>
+			<%= link_to image_tag('/images/cross.png'), :action => 'show', :id => ann %>
+		<% end %></td>
+	
+	<td><% if ann.link != "" %>
+			<a href="<%=ann.link%>" target="_blank"><%= image_tag '/images/link.png' %></a>
+		<% else %>
+			<%= link_to image_tag('/images/cross.png'), :action => 'show', :id => ann %>
+		<% end %></td>
+		
+    <td><%= link_to image_tag("/images/ann_edit.png"), :action => 'edit', :id => ann %></td>
+    <td><%= link_to image_tag("/images/ann_delete.png"), { :action => 'destroy', :id => ann }, :confirm => 'ההודעה תימחק. להמשיך?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @announcements_pages.current.previous } if @announcements_pages.current.previous %>
+<%= link_to 'Next page', { :page => @announcements_pages.current.next } if @announcements_pages.current.next %> 
+
+<% else %>
+	<h2>אין הודעות ועד</h2>
+<%end%>

@@ -1,0 +1,9 @@
+<h1>Editing suggestion</h1>
+
+<%= start_form_tag :action => 'suggestion_update', :id => @suggestion %>
+  <%= render :partial => 'suggestion_form' %>
+  <%= submit_tag 'Edit' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'suggestion_show', :id => @suggestion %> |
+<%= link_to 'Back', :action => 'suggestion_list' %>

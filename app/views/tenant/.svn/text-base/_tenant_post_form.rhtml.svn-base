@@ -1,0 +1,34 @@
+<!--[form:tenant_post]-->
+<table border="0" cellspacing="1" cellpadding="1">
+<tr>
+	<td><label for="tenant_post_title">כותרת</label></td>
+	<td><%= text_field 'tenant_post', 'title'  %></td>
+</tr>
+<tr>
+	<td><label for="tenant_post_display_on_site">הצגה</label></td>
+	<td><%= labeled_checkbox "הצג באתר", @tenant_post.display_on_site, "tenant_post", "display_on_site" %></td>
+</tr><tr>
+	<td><label for="tenant_post_link">לינק</label></td>
+	<td><span style="direction:ltr"><%= text_field 'tenant_post', 'link'  %></span></td>
+</tr>
+<tr>
+	<td class="valign_top"><label for="tenant_post_body">גוף ההודעה</label></td>
+	<td><%= text_area 'tenant_post', 'body', "rows"=>10  %></td>
+</tr>
+<tr>
+	<td>
+		<label for="afile">קובץ</label>
+	</td><td>		
+		<input type="file" name="afile" size="30" />
+		<% if @tenant_post.has_file %>
+		<br />
+		<span class="remark">העלאת קובץ חדש תמחוק את הקובץ הקיים</span>
+		<br />
+		<input type="checkbox" name="remove_file" id="cbDelFile" /><a class="hidden_link" href="javascript:toggleCheckBox('cbDelFile')">מחק קובץ קיים</a><br />
+		<a href="<%=@tenant_post.web_file_path%>" target="_blank">צפה בקובץ הקיים</a>
+		<% end %>
+	</td>
+</tr>
+</table>
+<!--[eoform:tenant_post]-->
+

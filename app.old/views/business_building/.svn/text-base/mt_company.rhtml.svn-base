@@ -1,0 +1,64 @@
+<%= begin_page_title "חברת האחזקה"%><%= end_page_title %>
+<table class="report">
+	<tr>
+		<td class="key">שם</td>
+		<td class="value"><%= crlfs_to_brs @mt_company.name %></td>
+	</tr><tr>
+		<td class="key">כתובת</td>
+		<td class="value"><%= crlfs_to_brs @mt_company.address %></td>
+	</tr><tr>
+		<td class="key">פרטי קשר</td>
+		<td class="value"><%= crlfs_to_brs @mt_company.contact_info %></td>
+	</tr><tr>
+		<td class="key">טלפון</td>
+		<td class="value"><%= crlfs_to_brs @mt_company.phone %></td>
+	</tr><tr>
+		<td class="key">אתר</td>
+		<% if ! @mt_company.site.blank? -%>
+			<td class="value"><a href="<%= @mt_company.site %>" target="_blank"><%= crlfs_to_brs @mt_company.site %></a><br/>יפתח בחלון חדש</td>
+		<% else -%>
+			<td class="value">[אין]</td>
+		<% end -%>
+	</tr><tr>
+		<td class="key valing_top">אודות</td>
+		<td class="value"><%= crlfs_to_brs @mt_company.about %></td>
+	</tr>
+</table>
+<% unless @worker.nil? -%>
+	<p>&nbsp;</p>
+	<h2>אב בית</h2>
+	<table class="report">
+		<tr>
+			<td class="key">שם פרטי</td>
+			<td class="value"><%= crlfs_to_brs @worker.first_name %></td>
+		</tr><tr>
+			<td class="key">שם משפחה</td>
+			<td class="value"><%= crlfs_to_brs @worker.surname %></td>
+		</tr>
+		<% unless @worker.mobile.blank? -%>
+		<tr>
+			<td class="key">טלפון נייד</td>
+			<td class="value"><%= crlfs_to_brs @worker.mobile %></td>
+		</tr>
+		<% end -%>
+		<% unless @worker.beeper.blank? -%>
+		<tr>
+			<td class="key">ביפר</td>
+			<td class="value"><%= crlfs_to_brs @worker.beeper %></td>
+		</tr>
+		<% end -%>
+		<% unless @worker.email.blank? -%>
+		<tr>
+			<td class="key">דואר אלקטרוני</td>
+			<td class="value ltr"><a href="mailto:<%= crlfs_to_brs @worker.email %>"><%= crlfs_to_brs @worker.email %></a></td>
+		</tr>
+		<% end -%>
+		<% unless @worker.details.blank? -%>
+		<tr>
+			<td class="key" colspan="2">פרטים</td>
+		</tr><tr>
+			<td class="value" colspan="2"><%= crlfs_to_brs @worker.details %></td>
+		</tr>
+		<% end -%>
+	</table>
+<% end -%>

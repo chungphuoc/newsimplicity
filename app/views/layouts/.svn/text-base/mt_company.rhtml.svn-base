@@ -1,0 +1,118 @@
+<% 	if @worker != nil
+		if (@worker.first_name.nil?)
+			hr_name = @worker.username
+		else
+			hr_name = @worker.first_name + " " + @worker.surname
+		end
+	end
+-%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title || "רימון - #{@mt_company.name}" %></title>
+  	<%= stylesheet_link_tag 'vaadnet_base' %>
+	<%= stylesheet_link_tag 'tables' %>
+	<%= javascript_include_tag 'application.js' %>
+	<%= javascript_include_tag 'prototype.js' %>
+	<%= javascript_include_tag 'scriptaculous.js' %>
+	<% if @js_files -%>
+		<% for f in @js_files -%>
+			<%=javascript_include_tag f %>
+		<% end -%>
+	<% end -%>
+</head>
+<%- if @refresh == true -%>
+<body onload="setTimeout('window.location.reload(true);',1000*60*30)">
+<%- else -%>
+<body>
+<%- end -%>
+<center>
+<table id="main_table" cellspacing="0" cellpadding="0">
+<%= render :partial=>"/layouts/beta_note_tr" %>
+<tr class="banner">
+		<td class="banner" colspan="2">
+	<table class="top_bar" width="100%" border="0">
+		<tr>
+			<td><div style="margin:4px 0px 4px 0px;">
+				<span class="building_name">&nbsp;<%=@mt_company.name%>&nbsp;</span></div></td>
+			<td><div class="vaadnet_logo"><%=link_to image_tag("logo_top.gif"), :controller=>"general"%></div></td>
+		</tr><tr>
+			<td align="center">
+				<% if ! @worker.nil? -%>
+					<div class="login_name">שלום 
+					<span class="hr_name"> <%= hr_name -%></span> (	אם אינך 
+						<%= hr_name %>, <%= link_to "אנא התנתק", :action=>"logout" -%>
+					)</div>
+				<% end -%>
+			</td>
+		</tr><tr>
+			<td colspan="2" class="top_ruler">
+				<div style="padding: 4px">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td class="messages_area">
+								<% if (! @worker.nil?) && (! @worker.mt_company_role.nil?) && (!messages?) -%>אתה מחובר בתור <%= @worker.mt_company_role.name %><% end %>
+								<%= render :partial=>"/layouts/messages" %></td>
+							<td class="top_buttons_area">
+								<%= button_tag "יציאה", {:action=>:logout},"logout", false %>
+							</td></tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</tr><tr>
+<td id="side_bar">
+	<div class="title top"><%= @mt_company.name %></div>
+	<%- if ! @worker.nil? -%>
+		<%= link_to 'דף ראשי', :action=>"index"%>
+		<%= link_to 'דף קשר', :action=>"contacts_list"%>
+		<%= link_to 'פרטי חברה', :action=>"company_details"%>
+		<div class="title">משימות</div>
+		<%= link_to 'רשימת משימות חדשות', :action=>"mt_tsk_new_list"%>
+		<%= link_to 'רשימת משימות', :action=>"mt_tsk_list"%>
+		<%= link_to 'משימה חדשה', :action=>"mt_tsk_new"%>
+		<%- if @worker.role.admin? -%>
+			<div class="title">בקשות שירות</div>
+			<%= link_to 'בקשות שירות פתוחות', :action=>"mt_requests_list", :clean_state=>true.to_s%>
+			<%= link_to 'בניית דו"ח', :action=>:mt_req_report_build %>
+			<%= link_to 'מעקב אוטומטי', :action=>:touched_mt_reqs, :clean_state=>true.to_s %>
+			<%= link_to 'בקשת שירות חדשה', :action=>:mt_req_new %>
+			<%= link_to 'חיובים ממתינים', :action=>"invoice_reports" %>
+			<div class="title">ניהול אתר</div>
+			<%= link_to 'עובדים', :action=>"worker_list", :clean_state=>true.to_s %>
+			<%= link_to 'בניינים', :action=>"building_list" %>
+			<%= link_to 'עריכת פרטי החברה', :action=>"edit_company_details" %>
+			<%= link_to 'תפקידים', :action=>"role_list" %>
+		<%- end -%>
+		<%- if @worker.role.building_manager? && @worker.buildings.size > 0 -%>
+			<div class="title">הבניינים שלי</div>
+			<%= link_to 'רשימת בניינים', :action=>'my_buildings' %>
+			<%= link_to 'בקשות שירות', :action=>'my_mt_requests'%>
+			<%= link_to 'דו"ח בקשות שירות', :action=>:mt_req_report_build %>
+			<%= link_to 'מעקב אוטומטי', :action=>:touched_mt_reqs, :clean_state=>true.to_s %>
+			<%= link_to 'בקשת שירות חדשה', :action=>:mt_req_new %>
+		<%- end -%>
+		<%- if @worker.role.professional? -%>
+			<div class="title">בקשות שירות</div>
+			<%= link_to 'בקשות השירות שלי', :action=>:pending_mt_requests, :fresh=>true.to_s %>
+			<%= link_to 'דו"ח בקשות שירות', :action=>:mt_req_report_build %>
+			<%= link_to 'מעקב אוטומטי', :action=>:touched_mt_reqs, :clean_state=>true.to_s %>
+			<%= link_to 'בקשת שירות חדשה', :action=>:mt_req_new %>
+		<%- end -%>
+		<div class="title">ניהול חשבון</div>
+		<%= link_to 'הפרטים שלי', :action=>'personal_details' %>
+		<%= link_to 'יציאה', {:action=>'logout'}, {:class=>'bottom'} %>
+	<%- end -%>
+</td>
+	<td id="main">
+			<%= @content_for_layout %>
+		</td>
+	</tr>
+</table>
+<%= render :partial=>"/layouts/footer" %>
+</center>
+</body>
+</html>

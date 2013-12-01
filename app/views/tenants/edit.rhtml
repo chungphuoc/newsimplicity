@@ -1,0 +1,9 @@
+<%= begin_page_title "עריכת פרטי הדייר#{ tenant.is_male? : "", "ת"}" %>
+	<%= button_tag 'הצג', {:action => 'show', :id => @tenant}, 'user_view', false %>
+	<%= button_tag 'בחזרה לרשימת דיירים', {:action => 'list'}, 'user_list', false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action => 'update', :id => @tenant %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>

@@ -1,0 +1,23 @@
+<!--[form:shared_document]-->
+<table>
+	<tr>
+		
+</table>
+<p><label for="shared_document_title">כותרת</label><br/>
+<%= text_field 'shared_document', 'title'  %></p>
+
+<p><label for="shared_document_description">תאור</label><br/>
+<%= text_area 'shared_document', 'description', :rows=>5  %></p>
+
+<p><label for="afile">מסמך</label><br/>
+<input type="file" name="afile" size="30" />
+<% if @shared_document.has_file? %>
+	<br />
+	<span class="remark">העלאת קובץ חדש תמחוק את הקובץ הקיים</span>
+	<br />
+	<!--input type="checkbox" name="remove_file" id="cbDelFile" /><a class="hidden_link" href="javascript:toggleCheckBox('cbDelFile')">מחק קובץ קיים</a><br /-->
+	<%link_to "צפה בקובץ הקיים", {:action=>"get_shared_document", :id=>@shared_document}, :target=>"_blank" %>
+<% end %></p>
+
+<!--[eoform:shared_document]-->
+

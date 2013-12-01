@@ -1,0 +1,74 @@
+<%= begin_page_title "הפרטים שלי", true %>
+<%= end_page_title %>
+<%= begin_help_section%>כאן ניתן לערוך את פרטיך במערכת.<%= end_help_section %>
+<!--[form:tenant]-->
+<%= start_form_tag %>
+	<input type="hidden" name="flat_mode" value="<%=@flat_mode %>" />
+<table>
+	<tr>
+		<td><label for="tenant_first_name">שם פרטי</label></td>
+		<td><%= text_field 'tenant', 'first_name'  %></td>
+	</tr>
+	<tr>
+		<td><label for="tenant_surname">שם משפחה</label></td>
+		<td><%= text_field 'tenant', 'surname'  %></td>
+	</tr>
+	<tr>
+		<td><label for="tenant_flat">דירה</label></td>
+		<td>
+			<%= hidden_field 'tenant', 'flat_id' %>
+			<%= @tenant.flat.human_description %>
+		</td>
+	</tr>
+	<tr>
+		<td style="direction: ltr"><label for="tenant_phone">טלפון</label></td>
+		<td><span style="direction: ltr"><%= text_field 'tenant', 'phone'  %></span></td>
+	</tr>
+	<tr>
+		<td style="direction: ltr"><label for="tenant_mobile">סלולרי</label></td>
+		<td><span style="direction: ltr"><%= text_field 'tenant', 'mobile'  %></span></td>
+	</tr>
+	<tr>
+		<td style="direction: ltr"><label for="tenant_fax">פקס</label></td>
+		<td><span style="direction: ltr"><%= text_field 'tenant', 'fax'  %></span></td>
+	</tr>
+	<tr>
+		<td><label for="tenant_email">דואר אלקטרוני</label></td>
+		<td><span style="direction: ltr"><%= text_field 'tenant', 'email'  %></span></td>
+	</tr>
+	<tr>
+		<td><label for="tenant_gender">מין</label></td>
+		<td><%= radio_button 'tenant', 'is_male', 'true'  %>&nbsp;זכר&nbsp;&nbsp;
+			<%= radio_button 'tenant', 'is_male', 'false'  %>&nbsp;נקבה</td>
+	</tr>
+	<tr>
+		<td><label for="tenant_site">אתר</label></td>
+		<td><span style="direction:ltr"><%= text_field 'tenant', 'site', "size" => 65  %></span></td>
+	</tr>
+	<tr>
+		<td><label for="tenant_username">שם משתמש</label></td>
+		<td><span style="direction: ltr"><%= text_field 'tenant', 'username'  %></span></td>
+	</tr>
+	<tr>
+		<td><label for="tenant_password">סיסמא</label></td>
+		<td><%=password_field 'tenant','password' %>
+			<% if @tenant.id != nil -%>
+				<br/><span class="remark">השאר ריק על מנת להשאיר סיסמא קודמת</span>
+			<%- else -%>
+				&nbsp;
+			<% end -%>
+		</td>
+	</tr>
+	<tr>
+		<td><label for="tenant_password_confirmation">אישור סיסמא</label></td>
+		<td><%=password_field 'tenant','password_confirmation' %></td>
+	</tr>
+	<tr>
+		<td><label for="tenant_about">הערות</label></td>
+		<td><%= text_area 'tenant', 'about', "cols" => 65, "rows"=>5  %></td>
+	</tr>
+</table>
+
+<%= submit_tag "שמור שינויים"%>
+<%= end_form_tag %>
+<!--[eoform:tenant]-->

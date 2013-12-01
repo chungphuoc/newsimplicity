@@ -1,0 +1,95 @@
+<%= begin_page_title "הפרטים שלי" %>
+	<%= button_tag "עדכון הפרטים", {:action=>"edit_my_details"}, "user_edit", false%>
+<%= end_page_title %>
+<table class="report">
+	<tr>
+		<td class="key">שם פרטי</td>
+		<td class="value"><%=crlfs_to_brs @tenant.first_name%></td>
+	</tr><tr>
+		<td class="key">שם משפחה</td>
+		<td class="value"><%=crlfs_to_brs @tenant.surname%></td>
+	</tr><tr>
+		<td class="key">מין</td>
+		<td class="value"><% if @tenant.is_male?%>גבר<% else %>אשה<%end%></td>
+	</tr><tr>
+		<td class="key">דירה</td>
+		<td class="value"><%=@tenant.flat.human_description %></td>
+	</tr><tr>
+		<td class="key">טלפון</td>
+		<td class="value"><span style="direction:ltr"><span style="color:#bbc">a</span><%=crlfs_to_brs @tenant.phone%></span></td>
+	</tr><tr>
+		<td class="key">סלולרי</td>
+		<td class="value"><span style="direction:ltr"><span style="color:#bbc">a</span><%=crlfs_to_brs @tenant.mobile%></span></td>
+	</tr><tr>
+		<td class="key">פקס</td>
+		<td class="value"><span style="color:#bbc">a</span><%=crlfs_to_brs @tenant.fax%></td>
+	</tr><tr>
+		<td class="key">דואר אלקטרוני</td>
+		<td class="value"><span style="direction: ltr">
+			<% if @tenant.email.blank? %>
+				<span style="color:#bbc">a</span><%= crlfs_to_brs "" %>
+			<% else -%>
+				<a href="mailto:<%=h @tenant.email %>"><%=h @tenant.email %></a></span>
+			<% end -%>
+		</td>
+	</tr><tr>
+		<td class="key">אתר</td>
+		<td class="value">
+			<% if @tenant.site.blank? %>
+				[אין]
+			<% else %>
+				<span style="direction:ltr"><a href="<%=h @tenant.site%>"><%=crlfs_to_brs @tenant.site%></a></span>
+			<% end %>
+		</td>
+			
+	</tr>
+	<tr>
+		<td class="key">שם משתמש</td>
+		<td class="value">
+			<span style="direction: ltr"><%= @tenant.username %></span></td>
+	</tr>
+	<tr>
+		<td class="key">הערות</td>
+		<td class="value">
+			<% if @tenant.about.blank? %>[אין הערות]<% else %>
+			<%= crlfs_to_brs @tenant.about %><% end -%>
+		</td>
+	</tr>
+</table>
+
+<table style="border-bottom:1px solid black; width: 100%">
+	<tr>
+		<td>
+			<h3>מכוניות</h3>
+		</td>
+		<td style="text-align: left">
+			<%= button_tag "הוסף מכונית", {:action=>"car_add"}, "car_add", false%>
+		</td>
+	</tr>
+</table>
+	
+<% if @tenant.has_cars?
+	i = 1;
+%>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>מס"ד</th>
+		<th>מספר<th>
+		<th>תיאור</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+
+	<% for car in @tenant.cars %>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td><%= i.to_s() 			  %></td>
+		<td><%= pp_car(h(car.number)) %></td>
+		<td><%= h(car.description) 	  %></td>
+		<td><%= link_to image_tag("edit.png"), :action=>"car_edit", :id=>car, :return_to=>@action %></td>
+		<td><%= link_to image_tag("cross.png"), {:action=>"car_destroy", :id=>car, :return_to=>@action}, {:post=>true, :confirm=>"למחוק את מכונית #{car.number}?"} %></td>
+	</tr>
+	<% i = i+1
+		end %>
+</table>
+<% else %>
+אין מכוניות
+<% end %>

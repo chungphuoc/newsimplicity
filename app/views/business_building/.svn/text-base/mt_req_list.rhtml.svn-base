@@ -1,0 +1,36 @@
+<%-
+case @type
+when BusinessBuildingController::MT_QUERY_TYPE_PENDING
+	title = "בקשות שירות פתוחות"
+	help = "רשימת בקשות השירות שנוצרו על ידי #{current_user().hr_name} או על ידי משתמשים אחרים ב-#{current_user().business.name} והטיפול בהן עדיין לא הושלם. "
+	help << "מופיעות גם בקשות שירות המתייחסות לשטחים השייכים ל#{current_user().business.name}."
+
+when BusinessBuildingController::MT_QUERY_TYPE_TO_BE_DEBITED
+	title = "בקשות שירות הממתינות לחיוב"
+	help = "רשימת בקשות השירות שנוצרו על ידי #{current_user().hr_name} או על ידי משתמשים אחרים ב-#{current_user().business.name}. "
+	help << "מופיעות גם בקשות שירות המתייחסות לשטחים השייכים ל#{current_user().business.name}. "
+	help << "הטיפול בבקשות שירות אלו הושלם (אם היתה תקלה, למשל, היא תוקנה), אולם החיוב עדיין לא בוצע"; 
+
+
+when BusinessBuildingController::MT_QUERY_TYPE_DEBITED
+	title = "בקשות שירות שחויובו"
+	help = "רשימת בקשות השירות שנוצרו על ידי #{current_user().hr_name} או על ידי משתמשים אחרים ב-#{current_user().business.name}. "
+	help << "מופיעות גם בקשות שירות המתייחסות לשטחים השייכים ל#{current_user().business.name}. "
+	help << "הטיפול בבקשות שירות אלו הושלם: העבודה והחיוב בוצעו."; 
+
+when BusinessBuildingController::MT_QUERY_TYPE_REPORTED_BY_USER
+	title = "כל בקשות השירות שיצרתי"
+	help = "רשימת בקשות השירות שנוצרו על ידי #{current_user().hr_name}."
+end
+-%>
+<%= begin_page_title title, true %>
+	<%= button_tag "דווח תקלה חדשה", {:action=>"mt_req_add"},"add",false %>
+	<%= rs_player_controls( @pgr, {:type=>params[:type]} ) %>
+<%= end_page_title %>
+<%= begin_help_section -%>
+<%= help %>
+<%= end_help_section -%>
+
+<%= render :partial=>'/shared/mt_request/contextless_table', 
+		   :locals=>{:reqs=>@reqs, :back=>params[:action], :param_hash=>{:type=>params[:type]}, :columns=>@cols } %>
+<%= rs_page_links( @pgr, {:type=>params[:type]} ) %>

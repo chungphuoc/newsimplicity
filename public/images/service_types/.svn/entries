@@ -1,0 +1,54 @@
+8
+
+dir
+120
+file://localhost/svn/vaadnet/trunk/public/images/service_types
+file://localhost/svn/vaadnet
+
+
+
+2007-04-25T23:33:40.516093Z
+15
+michaelbar-sinai
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+a7d5a6ee-9b2d-0410-bb23-a881a0c5062c
+
+qoute.png
+file
+
+
+
+
+2007-08-16T09:09:50.000000Z
+8135a4f5d7ce56dc497898739973e608
+2007-04-25T23:33:40.516093Z
+15
+michaelbar-sinai
+has-props
+
+fix.png
+file
+
+
+
+
+2007-08-16T09:09:50.000000Z
+a137eb4441860564ce1655357af26de8
+2007-04-25T23:33:40.516093Z
+15
+michaelbar-sinai
+has-props
+

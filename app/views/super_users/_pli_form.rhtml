@@ -1,0 +1,13 @@
+<%= error_messages_for 'place_list_item' %>
+
+<!--[form:place_list_item]-->
+<p><label for="place_list_item_place">Place</label><br/>
+<%= text_field 'place_list_item', 'place'  %></p>
+
+<p><label for="place_list_item_is_my_flat">Is my flat</label><br/>
+<select id="place_list_item_is_my_flat" name="place_list_item[is_my_flat]"><option value="false">False</option><option value="true">True</option></select></p>
+
+<p><label for="place_list_item_floor_relative">Floor relative</label><br/>
+<select id="place_list_item_floor_relative" name="place_list_item[floor_relative]"><option value="false">False</option><option value="true">True</option></select></p>
+<!--[eoform:place_list_item]-->
+

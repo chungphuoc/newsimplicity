@@ -1,0 +1,68 @@
+<!--[form:business]-->
+<table>
+<tr>
+	<td><label for="business_name">שם</label></td>
+	<td><%= text_field 'business', 'name'  %></td>
+</tr>
+
+<tr>
+	<td class="valign_top"><label for="business_eng_name">כינוי מערכת</label></td>
+	<td><%= text_field 'business', 'eng_name', :style=>"direction: ltr;"  %><br/>
+		<span class="remark">כינוי המערכת מאפשר לעסקים גישה נוחה יותר לאתר שלהם. הוא חייב להיות ייחודי ומורכב מאותיות אנגליות, ספרות וקווים תחתיים (_) בלבד.<br/>
+				שדה זה אינו חובה וניתן להשאירו ריק</span>.
+		</td>
+</tr>
+
+<tr>
+	<td>בניין</td>
+	<td><%= collection_select 'business', 'building_id', @buildings, :id, :hr_address%></td>
+</tr>
+
+<tr>
+	<td><label for="business_email">דואר אלקטרוני</label></td>
+	<td class="ltr"><%= text_field 'business', 'email'  %></td>
+</tr>
+
+<tr>
+	<td><label for="business_site">אתר</label></td>
+	<td class="ltr"><%= text_field 'business', 'site'  %></td>
+</tr>
+
+<tr>
+	<td><label for="business_phone">טלפון</label></td>
+	<td><%= text_field 'business', 'phone'  %></td>
+</tr>
+
+<tr>
+	<td><label for="business_fax">פקס</label></td>
+	<td><%= text_field 'business', 'fax'  %></td>
+</tr>
+
+<tr>
+	<td class="valign_top"><label for="business_description">תאור</label></td>
+	<td><%= text_area 'business', 'description', :rows=>5  %></td>
+</tr>
+<% if @business.new_record? -%>
+<tr>
+	<td colspan="2">
+		<strong>משתמש ראשוני</strong>
+		<br/><hr/>
+		<span class="remark">שם המשתמש והססמא יאפשרו לבעל העסק להכנס למערכת. הוא יוכל לשנות אותם מאוחר יותר.</span>
+	</td>
+</tr>
+<tr>
+	<td>שם משתמש</td>
+	<td><%= text_field 'new_user', 'username' %></td>
+</tr>
+<tr>
+	<td>סיסמא</td>
+	<td><%= password_field 'new_user', 'password' %></td>
+</tr>
+<tr>
+	<td>סיסמא (לאישור)</td>
+	<td><%= password_field 'new_user', 'password_confirmation' %></td>
+</tr>
+<% end -%>
+</table>
+<!--[eoform:business]-->
+

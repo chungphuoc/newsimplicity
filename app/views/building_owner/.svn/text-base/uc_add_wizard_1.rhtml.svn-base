@@ -1,0 +1,20 @@
+<%= begin_page_title "אשף הוספת חוזה - שלב 1 מתוך 5",true %><%= end_page_title %>
+<%= render :partial=>"shared/wizard_stage", :locals=>{:stages=>@stages, :current_stage=>0} %>
+
+<%= begin_help_section %>
+	אשף הוספת החוזים מסייע להוסיף חוזים למערכת. ראשית נפרט את הבניין, לאחר מכן את העסק, ולבסוף את היחידות, התאריכים ומהות העיסקה (השכרה/מכירה).
+<%= end_help_section %>
+
+<%= start_form_tag :action=>"uc_add_wizard_2" %>
+<table class="wizard_current_stage">
+<tr>
+	<td>בניין</td>
+	<td class="value">
+		<%= collection_select 'building', 'id', @buildings, :id, :hr_address %>
+	</td>
+</tr>
+</table>
+<br/>
+<%= submit_tag "המשך" %>
+<%= end_form_tag %>
+<%= button_to "חזור", :action=>"uc_list" %>

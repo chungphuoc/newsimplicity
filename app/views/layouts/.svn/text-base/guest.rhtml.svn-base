@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title || "רימון - #{@building.hr_address}" %></title>
+  	<%= stylesheet_link_tag 'vaadnet_base' %>
+	<%= stylesheet_link_tag 'ann_pst' %>
+	<%= javascript_include_tag 'application.js' %>
+	<%= javascript_include_tag 'prototype.js' %>
+	<%= javascript_include_tag 'scriptaculous.js' %>
+	<% if @css_files -%>
+		<% for f in @css_files -%>
+			<%=stylesheet_link_tag f %>
+		<% end -%>
+	<% end -%>
+	<% if @js_files -%>
+		<% for f in @js_files -%>
+			<%=javascript_include_tag f %>
+		<% end -%>
+	<% end -%>
+
+</head>
+<body>
+<center>
+<table id="main_table" cellspacing="0" cellpadding="0">
+	<%= render :partial=>"/layouts/beta_note_tr" %>
+<tr class="banner">
+	<td class="banner" colspan="2">
+<table class="top_bar" width="100%" border="0">
+	<tr>
+		<td><div style="margin:4px 0px 4px 0px;">
+			<span class="building_name">&nbsp;<%=@building.hr_address%>&nbsp;</span></div></td>
+		<td><div class="vaadnet_logo"><%=link_to image_tag("logo_top.gif"), :controller=>"general"%></div></td>
+	</tr><tr>
+		<td colspan="2" align="center">
+			<% if @tenant != nil
+				hr_name = @tenant.first_name + " "+ @tenant.surname -%>
+			<div class="login_name">שלום 
+			<span class="hr_name"><%=hr_name%></span>
+				<% if @tenant.building_id != @building.id
+					b = Building.find_by_id(@tenant.building_id) -%>
+					&nbsp;
+					<% unless b.nil? -%>
+						<%= link_to "קח אותי הביתה", building_url(:eng_city=>b.eng_city, :eng_street=>b.eng_street, :eng_number=>b.eng_number) %>
+					<% end -%>
+				<% end %>
+			</div>
+			<% end %>
+		</td>
+	</tr><tr>
+		<td colspan="2" class="top_ruler">
+			<table width="100%" border="0">
+			<tr><td class="messages_area"><%= render :partial=>"/layouts/messages" %></td>
+				<td class="top_buttons_area">
+					<%= button_tag "התחבר כדייר", :action=>:login_tenant %>
+					<%= button_tag "התחבר כוועד", :action=>:login_vaad   %>
+			</tr></table>
+		</td>
+	</tr>
+</table>
+</td></tr>
+<tr><td id="side_bar">
+	<div class="top"><%= image_tag "/images/sidebar/sidebar-top.gif" %></div>
+	<div class="title"><%=@building.street%> <%=@building.number%></div>
+	<%= link_to 'דף הבית', :action=>'index', :controller=>'guest' %>
+	<%= link_to 'הודעות ועד', :action=>'announcements', :controller=>'guest'%>
+	<%= link_to 'לוח מודעות', :action=>'tenant_posts', :controller=>'guest'%>
+	<%= link_to 'איך מגיעים', :action=>'directions', :controller=>'guest'%>
+	<div class="title">רימון</div>
+	<%= link_to 'שאלות ותשובות בית משותף', :action=>'legal_faq'%>
+	<%= link_to 'אודות רימון', :action=>'about_us'%>
+	<div class="title">כניסה למערכת</div>
+	<%= link_to 'דייר', :action=>'login_tenant', :controller=>'guest'%>
+	<%= link_to 'ועד', :action=>'login_vaad', :controller=>'guest'%>
+	<%= link_to 'מנהל', :action=>'login_other', :controller=>'guest'%>
+	<div class="top"><%= image_tag "/images/sidebar/sidebar-bottom.gif" %></div>
+</td>
+<td id="main">
+<%= @content_for_layout %>
+</td></tr></table>
+<%= render :partial=>"/layouts/footer" %>
+</center>
+</body>
+</html>

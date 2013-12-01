@@ -1,0 +1,91 @@
+<%= begin_page_title "חברת אחזקה" %>
+<%= end_page_title %>
+<h2>איש קשר עם החברה</h2>
+<%= start_form_tag :action=>"mt_company" %>
+<table border="0" cellspacing="5" cellpadding="5">
+	<tr><td>איש הקשר</td>
+		<td>
+			<%= collection_select 'building', 'mt_company_contact_id', @tenants, :id, :hr_name_full %>
+		</td>
+	</tr><tr>
+		<td colspan="2">
+			<%= submit_tag "שמור שינויים" %>
+		</td>
+	</tr>
+</table>
+<%= end_form_tag %>
+<p>&nbsp;</p>
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="40%">
+			<h2>פרטי החברה</h2>
+		</td>
+		<td>&nbsp;</td>
+		<td width="40%">
+			<h2>אב בית</h2>
+		</td>
+	</tr>
+	<tr>
+		<td class="valign_top">
+			<table class="report">
+				<tr>
+					<td class="key">שם</td>
+					<td class="value"><%= crlfs_to_brs @mt_company.name %></td>
+				</tr><tr>
+					<td class="key">כתובת</td>
+					<td class="value"><%= crlfs_to_brs @mt_company.address %></td>
+				</tr><tr>
+					<td class="key">פרטי קשר</td>
+					<td class="value"><%= crlfs_to_brs @mt_company.contact_info %></td>
+				</tr><tr>
+					<td class="key">טלפון</td>
+					<td class="value"><%= crlfs_to_brs @mt_company.phone %></td>
+				</tr><tr>
+					<td class="key">אתר</td>
+					<% if ! @mt_company.site.blank? -%>
+						<td class="value"><a href="<%= @mt_company.site %>" target="_blank"><%= crlfs_to_brs @mt_company.site %></a><br/>יפתח בחלון חדש</td>
+					<% else -%>
+						<td class="value">[אין]</td>
+					<% end -%>
+				</tr>
+			</table>
+			<div class="remark">לא ניתן להחליף את חברת האחזקה דרך האתר. אם התגלו בעיות, יש לפנות לרימון.</div>
+		</td>
+		<td>&nbsp;</td>
+		<td class="valign_top">
+			<table class="report">
+				<% if @worker != nil -%>
+				<tr>
+					<td class="key">שם פרטי</td>
+					<td class="value"><%= crlfs_to_brs @worker.first_name %></td>
+				</tr><tr>
+					<td class="key">שם משפחה</td>
+					<td class="value"><%= crlfs_to_brs @worker.surname %></td>
+				</tr>
+				<% unless @worker.mobile.blank? -%>
+				<tr>
+					<td class="key">טלפון נייד</td>
+					<td class="value"><%= crlfs_to_brs @worker.mobile %></td>
+				</tr>
+				<% end -%>
+				<% unless @worker.beeper.blank? -%>
+				<tr>
+					<td class="key">ביפר</td>
+					<td class="value"><%= crlfs_to_brs @worker.beeper %></td>
+				</tr>
+				<% end -%>
+				<% unless @worker.email.blank? -%>
+				<tr>
+					<td class="key">דואר אלקטרוני</td>
+					<td class="value ltr"><a href="mailto:<%= crlfs_to_brs @worker.email %>"><%= crlfs_to_brs @worker.email %></a></td>
+				</tr>
+				<% end -%>
+				<% else -%>
+				<tr><td>[אין אב בית]</td></tr>
+				<% end %>
+			</table>
+			<div class="remark">אב הבית נקבע על ידי חברת האחזקה.</div>
+		</td>
+	</tr>
+</table>
+

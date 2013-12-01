@@ -1,0 +1,42 @@
+<h1>מודעה</h1>
+
+<table class="report">
+	<tr><td colspan="2" class="key"><h2><%=@pst.title%></h2></td></tr>
+	<tr>
+		<td class="key">מפרסם</td>
+		<td class="value">
+			<% if @pst.tenant %>
+			<%= @pst.tenant.first_name + " " + @pst.tenant.surname + "("+ @pst.tenant.flat.human_description + ")" %>
+			<% else %>
+				?
+			<% end %>
+		</td>
+	</tr>
+	<tr>
+		<td class="key">פורסם ב:</td>
+		<td class="value"><%= pp_date_time @pst.published_on %>
+	</tr>
+<% if @pst.link.length != 0 %>
+	<tr>
+		<td class="key">קישור: </td>
+		<td class="value"><span style="direction: ltr"><%= link_to h(@pst.link), h(@pst.link) %></span></td>
+	</tr>
+<% end %>
+<% if @pst.has_file %>
+	<tr>
+		<td class="key">קובץ: </td>
+		<td class="value"><a href="<%=@pst.web_file_path%>" target="_blank"><span style="direction: ltr"><%=@pst.web_file_path%></span></a></td>
+	</tr>
+<% end %>
+<tr><td class="key" colspan="2">גוף ההודעה</td></tr>
+<tr><td class="value" colspan="2">
+	<% if @pst.body != "" %>
+		<%= crlfs_to_brs(@pst.body)%>
+	<%else%>
+		(אין תוכן)
+	<%end%>
+</td></tr>
+</table>
+<p>
+	<%= button_link 'חזרה לרשימת ההודעות', 'tenant_post_list', :action => 'tenant_posts' %>
+</p>

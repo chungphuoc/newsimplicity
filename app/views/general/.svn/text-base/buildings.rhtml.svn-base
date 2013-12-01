@@ -1,0 +1,6 @@
+<h1>בניינים</h1>
+<ol>
+	<% for b in @buildings %>
+	<li><%=link_to b.city+"/"+b.street+"/"+b.number, building_url(:eng_city=>b.eng_city, :eng_street=>b.eng_street, :eng_number=>b.eng_number)%></li>
+	<% end %>
+</ol>

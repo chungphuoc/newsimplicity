@@ -1,0 +1,34 @@
+<%= begin_page_title("רשימת עסקים"), true %>
+<%= end_page_title %>
+<%= begin_help_section %>
+להלן רשימת העסקים בבניין. ניתן לראות את פרטי העסק על ידי לחיצה על 
+	<%= image_tag "view.png" %>
+	<% if @user.nil? %>
+	 או להכנס למערכת על ידי לחיצה על 
+	<%= image_tag "login.png" %><% end %>.
+<%= end_help_section %>
+
+<% if @businesses.size > 0 -%>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>שם</th>
+		<th>דוא"ל</th>
+		<th>טלפון</th>
+		<th>פקס</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+	<% for business in @businesses %>
+	<tr class="<%= cycle('odd_row','even_row') %>">
+		<td><%= link_to h(business.name),                 :action=>@action,    :biz_id=>business, :id=>business %></td>
+		<td><%= link_to crlfs_to_brs( business.email ),   :action=>@action,    :biz_id=>business, :id=>business %></td>
+		<td><%= link_to crlfs_to_brs( business.phone ),   :action=>@action,    :biz_id=>business, :id=>business %></td>
+		<td><%= link_to crlfs_to_brs( business.fax ),     :action=>@action,    :biz_id=>business, :id=>business %></td>
+		<td><%= link_to image_tag("view.png") + "פרטים",  :action=>"biz_show", :id=>business     %></td>
+		<td><% if @user.nil? %><%= link_to image_tag("login.png") + "כניסה", :action=>"login",    :biz_id=>business %><%end%></td>
+	</tr>
+	<% end -%>
+</table>
+<% else -%>
+<h3>לא רשומים עסקים במערכת</h3>
+<% end -%>
+

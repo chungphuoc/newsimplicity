@@ -1,0 +1,78 @@
+<% @page_title ||="רימון מערכות"-%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title %></title>
+  	<%= stylesheet_link_tag 'vaadnet_base' %>
+  	<%= stylesheet_link_tag 'tables' %>
+	<%= stylesheet_link_tag 'ann_pst' %>
+	<%= stylesheet_link_tag 'big_links' %>
+	<%= javascript_include_tag 'application.js' %>
+	<%= javascript_include_tag 'prototype.js' %>
+	<%= javascript_include_tag 'scriptaculous.js' %>
+	<% if @css_files -%>
+		<% for f in @css_files -%>
+			<%=stylesheet_link_tag f %>
+		<% end -%>
+	<% end -%>
+	<% if @js_files -%>
+		<% for f in @js_files -%>
+			<%=javascript_include_tag f %>
+		<% end -%>
+	<% end -%>
+</head>
+<body>
+	<center>
+		<table id="main_table" cellspacing="0" cellpadding="0">
+			<tr class="banner">
+				<td class="banner" colspan="2">
+					<table class="top_bar" width="100%" border="0">
+						<tr>
+							<td><div style="margin:4px 0px 4px 0px;">
+								<span class="building_name">&nbsp;רימון&nbsp;</span></div></td>
+							<td><div class="vaadnet_logo"><%=link_to image_tag("logo_top.gif"), :controller=>"general"%></div></td>
+						</tr><tr>
+							<td align="center">
+							</td>
+						</tr><tr>
+							<td colspan="2" class="top_ruler">
+								<div style="padding: 4px">
+									<table width="100%" border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td class="messages_area">
+												<%= render :partial=>"/layouts/messages" %></td>
+											<td class="top_buttons_area">
+												&nbsp;
+											</td></tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr><tr>
+				<td id="side_bar">
+					<div class="title top">רימון</div>
+					<%= link_to 'דף הבית', :action=>'index' %>
+					<%= link_to 'אודות החברה', :action=>'about_us' %>
+					<%= link_to 'יצירת קשר', :action=>'contact' %>
+					<%- if @defaults_mode==false -%>
+					<div class="title">כניסה למערכת</div>
+					<%= link_to 'בנייני מגורים', :action=>'buildings' %>
+					<%= link_to 'חברות אחזקה', :action=>'mt_companies' %>
+					<%= link_to 'בעלי נכסים', :controller=>'building_owner' %>
+					<%= link_to 'משרדים', {:action=>'businesses'} %>
+					<%- end -%>
+					<%= link_to "&nbsp;", {:action=>params[:action]} , {:class=>'bottom'} %>
+				</td>
+				<td id="main">
+					<%= @content_for_layout %>
+				</td>
+			</tr>
+		</table>
+		<%= render :partial=>"/layouts/footer" %>
+	</center>
+</body>
+</html>

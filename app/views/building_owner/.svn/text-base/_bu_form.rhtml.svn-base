@@ -1,0 +1,40 @@
+<!--[form:building_unit]-->
+<table class="report">
+	<%- unless @building_unit.new_record? -%>
+	<tr>
+		<td class="key">מספר מערכת</td>
+		<td class="value"><%= @building_unit.id %></td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key"><label for = "building_unit_name">שם</label></td>
+		<td class="value"><%= text_field 'building_unit', 'name'  %></td>
+	</tr>
+
+	<tr>
+		<td class="key"><label for = "building_unit_unit_type">סוג</label></td>
+		<td class="value"><%= collection_select 'building_unit', 'unit_type_id', @unit_types, :id, :name  %></td>
+	</tr>
+	
+	<tr>
+		<td class="key"><label for = "building_unit_building">בניין</label></td>
+		<td class="value"><%= collection_select 'building_unit', 'building_id', @buildings, :id, :hr_address  %></td>
+	</tr>
+	
+	<tr>
+		<td class="key"><label for = "building_unit_area">שטח</label></td>
+		<td class="value"><%= text_field 'building_unit', 'area'  %></td>
+	</tr>
+
+	<tr>
+		<td class="key"><label for = "building_unit_floor">קומה</label></td>
+		<td class="value"><%= text_field 'building_unit', 'floor'  %></td>
+	</tr>
+	<tr>
+		<td class="key valign_top"><label for="building_unit_remarks">הערות</label></td>
+		<td class="value"><%= text_area "building_unit", "remarks", :rows=>"5" %></td>
+	</tr>
+	
+</table>
+<!--[eoform:building_unit]-->
+

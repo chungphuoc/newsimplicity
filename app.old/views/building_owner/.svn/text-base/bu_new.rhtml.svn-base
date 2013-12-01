@@ -1,0 +1,7 @@
+<%= begin_page_title "יחידת בניין חדשה" %>
+	<%= button_tag 'חזרה לרשימה', {:action => 'bu_list'}, "list", false %>
+<%= end_page_title %>
+<%= start_form_tag :action => 'bu_create' %>
+  <%= render :partial => 'bu_form' %>
+  <%= submit_tag "שמור יחידה" %>
+<%= end_form_tag %>

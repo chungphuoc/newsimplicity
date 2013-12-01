@@ -1,0 +1,34 @@
+<table class="report">
+<tr>
+	<td class="key">שם פרטי</td>
+	<td class="value"><%= h( user_data.first_name )  %></td>
+</tr>
+<tr>
+	<td class="key">שם משפחה</td>
+	<td class="value"><%= h( user_data.surname )  %></td>
+</tr>
+<tr>
+	<td class="key">טלפון</td>
+	<td class="value"><%= h( user_data.phone )  %></td>
+</tr>
+<tr>
+	<td class="key">טלפון נייד</td>
+	<td class="value"><%= h( user_data.mobile )  %></td>
+</tr>
+<tr>
+	<td class="key">דואר אלקטרוני</td>
+	<td class="value"><%= h( user_data.email )  %></td>
+</tr>
+<tr>
+	<td class="key">שם משתמש</td>
+	<td class="value"><%= h( user_data.username )  %></td>
+</tr>
+<tr>
+	<td class="key valign_top">פרטים</td>
+	<td class="value"><%= crlfs_to_brs user_data.description %></td>
+</tr>
+<tr>
+	<td class="key valign_top">יצירת קשר</td>
+	<td class="value"><%= crlfs_to_brs user_data.contact_info %></td>
+</tr>
+</table>

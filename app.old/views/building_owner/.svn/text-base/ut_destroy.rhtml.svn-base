@@ -1,0 +1,43 @@
+<%= begin_page_title "בעיות במחיקת סוג יחידה", true %>
+<%= end_page_title %>
+<%= begin_help_section%>
+אם סוג היחידה נמצא בשימוש (על ידי בניין בתור סוג יחידה אוטומטי או על ידי יחידות מבנה), לא ניתן למחוק אותו.
+הבעיה מפורטת למטה, ואם יש דרך פתרון אוטומטית היא מפורטת גם.
+<%= end_help_section %>
+<% if @reason.include?( "LAST_UNIT_TYPE" )%>
+	<div><%= image_tag "warning.png" %>
+			לא ניתן למחוק את סוג היחידה האחרון</div>
+	<%= link_to "חזרה לרשימת סוגי היחידות", :action => "ut_list" %>
+<% elsif @reason.include?( "LAST_PUBLIC_UNIT_TYPE" )%>
+	<div><%= image_tag "error.png" %>אין סוגי יחידות ציבוריים נוספים, לכן לא ניתן למחוק את סוג היחידה.</div>
+	<%= link_to "חזרה לרשימת סוגי היחידות", :action => "ut_list" %>
+<% elsif @reason.include?( "BUILDING_UNITS_EXIST" ) %>
+	<h2>קיימות יחידות מסוג זה. מה לעשות?</h2>
+	<ul>
+		<li>שנה את סוג היחידות
+			<%= start_form_tag :action=>"ut_destroy"%>
+			<%= hidden_field_tag 'solution', "MOVE", :id=>"sol1" %>
+			<%= collection_select 'new_type','id',@types_left, :id, :name%>
+			<%= submit_tag "בצע" %>
+			<%= end_form_tag%>
+		</li>
+		<li>מחק את היחידות
+			<%= start_form_tag :action=>"ut_destroy"%>
+			<%= hidden_field_tag 'solution', "DELETE", :id=>"sol2"  %>
+			<%= submit_tag "בצע" %>
+			<%= end_form_tag%>
+		</li>
+		<li>ביטול הפעולה וחזרה לרשימה
+			<%= button_to "בצע", :action=>"ut_list" %>
+		</li>
+	</ul>
+<%- elsif @reason.include?( "DEFAULT_UNIT" ) -%>
+	<div><%= image_tag "error.png" %>לא ניתן למחוק את סוג היחידה, כיוון שהוא משמש כסוג יחידה אוטומטי עבור הבניינים הבאים:</div>
+	<div>
+		<ul>
+		<%- for b in @buildings -%>
+			<li><%= link_to b.hr_address, :action=>"building_show", :id=>b %>
+		<%- end -%>
+		</ul>
+	</div>
+<% end %>

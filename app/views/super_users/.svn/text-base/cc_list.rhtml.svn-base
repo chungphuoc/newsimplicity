@@ -1,0 +1,31 @@
+<h1>Listing condo_questions</h1>
+
+<table>
+  <tr>
+  <% for column in CondoQuestion.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for condo_question in @condo_questions %>
+ 	<% if condo_question.answer.blank? %>
+		<tr style="background-color: #F99">
+	<%else%>
+		<tr>
+	<% end %>
+  <% for column in CondoQuestion.content_columns %>
+    <td><%=h condo_question.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'cc_show', :id => condo_question %></td>
+    <td><%= link_to 'Edit', :action => 'cc_edit', :id => condo_question %></td>
+    <td><%= link_to 'Destroy', { :action => 'cc_destroy', :id => condo_question }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @condo_question_pages.current.previous } if @condo_question_pages.current.previous %>
+<%= link_to 'Next page', { :page => @condo_question_pages.current.next } if @condo_question_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New condo_question', :action => 'cc_new' %>

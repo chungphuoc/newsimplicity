@@ -1,0 +1,51 @@
+<%= error_messages_for 'building_owner' %>
+
+<!--[form:building_owner]-->
+<table>
+<tr>
+	<td><label for="building_owner_first_name">First name</label></td>
+	<td><%= text_field 'building_owner', 'first_name'  %></td>
+</tr>
+
+<tr>
+	<td><label for="building_owner_surname">Surname</label></td>
+	<td><%= text_field 'building_owner', 'surname'  %></td>
+</tr>
+
+<tr>
+	<td><label for="building_owner_username">Username</label></td>
+	<td><%= text_field 'building_owner', 'username'  %></td>
+</tr>
+
+<tr>
+	<td><label for="building_owner_hashed_password">Password</label></td>
+	<td><%= password_field 'building_owner', 'password'  %></td>
+</tr>
+
+<tr>
+	<td><label for="building_owner_mobile">Mobile</label></td>
+	<td><%= text_field 'building_owner', 'mobile'  %></td>
+</tr>
+
+<tr>
+	<td><label for="building_owner_phone">Phone</label></td>
+	<td><%= text_field 'building_owner', 'phone'  %></td>
+</tr>
+
+<tr>
+	<td><label for="building_owner_email">Email</label></td>
+	<td><%= text_field 'building_owner', 'email'  %></td>
+</tr>
+
+<tr>
+	<td><label for="building_owner_fax">Fax</label></td>
+	<td><%= text_field 'building_owner', 'fax'  %></td>
+</tr>
+
+<tr>
+	<td><label for="building_owner_address">Address</label></td>
+	<td><%= text_area 'building_owner', 'address', :rows=>5  %></td>
+</tr>
+</table>
+<!--[eoform:building_owner]-->
+

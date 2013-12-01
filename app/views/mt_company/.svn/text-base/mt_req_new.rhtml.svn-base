@@ -1,0 +1,8 @@
+<%=begin_page_title 'בקשת שירות חדשה'%>
+	<%= button_tag "בקשות שירות פתוחות", {:action=>:mt_requests_list}, "list",false %>
+	<%= button_tag "יצירת דו\"ח", {:action=>:mt_req_report_build}, "cog",false %>
+<%=end_page_title%>
+<%= start_form_tag( {:action=>:mt_req_new}, {:multipart=>true} ) %>
+<%= render :partial=>"/shared/mt_request/new_mt_req_form", :locals=>{:mt_req=>@mt_req, :buildings=>@buildings} %>
+<%= submit_tag "צור בקשת שירות" %>
+<%= end_form_tag %>

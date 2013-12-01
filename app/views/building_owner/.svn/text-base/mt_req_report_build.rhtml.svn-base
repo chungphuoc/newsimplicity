@@ -1,0 +1,70 @@
+<%- i = 0; -%>
+<%= begin_page_title "בניית דו\"ח תקלות", true %><%= end_page_title %>
+<%= begin_help_section%>	אנא ביחרו את מאפייני התקלות שברצונכם למצוא. ניתן להתעלם ממאפיינים אם משאירים את תיבת התיוג שלהם ריקה.<%= end_help_section %>
+<div id="control">
+<%= start_form_tag :action=>:mt_req_report_show %>
+<table class="report">
+	<%- if @buildings.size > 1 -%>
+	<tr>
+		<td class="key">בניינים</td>
+		<td class="value">
+			<%- for bld in @buildings -%>
+				<%= labeled_checkbox( bld.hr_address, @query.building_ids.include?(bld.id), "query[buildings]", bld.id ) %>
+				<%- if (i+1) % 3 == 0 -%><br /><%end%>
+			<%- i = i + 1; end -%>
+		</td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">מצב נוכחי</td>
+		<td class="value">
+			<% MaintenanceRequest.state_ids().each { | state | %>
+				<%= labeled_checkbox( loc.mt_state(state), @query.state_ids.include?(state), "query[states]", state ) %>
+			<% } %>
+		</td>
+	</tr>
+	<tr>
+		<td class="key">סוג שירות</td>
+		<td class="value">
+			<%- MaintenanceRequest.service_types().each { | stp | -%>
+				<%= labeled_checkbox(loc.mt_req_service_type(stp), @query.service_types.include?(stp), "query[service_types]", stp) %>
+			<%- } -%>
+		</td>
+	</tr>
+	<tr>
+		<td class="key"><%= labeled_checkbox("החל מתאריך", ! @query.from_date.nil?, "query[use_from_date]", "") %></td>
+		<td class="value ltr">
+			<%= date_picker_field('query', 'from_date') %>
+			</td>
+	</tr><tr>
+		<td class="key"><%= labeled_checkbox("עד תאריך", ! @query.until_date.nil?, "query[use_until_date]", "") %></td>
+		<td class="value ltr"><%= date_picker_field('query', 'until_date') %></td>
+	</tr><tr>
+		<td class="key"><%= labeled_checkbox("זמן עד תיקון", ! @query.time_until_fixed.nil?, "query[use_time_until_fixed]", "") %></td>
+		<td class="value">
+			<%= comparison_select("query", "time_until_fixed_opr") %>&nbsp;<%= text_field "query", "time_until_fixed" %>ימים
+		</td>
+	</tr>
+	<%- if current_user().mt_companies.size > 1 -%>
+	<tr>
+		<td class="key">חברת אחזקה</td>
+		<td class="value">
+			<%- for mtc in current_user().mt_companies -%>
+					<%= labeled_checkbox( mtc.name, @query.mt_company_ids.include?(mtc), "query[mt_companies]", mtc.id ) %>
+					<%- if (i+1) % 3 == 0 -%><br /><%end%>
+			<%- i = i + 1; end -%>
+		</td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">מיון</td>
+		<td class="value">
+			<%= select 'query', 'sort_by', MtRequestQuery::SORT_KEYS.collect{|x| [loc.mt_req_sort_key(x),x]} %><br />
+			<%= labeled_checkbox("סדר יורד", @query.descending?, "query", "is_descending") %>
+		</td>
+	</tr>
+</table>
+<%= submit_tag "חפש" %>
+<%= end_form_tag %>
+</div>
+<%= list_error_messages( @query.error_list ) %>

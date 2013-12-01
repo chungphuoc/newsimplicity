@@ -1,0 +1,30 @@
+<%= begin_page_title "עריכת דיווח" %>
+	<%= button_tag 'חזרה לרשימת הדיווחים', {:action => 'maintenance_requests'}, 'tenant_post_list', false %>
+<%= end_page_title %>
+
+<table border="0">
+<tr>
+	<td class="valign_top">
+		<h2>עריכת נתונים</h2>
+<%= start_form_tag :action => 'update_maintenance_request', :id => @maintenance_request %>
+	<%= render :partial => 'maintenance_request_form' %>
+	<table border="0">
+		<tr>
+			<td>מצב נוכחי</td>
+			<td><%= collection_select 'maintenance_request', 'state', MaintenanceRequest.states, :id, :name %></td>
+		</tr>
+		<tr>
+			<td class="valign_top">הערות</td>
+			<td><%= text_area 'maintenance_request', 'remarks', :rows=>5 %></td>
+		</tr>
+	</table>
+	<%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>
+
+	</td>
+	<td class="valign_top">
+		<h2>פרטי התקלה</h2>
+		<%= render :partial=>"shared/mt_request/mt_request_data", :object=>@maintenance_request %>
+	</td>
+</tr>
+</table>

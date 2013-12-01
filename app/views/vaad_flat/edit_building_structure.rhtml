@@ -1,0 +1,41 @@
+<%= start_form_tag :action=>:update_building_structure %>
+<%= begin_page_title "עריכת מבנה הבניין" %>
+	<%=submit_tag "שמור שינויים"%>
+<%= end_page_title %>
+
+<table cellspacing="0" class="data_table">
+  <tr>
+  	<th>מספר</th>
+	<th>מצב</th>
+	<th>מס' חדרים</th>
+	<th>שטח</th>
+	<th>שכר-ועד בסיסי</th>
+	<th>קומה</th>
+  </tr>
+  
+<%  lastFloor = nil;
+	for flat in @flats 
+		if flat.floor != lastFloor
+			lastFloor = flat.floor
+			if lastFloor == 0 
+				floor_title = "קומת קרקע";
+			elsif lastFloor < 0
+				floor_title = "קומה #{(-lastFloor).to_s()}-";
+			else
+				floor_title = "קומה #{lastFloor}";
+			end -%>
+		 	<tr><td colspan='7' class='table_sub_title'><%=floor_title%></td></tr>
+		<% end -%>
+	
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+	<td><%=flat.number %></td>
+	<td><%=flat_state_select flat %></td>
+	<td><%=flat_text_field flat, :num_of_rooms %></td>
+	<td><%=flat_text_field flat, :area %></td>
+	<td><%=flat_text_field flat, :base_payment%></td>
+	<td><%=flat_floor_select flat%></td>
+  </tr>
+<% end %>
+</table>
+<%=submit_tag "שמור שינויים"%>
+<%= end_form_tag %>

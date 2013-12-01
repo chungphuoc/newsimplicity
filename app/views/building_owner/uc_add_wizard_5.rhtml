@@ -1,0 +1,21 @@
+<%= begin_page_title "אשף הוספת חוזה - סיכום" %>
+<%= end_page_title %>
+<%= render :partial=>"shared/wizard_stage", :locals=>{:stages=>@stages, :current_stage=>4} %>
+
+<%= start_form_tag :action=>"uc_add_wizard_finalize" %>
+
+<table class="report" style="width:100%">
+	<tr>
+		<td class="title">נתוני החוזה</td>
+	</tr>
+</table>
+<%= render :partial=>"/shared/unit_contract", :object=>@uc %>
+<table class="wizard_current_stage">
+<tr>
+	<td><%= submit_tag "אישור - שמור חוזה" %></td>
+</tr>
+</table>
+<br/>
+
+<%= end_form_tag %>
+<%= button_to "חזור", :action=>"uc_add_wizard_4" %>

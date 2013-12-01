@@ -1,0 +1,12 @@
+<%= begin_page_title("הוספת משתמש") %>
+	<%= button_tag 'חזרה לרשימת משתמשים', {:action => 'user_list'}, 'user_list', false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action=>"user_add" %>
+
+<%= render :partial=>"user_form", :object=>@cur_user %>
+
+<%= submit_tag "שמור" %>
+
+<%= end_form_tag %>
+

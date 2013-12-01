@@ -1,0 +1,31 @@
+<h1>יצירת קשר</h1>
+<p>נשמח אם תיצרו איתנו קשר באחת מהדרכים הבאות:</p>
+
+<p>
+	<strong>שליחת הודעה דרך תוכנת הדואר:</strong>  
+		<a href="mailto:ofir@vaadnet.com">ליחצו כאן</a>
+</p><p>
+		<fieldset>
+		<legend>שליחת הודעה דרך האתר:</legend>
+		<%= start_form_tag :action=>:send_contact %>
+		<table border="0" cellspacing="5" cellpadding="5" border="0">
+			<tr>
+				<td>נושא</td>
+				<td><%= text_field_tag 'subject' %></td>
+			</tr><tr>
+				<td>כתובת דואר אלקטרוני</td>
+				<td><%= text_field_tag 'email' %></td>
+			</tr><tr>
+				<td colspan="2">
+					<%= text_area_tag 'body', {}, {:rows=>6, :cols=>40} %>
+				</td>
+			</tr><tr>
+				<td colspan="2" align="center">
+					<%= submit_tag 'שלח הודעה' %>
+				</td>
+			</tr>
+		</table>
+		
+		<%= end_form_tag %>
+		</fieldset>
+</p>

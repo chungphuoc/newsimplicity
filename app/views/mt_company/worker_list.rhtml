@@ -1,0 +1,33 @@
+<%= begin_page_title "רשימת עובדים" %>
+	<%= button_tag 'עובד חדש', {:action=>"new_worker"}, "add", false %>
+	<%= rs_player_controls( @pgr ) %>
+<%= end_page_title %>
+
+<table class="data_table" cellspacing="0">
+  <tr>
+	<th>שם</th>
+	<th>תפקיד</th>
+	<th>טלפון</th>
+	<th>ביפר</th>
+	<th>דואר אלקטרוני</th>
+	<th colspan="2">פעולות</th>
+  </tr>
+  
+<% for wkr in @workers %>
+  <tr class="<%=cycle('evenRow', 'oddRow')%>">
+  	<td><%= link_to wkr.hr_name(), :action => "view_worker", :id => wkr %></td>
+  	<td><%= link_to_unless wkr.mt_company_role.name.nil?, wkr.mt_company_role.name, :action => "view_worker", :id => wkr %></td>
+  	<td><%= link_to_unless wkr.mobile.nil?, wkr.mobile, :action => "view_worker", :id => wkr %></td>
+  	<td><%= link_to_unless wkr.beeper.nil?, wkr.beeper, :action => "view_worker", :id => wkr %></td>
+  	<td><%= link_to_unless wkr.email.nil?, wkr.email, :action => "view_worker", :id => wkr %></td>
+    <td><%= link_to image_tag("edit.png"), :action => 'edit_worker', :id => wkr %></td>
+    <td>
+		<%- if current_user != wkr -%>
+			<%= link_to image_tag('cross.png'), { :action => 'destroy_worker', :id => wkr }, :confirm => 'למחוק את העובד?', :post => true %>
+		<%- end -%>
+	</td>
+  </tr>
+<% end %>
+</table>
+<%= rs_page_links( @pgr ) %>
+

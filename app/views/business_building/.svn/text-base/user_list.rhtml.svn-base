@@ -1,0 +1,39 @@
+<%= begin_page_title "רשימת משתמשים", true %>
+<%= button_tag 'הוסף משתמש', {:action => 'user_add'}, 'user_add', false %>
+<%= end_page_title %>
+<%= begin_help_section%>משתמשים הינם אנשים המורשים להכנס לאתר של העסק ולבצע בו פעולות (למשל, דיווחי תקלה או צפיה בחוזים).<%= end_help_section %>
+
+<% if @users.size > 0 %>
+<table cellspacing="0" class="data_table">
+  <tr>
+    <th>שם פרטי</th>
+	<th>שם משפחה</th>
+	<th>שם משתמש</th>
+	<th>טלפון</th>
+	<th>נייד</th>
+	<th>דוא"ל</th>
+	<th colspan="2">פעולות</th>
+  </tr>
+ 
+
+<% for user in @users %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+    <td><%=link_to h(user.first_name), :action => 'user_show', :id => user%></td>
+	<td><%=link_to h(user.surname), :action => 'user_show', :id => user%></td>
+	<td><%=link_to h(user.username), :action => 'user_show', :id => user%></td>
+	<td><%=link_to h(user.phone), :action => 'user_show', :id => user%></td>
+	<td><%=link_to h(user.mobile), :action => 'user_show', :id => user%></td>
+	<td><%=link_to h(user.email), :action => 'user_show', :id => user%></td>
+    <td><%= link_to image_tag('user_edit.png'), :action => 'user_edit', :id => user %></td>
+    <td>
+		<%- if ( user != @user ) -%>
+		<%= link_to image_tag('user_delete.png'), { :action => 'user_destroy', :id => user }, :confirm => 'למחוק את המשתמש?', :post => true %>
+		<%- else -%>&nbsp;<%- end -%>
+	</td>
+  </tr>
+<% end %>
+</table>
+
+<% else %>
+	<h3>אין משתמשים במערכת</h3>
+<% end %>

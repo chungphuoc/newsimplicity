@@ -1,0 +1,58 @@
+<table class="report">
+	<%- if task.overdue? -%>
+	<tr>
+		<td colspan="2" style="background-color: red; color: #FF4"><%= image_tag "error" %>&nbsp;משימה זו לא בוצעה בזמן.</td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">כותרת</td>
+		<td class="value"><%= task.title %></td>
+	</tr>
+	<%- unless task.maintenance_request.nil? -%>
+	<tr>
+		<td class="key">בקשת שירות</td>
+		<td class="value"><%= link_to h(task.maintenance_request.title), :action=>:mt_req_show, :id=>task.maintenance_request %></td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">לא לפני תאריך</td>
+		<td class="value"><%= pp_date task.from_date %></td>
+	</tr>
+	<tr>
+		<td class="key">לא יאוחר מתאריך</td>
+		<td class="value"><%= pp_date task.until_date %></td>
+	</tr>
+	<tr>
+		<td class="key">מצב</td>
+		<td class="value">
+			<%= task_status_image_tag( task ) %>
+			<%= pp_task_status( task.status ) %>
+		</td>
+	</tr>
+	<%- if task.status == MtCompanyTask::DONE -%>
+	<tr>
+		<td class="key">תאריך השלמה</td>
+		<td class="value"><%= pp_date task.completed_on %></td>
+	</tr>	
+	<%- end -%>
+	<tr>
+		<td class="key">יוצר</td>
+		<td class="value"><%= task.creator.hr_name %></td>
+	</tr>
+	<tr>
+		<td class="key">בניין</td>
+		<td class="value"><%= task.building.nil? ? "[אין]" : task.building.hr_address %></td>
+	</tr>
+	<tr>
+		<td class="key">תאריך יצירה</td>
+		<td class="value"><%= pp_date(task.created_on) %></td>
+	</tr>
+	<tr>
+		<td class="key">חברת אחזקה</td>
+		<td class="value"><%= h( task.mt_company.name ) %></td>
+	</tr>
+	<tr>
+		<td class="key valign_top">פירוט</td>
+		<td class="value"><%= crlfs_to_brs( task.description )%></td>
+	</tr>
+</table>

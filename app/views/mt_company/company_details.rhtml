@@ -1,0 +1,34 @@
+<%= begin_page_title "פרטי החברה", true %>
+<% if @worker.mt_company_role.admin? -%>
+	<%= button_tag 'ערוך', {:action => 'edit_company_details'},'edit', false %>
+<% end -%>
+<%= end_page_title %>
+<%= begin_help_section %>
+פרטים על חברת האחזקה. אנשים הפותחים בקשות שירות יכולים לראות פרטים אלו.
+<%= end_help_section %>
+<table class="report">
+	<tr>
+		<td class="key">שם</td>
+		<td class="value"><%= crlfs_to_brs @mt_company.name %></td>
+	</tr><tr>
+		<td class="key">כתובת</td>
+		<td class="value"><%= crlfs_to_brs @mt_company.address %></td>
+	</tr><tr>
+		<td class="key">פרטי קשר</td>
+		<td class="value"><%= crlfs_to_brs @mt_company.contact_info %></td>
+	</tr><tr>
+		<td class="key">טלפון</td>
+		<td class="value"><%= crlfs_to_brs @mt_company.phone %></td>
+	</tr><tr>
+		<td class="key">אתר</td>
+		<% if ! @mt_company.site.blank? -%>
+			<td class="value"><a href="<%= @mt_company.site %>" target="_blank"><%= crlfs_to_brs @mt_company.site %><%= open_in_new_window %></a></td>
+		<% else -%>
+			<td class="value">[אין]</td>
+		<% end -%>
+	</tr><tr>
+		<td class="key">אודות</td>
+		<td class="value"><%=crlfs_to_brs @mt_company.about %></td>
+	</tr>
+</table>
+

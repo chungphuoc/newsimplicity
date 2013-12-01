@@ -1,0 +1,2 @@
+module BuildingOwnerHelper
+end

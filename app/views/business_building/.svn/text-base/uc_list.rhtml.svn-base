@@ -1,0 +1,35 @@
+<%= begin_page_title "רשימת חוזים", true%><%= end_page_title %>
+<%= begin_help_section%>רשימת החוזים שיש לעסק מול הבניין, בהם העסק שוכר/קונה יחידות.<%= end_help_section %>
+
+<% if @contracts.size > 0 %>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>בניין</th>
+		<th>עסק</th>
+		<th>יחידות</th>
+		<th>סוג</th>
+		<th>ת. התחלה</th>
+		<th>ת. סיום</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+
+	<% for contract in @contracts %>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td><%= link_to h(contract.business.building.hr_address), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to h(contract.business.name), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to h(contract.building_units.size), :action=>"uc_show", :id=>contract %></td>
+		<td>
+			<% if contract.mode == UnitContract::MODE_RENT %><%= link_to "השכרה", :action=>"uc_show", :id=>contract %><% end -%>
+			<% if contract.mode == UnitContract::MODE_SELL %><%= link_to "מכירה", :action=>"uc_show", :id=>contract %><% end -%>
+		</td>
+		<td><%= link_to pp_date(contract.start_date), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to pp_date(contract.end_date), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to image_tag("view.png"), :action => 'uc_show', :id=>contract %></td>
+	</tr>
+	<% end -%>
+</table>
+	
+<% else -%>
+<h3>אין חוזים במערכת</h3>
+<% end -%>
+

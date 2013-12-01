@@ -1,0 +1,9 @@
+<h1>Editing condo_question</h1>
+
+<%= start_form_tag :action => 'cc_update', :id => @condo_question %>
+  <%= render :partial => 'cc_form' %>
+  <%= submit_tag 'Edit' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'cc_show', :id => @condo_question %> |
+<%= link_to 'Back', :action => 'cc_list' %>

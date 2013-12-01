@@ -1,0 +1,6 @@
+<h1>חברות אחזקה</h1>
+<ol>
+	<% for c in @companies %>
+	<li><%=link_to c.name, mt_company_url(:eng_name => c.eng_name )%></li>
+	<% end %>
+</ol>

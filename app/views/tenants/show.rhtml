@@ -1,0 +1,62 @@
+<%= begin_page_title "פרטי הדייר" %>
+	<%= button_tag "ערוך פרטים",  {:action => 'edit', :id => @tenant}, "user_edit", false  %>
+	<%= button_tag "חזרה לרשימת הדיירים",  {:action => 'list'}, "user_list", false  %>
+<%= end_page_title %>
+<table class="report">
+	<tr>
+		<td class="key">שם פרטי:</td>
+		<td class="value"><%=h(@tenant.first_name)%></td>
+	</tr>
+	<tr>
+		<td class="key">שם משפחה:</td>
+		<td class="value"><%=h(@tenant.surname)%></td>
+	</tr>
+	<tr>
+		<td class="key">דירה:</td>
+		<td class="value"><%= link_to h(@tenant.flat.human_description), :action=>"edit", :controller=>"vaad_flat", :id=>@tenant.flat %></td>
+	</tr>
+	<tr>
+		<td class="key">טלפון:</td>
+		<td class="value"><span style="direction:ltr"><span style="color:#bbc">a</span><%=h(@tenant.phone)%></span></td>
+	</tr>
+	<tr>
+		<td class="key">סלולרי:</td>
+		<td class="value"><span style="direction:ltr"><span style="color:#bbc">a</span><%=h(@tenant.mobile)%></span></td>
+	</tr>
+	<tr>
+		<td class="key">דואר אלקטרוני:</td>
+		<td class="value"><span style="direction:ltr"><a href="mailto:<%=h(@tenant.email)%>"><%=h(@tenant.email)%></a></span></td>
+	</tr>
+	<tr>
+		<td class="key">מין:</td>
+		<td class="value"><% if @tenant.is_male?%>גבר<% else %>אשה<% end %></td>
+	</tr>
+	
+	<% unless @tenant.fax.blank? %>
+	<tr>
+		<td class="key">פקס:</td>
+		<td class="value"><span style="direction:ltr"><span style="color:#bbc">a</span><%=h(@tenant.fax)%></span></td>
+	</tr>
+	<% end %>
+	
+	<% unless @tenant.site.blank? %>
+	<tr>
+		<td class="key">אתר:</td>
+		<td class="value"><span style="direction:ltr"><a href="<%=h(@tenant.site)%>" target="_blank"><%=h(@tenant.site)%></a></span></td>
+	</tr>
+	<%end%>
+	
+	<tr>
+		<td class="key">שם משתמש:</td>
+		<td class="value"><%=h(@tenant.username)%></td>
+	</tr>
+	<% if ! @tenant.about.blank? %>
+	<tr>
+		<td class="key" colspan="2">פרטים:</td>
+	</tr><tr>
+		<td colspan="2" class="value">
+			<%= crlfs_to_brs h @tenant.about %>
+		</td>
+	</tr>
+	<% end %>
+</table>

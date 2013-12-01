@@ -1,0 +1,8 @@
+<%= begin_page_title "סוג יחידה חדש" %>
+<%= button_tag 'חזור', {:action => 'ut_list'}, "list", false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action => 'ut_create' %>
+  <%= render :partial => 'ut_form' %>
+  <%= submit_tag "שמור" %>
+<%= end_form_tag %>

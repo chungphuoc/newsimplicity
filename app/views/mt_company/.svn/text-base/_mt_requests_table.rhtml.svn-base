@@ -1,0 +1,40 @@
+<% @back = params[:action] unless defined? @back
+#TODO DEPRECATE!
+%>
+<table class="data_table" cellspacing="0" width="100%">
+	<tr>
+		<th><%= link_to "בניין", :action=>@back, :sort_by=>"bld"%></th>
+		<th><%= link_to "תיאור", :action=>@back, :sort_by=>"dsc"%></th>
+		<th><%= link_to "דחיפות", :action=>@back, :sort_by=>"urg"%></th>
+		<th><%= link_to "מצב", :action=>@back, :sort_by=>"stt"%></th>
+		<th><%= link_to "סוג", :action=>@back, :sort_by=>"stp"%></th>
+		<th><%= link_to "תאריך דיווח", :action=>@back, :sort_by=>"dte" %></th>
+	</tr>
+	<% for req in @reqs
+	 	row_class = cycle("odd_row", "even_row") -%>
+	<tr class="<%= row_class %>">
+		<td><%= link_to_function req.building.hr_address, "toggleVisibility('req#{req.id}')" %></td>
+		<td><%= link_to_function req.title, "toggleVisibility('req#{req.id}')"  %></td>
+		<td><%= link_to_function image_tag("urgency/#{req.urgency}.gif"), "toggleVisibility('req#{req.id}')" %></td>
+		<td><%= link_to_function loc.mt_state(req.state), "toggleVisibility('req#{req.id}')" %></td>
+		<td><%= link_to_function icon_service_type(req.service_type), "toggleVisibility('req#{req.id}')" %></td>
+		<td><%= link_to_function pp_date_time(req.created_on), "toggleVisibility('req#{req.id}')" %></td>
+	</tr>
+	<%- if @print_mode != true -%>
+	<tr class="hidden_<%= row_class %>" id="req<%= req.id %>">
+		<td colspan="5"><div class="data_cell">
+							<%= crlfs_to_brs req.body %><br/>
+							<%= icon_service_type(req.service_type)%> <%= loc.mt_req_service_type( req.service_type ) %>
+						</div></td>
+		<td>
+			<%= button_link 'פרטים', "zoom", :action=>"mt_req_show", :id=>req, :back=>@back  %>
+			<%= button_link 'הדפס', "print", {:action=>"mt_req_print", :id=>req}, :target=>"_blank"%>
+		</td>
+	</tr>
+	<%- else -%>
+		<tr class="hidden_<%= row_class %>" id="req<%= req.id %>">
+			<td colspan="5"><div class="data_cell"><%= crlfs_to_brs req.body %></div></td>
+		</tr>
+	<%- end -%>
+	<% end -%>
+</table>

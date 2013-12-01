@@ -1,0 +1,15 @@
+<%= begin_page_title 'בקשות שירות פתוחות/בטיפול', true %>
+<% unless @print_mode -%>
+	<%= rs_player_controls( @pgr ) %>
+	<%= button_tag "חלון בקרה", {:action=>"mt_requests_list_control", :sort_by=>@sort_by}, "bell", false, true %>
+	<%= button_tag "הדפס", {:action=>"mt_requests_list", :sort_by=>@sort_by, :print=>true}, "print", false, true %>
+<% end -%>
+<%= end_page_title %>
+<%= begin_help_section %>
+כאן רשומות בקשות השירות הפתוחות או בקשות השירות בטיפול. במילים אחרות, אם בקשת שירות מופיעה פה, מישהו צריך לעבוד עליה.
+<%= end_help_section %>
+<%= render :partial=>'shared/mt_request/contextless_table', 
+		   :locals=>{ :reqs=>@reqs, 
+					  :back=>params[:action],
+					  :columns=>[:title, :state, :assignee, :created_on, :updated_on]} %>
+<%= rs_page_links( @pgr ) %>

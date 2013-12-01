@@ -1,0 +1,46 @@
+<% @page_title ||="רימון - הבית של הבניין שלך"-%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="generator" content="HTML Tidy for Mac OS X (vers 1st December 2004), see www.w3.org" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title><%= @page_title %></title>
+	<%= stylesheet_link_tag 'vaadnet_base' %>
+</head>
+
+<body>
+	<center>
+ 		<table id="main_table" cellspacing="0" cellpadding="0" height="500">
+ 			<tr class="banner">
+				<td class="banner" colspan="2">
+					<table class="top_bar" width="100%" border="0">
+						<tr>
+							<td>
+								<div style="margin:4px 0px 4px 0px;">
+									<span class="building_name">&nbsp;שגיאה&nbsp;</span>
+								</div>
+							</td>
+
+							<td style="text-align: left"><%=image_tag "logo_top.gif"%></td>
+						</tr>
+					</table>
+				</td>
+			</tr><tr>
+				<td id="main" align="center">
+					<div style="text-align: center; color: red">
+						<span style="font-size: 3em;">חברת אחזקה לא קיימת</span><br />
+							&nbsp;אנא בידקו את האיות&nbsp;
+							<br /><span style="direction=rtl; font-family: Monaco, courier, monospaced">
+							vaadnet://<%=@eng_name%>
+						</span><br /><br />
+						<%=link_to "לרשימת החברות", :action=>"mt_companies", :controller=>"general" %>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="footer">
+			&copy; 2006 by vaadnet.com
+		</div>
+	</center>
+</body>
+</html>

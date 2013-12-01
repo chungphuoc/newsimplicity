@@ -1,0 +1,7 @@
+<h1>שאלות ותשובות לבית המשותף</h1>
+<% for q in @questions %>
+<p class="question">
+<a href="javascript:toggleVisibility('q<%=q.id%>')" class="question"><%=q.question%></a>
+<span id="q<%=q.id%>" class="question" style="display: none"><%= crlfs_to_brs(q.answer)%></span>
+</p>
+<% end %>

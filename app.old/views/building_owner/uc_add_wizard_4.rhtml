@@ -1,0 +1,43 @@
+<%= begin_page_title "אשף הוספת חוזה - שלב 4 מתוך 5" %>
+<%= end_page_title %>
+<%= render :partial=>"shared/wizard_stage", :locals=>{:stages=>@stages, :current_stage=>3} %>
+
+<%= start_form_tag :action=>"uc_add_wizard_5" %>
+
+<table class="report">
+	<tr>
+		<td colspan="2" class="title">נתוני החוזה</td>
+	</tr>
+	<tr>
+		<td class="key">בניין</td>
+		<td class="value"><%= @building.hr_address %></td>
+	</tr>
+	<tr>
+		<td class="key">עסק</td>
+		<td class="value"><%= @business.name %></td>
+	</tr>
+	<tr>
+		<td class="key">תאריך התחלה</td>
+		<td class="value"><%= pp_date( @uc.start_date ) %></td>
+	</tr>
+	<tr>
+		<td class="key">תאריך סיום</td>
+		<td class="value"><%= pp_date( @uc.end_date ) %></td>
+	</tr>
+</table>
+<table class="wizard_current_stage">
+<tr>
+	<td class="valign_top">יחידות</td>
+	<td class="value">
+		<span class="scroll_list">
+			<% for unit in @units -%>
+				<%= labeled_checkbox( "#{unit.name} (#{unit.unit_type.name})", false, 'units', unit.id.to_s ); %><br/>
+			<% end -%>
+		</span>
+	</td>
+</tr>
+</table>
+<br/>
+<%= submit_tag "המשך" %>
+<%= end_form_tag %>
+<%= button_to "חזור", :action=>"uc_add_wizard_3" %>

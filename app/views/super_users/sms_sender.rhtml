@@ -1,0 +1,22 @@
+<%= begin_page_title "משלוח SMS" %>
+	<%= button_tag "חזור למסך ראשי", {:action=>:index}, "info", false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action=>:sms_sender %>
+<table>
+<tr>
+    <td>אל</td>
+    <td><%= text_field_tag "to_num", params[:to_num] %></td>
+</tr>
+<tr>
+    <td>מאת</td>
+    <td><%= text_field_tag "from_num", params[:from_num] %></td>
+</tr>
+<tr>
+    <td>תוכן ההודעה</td>
+    <td><%= text_area_tag "text", params[:text], :size=>"25x5" %></td>
+</tr>
+</table>
+<%= submit_tag "שלח" %>
+    
+<%= end_form_tag %>

@@ -1,0 +1,14 @@
+<%- 
+ edit_action ||= @edit_action;
+ edit_action = :mt_req_report_build if edit_action.blank?
+-%>
+<%= begin_page_title "דו\"ח בקשות שירות"%>
+<%- unless @print_mode -%>
+	<%= button_tag "הדפס", {:print=>"true", :show_all=>"true"},"print",false, true %>
+	<%= button_tag "עדכן שאילתא", {:action=>edit_action}, "cog",false %>
+<%- end -%>
+<%= end_page_title %>
+<div id="report">
+	<%= render :partial=>"/shared/mt_request/table" %>
+</div>
+

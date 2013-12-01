@@ -1,0 +1,16 @@
+<h1>שאלות ותשובות לבית המשותף</h1>
+<% for q in @questions %>
+<p class="question">
+<a href="javascript:toggleVisibility('q<%=q.id%>')" class="question"><%=q.question%></a>
+<span id="q<%=q.id%>" class="question" style="display: none"><%= crlfs_to_brs(q.answer)%></span>
+</p>
+<% end %>
+<p class="question">
+<a href="javascript:toggleVisibility('more')" class="question">שאלו את המומחים שלנו</a>
+<div id="more" class="question" style="display: none">
+<%= start_form_tag :action=>:add_condo_question %>
+	<p>שאלה:  <%= text_field 'condo_question', 'question', :size=>"50"%></p>
+	<%= submit_tag 'שלח שאלה'%>
+<%= end_form_tag %>
+</div>
+

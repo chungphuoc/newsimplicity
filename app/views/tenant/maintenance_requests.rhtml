@@ -1,0 +1,31 @@
+<%= begin_page_title "דיווחי תקלות שטרם טופלו" %>
+<%= end_page_title %>
+
+<% if @requests.size > 0 %>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>מקום</th>
+		<th>כותרת</th>
+		<th>מדווח</th>
+		<th>זמן פתיחה</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+	<% for req in @requests %>
+	<tr class="<%=cycle("evenRow", "oddRow")%>">
+		<td><%= link_to pp_place(req.place), :action=>"show_single_request", :id=>req %></td>
+		<td><%= link_to req.title, :action=>"show_single_request", :id=>req %></td>
+		<td><%= link_to pp_reporter(req.reporter), :action=>"show_single_request", :id=>req %></td>
+		<td><%= link_to pp_date_time(req.created_on), :action=>"show_single_request", :id=>req %></td>
+		<% if @tenant==req.reporter %>
+		<td><%= link_to image_tag("tenant_post_edit"), :action=>"show_single_request", :id=>req%></td>
+		<td><%= link_to image_tag("tenant_post_delete"), { :action => 'destroy_maintenance_request', :id => req }, :confirm => 'הדיווח ימחק. להמשיך?', :post => true%></td>
+		<% else %>
+		<td>&nbsp;</td><td>&nbsp;</td>
+		<% end %>
+	</tr>
+	<% end %>
+</table>
+
+<% else %>
+	<h3>אין דיווחי תקלות</h3>
+<% end %>

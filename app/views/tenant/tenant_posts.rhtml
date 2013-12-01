@@ -1,0 +1,52 @@
+<%= begin_page_title "לוח מודעות" %>
+	<%= button_tag 'הוסף הודעה', {:action=>'new_post', :controller=>'tenant'}, 'tenant_post_add', false %>
+<%= end_page_title %>
+<%- if @psts.size > 0 -%>
+<table cellspacing="0" class="data_table">
+  <tr>
+  	<th>כותרת</th>
+	<th>תאריך פרסום</th>
+	<th>מפרסם</th>
+	<th>קובץ</th>
+	<th>לינק</th>
+	<th colspan="2">פעולות</th>
+  </tr>
+  
+<% for ann in @psts %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+	<td><%= link_to h(ann.title), {:action=>"show_single_post", :id=>ann}%></td>
+	<td><%= link_to pp_date_time(ann.published_on), {:action=>"show_single_post", :id=>ann} %></td>	
+	<td>
+		<% if ann.tenant %>
+			<a href="mailto:<%=ann.tenant.email%>"><%=ann.tenant.first_name + " " + ann.tenant.surname%> ( <%=ann.tenant.flat.human_description%> )</a>
+		<% else %>
+			?
+		<% end %>
+	</td>
+	<td><% if ann.has_file %>
+			<a href="<%=ann.web_file_path%>" target="_blank"><%= image_tag '/images/file.png' %></a>
+		<% else %>
+			<%= image_tag '/images/cross.png' %>
+		<% end %></td>
+	
+	<td><% if ann.link != "" %>
+			<a href="<%=ann.link%>" target="_blank"><%= image_tag '/images/link.png' %></a>
+		<% else %>
+			<%= image_tag '/images/cross.png' %>
+		<% end %></td>
+	<td>
+		<% if ann.tenant == @tenant %>
+			<%= link_to image_tag("/images/tenant_post_edit.png"), :action => 'edit_post', :id => ann %></td><td>
+		    <%= link_to image_tag("/images/tenant_post_delete.png"), { :action => 'destroy_post', :id => ann }, :confirm => 'ההודעה תימחק. להמשיך?', :post => true %>
+		<% else %>
+			</td><td>
+		<% end %>
+<% end %>
+	</td>
+  </tr>
+</table>
+
+<% else %>
+<h2>אין מודעות</h2>
+<% end %>
+	

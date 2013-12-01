@@ -1,0 +1,52 @@
+<%= begin_page_title "רשימת חוזים", true %>
+	<%= button_tag "אשף הוספת החוזים", {:action=>"uc_add_wizard_1"},"wizard", false %>
+	<%= rs_player_controls( @pgr, @page_hash ) %>
+<%= end_page_title %>
+<%= begin_help_section%>	חוזים קושרים בתי עסק ליחידות בבניין. כאשר בית עסק שוכר יחידה, יש להכניס את פרטי החוזה למערכת.<%= end_help_section %>
+<% if @contracts.size > 0 || ! @all_buildings %>
+
+<%= start_form_tag :action=>"uc_list", :method=>"get" %>
+<%= radio_button_tag 'all_buildings', 'true', @all_buildings %>
+כל הבניינים&nbsp;&nbsp;
+
+<%= radio_button_tag 'all_buildings', 'false', ! @all_buildings, :id=>"all_buildings_false"%>
+בניין אחד:
+<%= collection_select 'current_building', 'id', @buildings , :id, :hr_address %>
+
+<%= submit_tag "רענן רשימה" %>
+<%= end_form_tag %>
+
+<% end %>
+
+<% if @contracts.size > 0 %>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>בניין</th>
+		<th>עסק</th>
+		<th>יחידות</th>
+		<th>סוג</th>
+		<th>ת. התחלה</th>
+		<th>ת. סיום</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+
+	<% for contract in @contracts %>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td><%= link_to h(contract.business.building.hr_address), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to h(contract.business.name), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to contract.building_units.size, :action=>"uc_show", :id=>contract %></td>
+		<td>
+			<% if contract.mode == UnitContract::MODE_RENT %><%= link_to "השכרה", :action=>"uc_show", :id=>contract %><% end -%>
+			<% if contract.mode == UnitContract::MODE_SELL %><%= link_to "מכירה", :action=>"uc_show", :id=>contract %><% end -%>
+		</td>
+		<td><%= link_to pp_date(contract.start_date), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to pp_date(contract.end_date), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to image_tag("edit.png"), :action => 'uc_edit', :id=>contract %></td>
+		<td><%= link_to image_tag("cross.png"), { :action => 'uc_destroy', :id=>contract }, :confirm => 'למחוק את החוזה?', :post => true %></td>
+	</tr>
+	<% end -%>
+</table>
+	<%= rs_page_links( @pgr, @page_hash ) %>
+<% else -%>
+<h3>אין חוזים במערכת</h3>
+<% end -%>

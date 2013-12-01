@@ -1,0 +1,27 @@
+span.question{
+	display: block;
+	background-color: #EAEEF1;
+	padding: 2px;
+	background-image: none;
+}
+
+p.question {
+	border: 1px solid #99A;
+}
+
+a.question,
+a.question:visited{
+	color: black;
+	background-color: #BBC;
+	display: block;
+	padding: 2px;
+}
+
+a.question:hover {
+	background-color: #BCB;
+}
+
+a.question:active {
+	color: #FFF;
+	background-color: #9A9;
+}

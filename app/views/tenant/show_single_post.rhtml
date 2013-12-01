@@ -1,0 +1,38 @@
+<%= begin_page_title "מודעה" %>
+	<%= button_link 'חזרה לרשימת המודעות', 'tenant_post_list', :action => 'tenant_posts' %>
+	<% if @post.tenant == @tenant %>
+		<%= button_tag "ערוך מודעה", {:action => 'edit_post', :id => @post}, "tenant_post_edit", false %>
+	<% end %>
+<%= end_page_title %>
+
+<table class="report">
+<tr>
+	<td class="key">כותרת:</td>
+	<td class="value"><%=h @post.title %></td>
+</tr>
+<tr>
+	<td class="key">פורסם ב:</td>
+	<td class="value"><%=pp_date_time @post.published_on %></td>
+</tr>
+<tr>
+	<td class="key">מפרסם:</td>
+	<td class="value"><%= email_tenant @post.tenant %></td>
+</tr>
+<% if @post.link != "" %>
+<tr>
+	<td class="key">לינק:</td>
+	<td class="value"><span style="direction: ltr"><a href="<%=@post.link %>" target="_blank"><%=@post.link %></a></span></td>
+</tr>
+<% end %>
+<% if @post.has_file %>
+<tr>
+  	<td class="key">קובץ:</td>
+	<td class="value"><a href="<%=@post.web_file_path%>" target="_blank"><%= image_tag '/images/file.png' %> &nbsp; <%=@post.web_file_path%></a></td>
+</tr>
+<% end %>
+<tr>
+  	<td class="key valign_top">גוף ההודעה:</td>
+	<td class="value"><%=crlfs_to_brs(@post.body) %></td>
+</td></tr></table>
+
+	

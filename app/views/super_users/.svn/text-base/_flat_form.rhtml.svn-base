@@ -1,0 +1,24 @@
+<%= error_messages_for 'flat' %>
+
+<!--[form:flat]-->
+<p><label for="flat_number">Number</label><br/>
+<%= text_field 'flat', 'number'  %></p>
+
+<p><label for="flat_floor">Floor</label><br/>
+<%= text_field 'flat', 'floor'  %></p>
+
+<p><label for="flat_state">State</label><br/>
+<%= collection_select 'flat', 'state', @states, :key, :value %>
+</p>
+
+<p><label for="flat_num_of_rooms">num of rooms</label><br/>
+<%= text_field 'flat', 'num_of_rooms'  %></p>
+
+
+<p><label for="flat_area">Area</label><br/>
+<%= text_field 'flat', 'area'  %></p>
+
+<p><label for="flat_base_payment">Base payment</label><br/>
+<%= text_field 'flat', 'base_payment'  %></p>
+<!--[eoform:flat]-->
+

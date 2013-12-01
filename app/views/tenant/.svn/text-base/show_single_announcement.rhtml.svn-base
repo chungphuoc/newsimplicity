@@ -1,0 +1,33 @@
+<%= begin_page_title "הודעת ועד" %>
+	<%= button_tag 'חזרה לרשימת ההודעות', {:action => 'announcements'}, 'ann_list', false %>
+<%= end_page_title %>
+
+<table class="report">
+<tr>
+	<td class="key">כותרת:</td>
+	<td class="value"><%=h @post.title %></td>
+</tr>
+<tr>
+	<td class="key">פורסם ב:</td>
+	<td class="value"><%= pp_date_time @post.published_on %></td>
+</tr>
+<% if ! @post.link.blank? %>
+<tr>
+	<td class="key">לינק:</td>
+	<td class="value"><a href="<%=@post.link %>" target="_blank"><span style="direction: ltr"><%=@post.link %></span></a></td>
+</tr>
+<% end %>
+<% if @post.has_file %>
+<tr>
+  	<td class="key">קובץ:</td>
+	<td class="value"><a href="<%=@post.web_file_path%>" target="_blank"><%= image_tag '/images/file.png' %> &nbsp; <%=@post.web_file_path%></a></td>
+</tr>
+<% end %>
+<tr>
+  	<td class="key valign_top">גוף ההודעה:</td>
+	<td class="value">
+		<%- if @post.body.blank? -%>[אין]
+		<%- else -%><%=crlfs_to_brs(@post.body) %><%- end -%>
+	</td>
+</td></tr></table>
+

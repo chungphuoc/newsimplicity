@@ -1,0 +1,18 @@
+<%= begin_page_title "Class Reloading"%>
+<%= end_page_title %>
+current value: <%= @value %>
+<%= start_form_tag :action=>params[:action]  %>
+<%= submit_tag %>
+<%= end_form_tag %>
+
+<div style="direction: ltr; text-align:left; font-family: monospaced;">
+<%- unless @res.nil? -%>
+	<ol>
+	<%- for path in @res -%>
+	<li><%= path %></li>
+	<%- end -%>
+	</ol>
+<%- else -%>
+	No classes reloaded yet
+<%- end -%>
+</div>

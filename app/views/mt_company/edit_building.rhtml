@@ -1,0 +1,47 @@
+<%= begin_page_title("עריכת פרטי בניין") %><%= end_page_title %>
+<%= start_form_tag( {:action => 'update_building', :id=>@building },  :multipart => true) %>
+<table border="0" >
+	<tr>
+		<td class="key">אב בית</td>
+		<td class="value"><%= collection_select 'building', 'mt_building_manager_id', @managers, :id, :hr_name %></td>		
+		<td><%= submit_tag 'שמור שינויים' %></td>
+	</tr>
+</table>
+<p>
+&nbsp;
+</p>
+<fieldset>
+	<legend>פרטי הבניין (ניתנים לעריכה על ידי ועד הבית בלבד)</legend>
+<table border="0" class="report" >
+	<tr>
+		<td class="key">עיר</td>
+		<td class="value"><%=@building.city%></td>
+	</tr><tr>
+		<td class="key">רחוב</td>
+		<td class="value"><%=@building.street%></td>
+	</tr><tr>
+		<td class="key">מספר</td>
+		<td class="value"><%=@building.number%></td>
+	</tr><tr>
+		<td class="key">איש קשר</td>
+		<td class="value">
+			<% if @building.get_company_contact.nil? %> (אין) <% else %> <%= crlfs_to_brs @building.get_company_contact.hr_name %><%end%></td>
+	</tr><tr>
+		<td class="key">טקסט פתיחה</td>
+		<td class="value"><%= crlfs_to_brs @building.welcome_note %></td>
+	</tr><tr>
+		<td class="key">הוראות הגעה</td>
+		<td class="value"><%= crlfs_to_brs @building.directions %></td>
+	</tr><tr>
+		<td class="key">מפה</td>
+		<td class="value">
+			<% if @building.has_map? %>
+				<%= link_to( image_tag("map.png") + "הצג מפה", @building.map_address, :target=>"_blank")%>
+			<% else %>
+				אין מפה
+			<% end %>
+		</td>
+	</tr>
+</table>
+</fieldset>
+<%= end_form_tag %>

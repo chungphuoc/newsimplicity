@@ -1,0 +1,8 @@
+<% for column in BuildingOwner.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @building_owner.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'bo_edit', :id => @building_owner %> |
+<%= link_to 'Back', :action => 'bo_list' %>

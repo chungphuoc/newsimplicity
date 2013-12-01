@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title || "רימון - #{@building.hr_address}" %></title>
+	<%= stylesheet_link_tag 'ann_pst' %>
+  	<%= stylesheet_link_tag 'vaadnet_base' %>
+	<%= stylesheet_link_tag 'tables' %>
+	<%= javascript_include_tag 'application.js' %>
+	<%= javascript_include_tag 'prototype.js' %>
+	<%= javascript_include_tag 'scriptaculous.js' %>
+	<% if @css_files -%>
+		<% for f in @css_files -%>
+			<%=stylesheet_link_tag f %>
+		<% end -%>
+	<% end -%>
+	<% if @js_files -%>
+		<% for f in @js_files -%>
+			<%=javascript_include_tag f %>
+		<% end -%>
+	<% end -%>
+
+</head>
+<%- if @refresh == true -%>
+<body onload="setTimeout('window.location.reload(true);',1000*60*3)">
+<%- else -%>
+<body>
+<%- end -%>
+<center>
+<table id="main_table" cellspacing="0" cellpadding="0">
+	<%= render :partial=>"/layouts/beta_note_tr" %>
+	<tr class="banner">
+		<td class="banner" colspan="2">
+	<table class="top_bar" width="100%" border="0">
+		<tr>
+			<td><div style="margin:4px 0px 4px 0px;">
+				<span class="building_name">&nbsp;<%=@building.hr_address%>&nbsp;</span></div></td>
+			<td><div class="vaadnet_logo"><%=link_to image_tag("logo_top.gif"), :controller=>"general"%></div></td>
+		</tr><tr>
+			<td align="center">
+				<% if @tenant != nil
+					hr_name = @tenant.first_name + " "+ @tenant.surname -%>
+				<div class="login_name">שלום 
+				<span class="hr_name"> <%= hr_name -%></span> (	אם אינך 
+					<%= hr_name %>, <%= link_to session[:msg_nituk], :action=>"logout", :controller=>"vaad_admin" -%>
+				)</div>
+				<% end %>
+			</td>
+		</tr><tr>
+			<td colspan="2" class="top_ruler">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="message_area" style="font-size: 1.5em;">
+							<%= render :partial=>"/layouts/messages" %>
+						</td><td class="top_buttons_area">
+							<%= button_tag "יציאה", {:action=>:logout}, "logout", false -%>
+						</td></tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</td></tr>
+<tr>
+<td id="side_bar">
+	<div class="top"><%= image_tag "/images/sidebar/sidebar-top.gif" %></div>
+	<div class="title"><%=@building.street%> <%=@building.number%></div>
+	<%= link_to 'דף הבית', :action=>'index', :controller=>'tenant' %>
+	<%= link_to 'הודעות ועד', :action=>'announcements', :controller=>'tenant'%>
+	<%= link_to 'מסמכים משותפים', :action=>'shared_documents_list', :controller=>'tenant'%>
+	<%= link_to 'לוח מודעות', :action=>'tenant_posts', :controller=>'tenant'%>
+	<%= link_to 'של מי האוטו?', :action=>'car_finder', :controller=>'tenant'%>
+	<%= link_to 'איך מגיעים', :action=>'directions', :controller=>'tenant'%>
+	<%- if @building.has_mt_company? -%>
+		<%= link_to 'חברת אחזקה', :action=>'mt_company', :controller=>'tenant'%>
+	<%- end -%>
+	<div class="title">דיווחים</div>		
+	<%= link_to 'תקלות פתוחות', :action=>"maintenance_requests", :controller=>"tenant"%>
+	<%= link_to 'דיווח תקלה', :action=>"new_maintenance_request", :controller=>"tenant"%>
+	<div class="title">רימון</div>
+	<%= link_to 'שאלות ותשובות בית משותף', :action=>'legal_faq' %>
+	<%= link_to 'אודות רימון', :action=>'about_us' %>
+	<div class="title">ניהול חשבון</div>
+	<% if ! @tenant.id.nil? -%>
+		<%= link_to 'הפרטים שלי', :action=>"my_details", :controller=>"tenant" %>
+	<% end %><% if ! @tenant.flat.nil?  -%>
+		<%= link_to 'הדירה שלי', :action=>"my_flat", :controller=>"tenant"%>
+	<% end %>
+	<% if @tenant && @tenant.can_manage_site? -%>
+		<%= link_to 'ניהול אתר', :action=>'index', :controller=>'vaad_admin' %>
+	<% end -%>
+	<%= link_to 'יציאה', :action=>'logout', :controller=>'tenant' %>
+	<div class="top"><%= image_tag "/images/sidebar/sidebar-bottom.gif" %></div>
+</td>
+
+<td id="main">
+<%= @content_for_layout %>
+</td>
+</tr>
+</table>
+<%= render :partial=>"/layouts/footer" %>
+</center>
+</body>
+</html>

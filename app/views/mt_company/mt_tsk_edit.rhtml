@@ -1,0 +1,74 @@
+<%= begin_page_title "עריכת פרטי משימה" %>
+	<%= button_tag "לרשימת המשימות", {:action=>"mt_tsk_list", :id=>@task}, "list", false %>
+	<%- if @task.maintenance_request.nil? -%>
+		<%= button_tag "צור בקשת שירות", {:action=>"mt_tsk_create_request", :id=>@task},"wrench_add",false %>
+	<%- else -%>
+		<%= button_tag "בקשת שירות", {:action=>"mt_req_show", :id=>@task.maintenance_request},"wrench_go",false %>
+	<%- end -%>
+<%= end_page_title %>	
+<%-
+# if the creator of the task is a worker, that means we can edit the task properly.
+# otherwise, we show a limited form
+-%>
+<%= start_form_tag :id=>@task , :action=>"mt_tsk_edit" %>
+<%- if ( @task.creator.kind_of?(MtCompanyWorker) ) -%>
+<%= render :partial=>"shared/mt_tsk/mt_task_form", :locals=>{:show_mt_company=>false, :buildings=>@mt_company.buildings, :show_state=>true} %>
+<%- else -%>
+<table class="report">
+	<%- if @task.overdue? -%>
+	<tr>
+		<td colspan="2" style="background-color: red; color: #FF4"><%= image_tag "error" %>&nbsp;משימה זו לא בוצעה בזמן.</td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">כותרת</td>
+		<td class="value"><%= @task.title %></td>
+	</tr>
+	<tr>
+		<td class="key">לא לפני תאריך</td>
+		<td class="value"><%= pp_date @task.from_date %></td>
+	</tr>
+	<tr>
+		<td class="key">לא יאוחר מתאריך</td>
+		<td class="value"><%= pp_date @task.until_date %></td>
+	</tr>
+	<%- if @task.status == MtCompanyTask::DONE -%>
+	<tr>
+		<td class="key">תאריך השלמה</td>
+		<td class="value"><%= pp_date @task.completed_on %></td>
+	</tr>	
+	<%- end -%>
+	<tr>
+		<td class="key">יוצר</td>
+		<td class="value"><%= @task.creator.hr_name %></td>
+	</tr>
+	<tr>
+		<td class="key">בניין</td>
+		<td class="value"><%= @task.building.nil? ? "[אין]" : @task.building.hr_address %></td>
+	</tr>
+	<tr>
+		<td class="key">תאריך יצירה</td>
+		<td class="value"><%= pp_date( @task.created_on ) %></td>
+	</tr>
+	<tr>
+		<td class="key">חברת אחזקה</td>
+		<td class="value"><%= h( @task.mt_company.name ) %></td>
+	</tr>
+	<tr>
+		<td class="key valign_top">פירוט</td>
+		<td class="value"><%= crlfs_to_brs( @task.description )%></td>
+	</tr>
+	<tr>
+		<td class="key">מצב</td>
+		<td class="value">
+			<select id="task_status" name="task[status]" onmouseup="updateStatusImage(<%= @task.id %>)">
+				<%- for i in (0..4) -%>
+				<option value="<%= i %>" <% if i==@task.status %>selected <%end%>><%= pp_task_status(i) %></option>
+				<%- end -%>
+			</select>
+		</td>
+	</tr>
+</table>
+<%- end -%>
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>

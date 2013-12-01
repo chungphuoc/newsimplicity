@@ -1,0 +1,87 @@
+<table class="multi_subject" cellspacing="5">
+	<tr>
+		<td class="subject_cell">
+			<!-- mt_tasks -->
+			<div class="subject_navigate">
+				<%= link_to image_tag("go_left.png"), :action=>"mt_tsk_list" %>
+			</div>
+			<div class="subject_title">משימות 
+				<%- if @new_task_count>0 -%>
+					<%= link_to "(#{@new_task_count} משימות חדשות!)", :action=>"mt_tsk_new_list" %>
+				<%- end -%>
+				</div>
+			<div class="subject_contents">
+				<%- if @tasks.size > 0 -%>
+				<%- for task in @tasks -%>
+					<%= link_to "#{task_status_image_tag(task)} #{h task.title} עד ה-#{pp_date(task.until_date)}", :action=>"mt_tsk_show", :id=>task %>
+				<%- end -%>
+				<%- else -%>אין משימות
+				<%- end -%>
+			</div>
+		</td>
+		<td colspan="2" class="subject_cell">
+			<!-- mt requests-->
+			<div class="subject_navigate"><%= link_to image_tag("go_left.png"), :action=>@req_action, :fresh=>true.to_s %></div>
+			<div class="subject_title">בקשות שירות אחרונות</div>
+			<div class="subject_contents">
+				<%- for mtr in @mt_requests -%>
+					<%= link_to "&bull;&nbsp;#{h mtr.title} - #{pp_place(mtr)}", :action=>"mt_req_show", :id=>mtr %>
+				<%- end -%>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="subject_cell">
+			<!-- sms messaging -->
+			<div class="subject_navigate">
+				<%= link_to image_tag("add.png"), :action=>"unimplemented" %>
+				<%= link_to image_tag("go_left.png"), {:action=>"unimplemented"} %>
+			</div>
+			<div class="subject_title">הודעות</div>
+			<div class="subject_contents">
+				עדיין לא פעיל
+				<%= start_form_tag :action=>"unimplemented", :from_action=>"index" %>
+				<!--
+					<table border="0">
+						<tr>
+							<td>נמען</td>
+							<td><%= collection_select 'msg', 'worker_id', @workers, :id, :hr_name %></td>
+						</tr><tr>
+							<td>שיטה</td>
+							<td><%= collection_select 'msg', 'method', @delivery_methods, :key, :value %></td>
+						</tr>
+						<tr>
+							<td>תוכן</td>
+							<td><%= text_area 'msg', 'body', :rows=>"4", :cols=>"30" %>לא פעיל כרגע</td>
+						</tr>
+					</table>
+					
+					<center>
+					<%= submit_tag "שלח" %>
+					</center>
+				-->
+				<%= end_form_tag %>
+			</div>
+		</td>
+		<td class="subject_cell">
+			<div class="subject_navigate">
+    			<%= link_to image_tag("go_left.png"), {:action=>"touched_mt_reqs", :clean_state=>true.to_s} %>
+    		</div>
+			<div class="subject_title">בקשות במעקב אוטומטי</div>
+			<div class="subject_contents">
+			    <%- if @touched_mt_reqs.empty? -%>(אין בקשות במעקב)
+			    <%- else -%>
+	                <table border="0" cellpadding="0" cellspacing="1">
+				<%- @touched_mt_reqs.each do | mtr |-%>
+				    <tr><td>
+                    <%= link_to "#{pp_date_time(mtr.updated_on)} #{h mtr.title}", :action=>"mt_req_show", :id=>mtr %>
+                    </td><td>
+                    <%= link_to_function "&nbsp;&larr;", "popResizableWindow('#{url_for({:action=>"mt_req_show", :id=>mtr, :popup=>"true"})}')" %>
+                    </td></tr>
+				<%- end -%>
+				    </table>
+				<%- end -%>
+			</div>
+		</td>
+	</tr>
+</table>

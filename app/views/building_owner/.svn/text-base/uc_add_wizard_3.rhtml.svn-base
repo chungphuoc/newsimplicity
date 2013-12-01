@@ -1,0 +1,42 @@
+<%= begin_page_title "אשף הוספת חוזה - שלב 3 מתוך 5" %>
+<%= end_page_title %>
+<%= render :partial=>"shared/wizard_stage", :locals=>{:stages=>@stages, :current_stage=>2} %>
+
+<%= start_form_tag :action=>"uc_add_wizard_4" %>
+
+<table class="report">
+	<tr>
+		<td colspan="2" class="title">נתוני החוזה</td>
+	</tr>
+	<tr>
+		<td class="key">בניין</td>
+		<td class="value"><%= @building.hr_address %></td>
+	</tr>
+	<tr>
+		<td class="key">עסק</td>
+		<td class="value"><%= @business.name %></td>
+	</tr>
+
+</table>
+<table class="wizard_current_stage">
+<tr>
+	<td>מהות</td>
+	<td class="value"><%= collection_select 'uc','mode', @modes, :first, :last, {}, :onchange=>"updateVisibility()" %></td>
+</tr>
+<tr>
+	<td colspan="2"><strong>תאריכים</strong></td>
+</tr>
+<tr>
+	<td>התחלה</td>
+	<td class="value"><%= date_select 'uc', 'start_date' %></td>
+</tr>
+<tr id="date_finish">
+	<td>סיום</td>
+	<td class="value"><%= date_select 'uc', 'end_date' %></td>
+</tr>
+</table>
+<br/>
+
+<%= submit_tag "המשך" %>
+<%= end_form_tag %>
+<%= button_to "חזור", :action=>"uc_add_wizard_2" %>

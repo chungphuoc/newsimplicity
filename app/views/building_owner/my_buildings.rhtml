@@ -1,0 +1,24 @@
+<%= begin_page_title "הנכסים שלי", true %>
+<%= end_page_title %>
+<%= begin_help_section%>במסך זה מופיעה רשימת הנכסים בניהולך. ניתן לערוך את פרטי הנכסים על ידי לחיצה על העפרון בשורה של הבניין בטבלה. הוספת נכס חדש יכולה להתבצע רק על ידי חברת רימון.<%= end_help_section %>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>כתובת</th>
+		<th>יישוב</th>
+		<th>יחידות</th>
+		<th>עסקים</th>
+		<th>חברת אחזקה</th>
+		<th>עריכה</th>
+	</tr>
+
+	<% for building in current_user().buildings %>
+	<tr class="<%= cycle('odd_row','even_row') %>">
+		<td><%= link_to h("#{building.street} #{building.number}"), :action=>"building_show", :id=>building %></td>
+		<td><%= link_to h( building.city ), :action=>"building_show", :id=>building %></td>
+		<td><%= link_to building.building_units.size, :action=>"building_show", :id=>building %></td>
+		<td><%= link_to building.businesses.size, :action=>"building_show", :id=>building %></td>
+		<td><%= link_to crlfs_to_brs( building.has_mt_company? ? building.mt_company.name : "[אין]"), :action=>"building_show", :id=>building %></td>
+		<td><%= link_to image_tag("edit.png"), :action => 'building_edit', :id => building %></td>
+	</tr>
+	<% end %>
+</table>

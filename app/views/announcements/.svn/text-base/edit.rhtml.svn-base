@@ -1,0 +1,8 @@
+<%= begin_page_title "עריכת הודעת ועד" %>
+	<%= button_tag 'הצג הודעה', {:action => 'show', :id => @announcement}, 'ann_view', false %>
+	<%= button_tag 'חזרה לרשימת ההודעות', {:action => 'list'}, 'ann_list', false %>
+<%= end_page_title %>
+<%= start_form_tag( {:action => 'update', :id => @announcement},  :multipart => true )%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>

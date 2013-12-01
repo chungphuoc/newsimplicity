@@ -1,0 +1,45 @@
+<%= begin_page_title("פרטי העסק") %>
+	<%= button_tag "ערוך פרטים", {:action=>:business_edit},"edit", false %>
+<%= end_page_title %>
+
+<%= render :partial=>"/shared/business/data", :object=>@business %>
+
+<%- if @user.building.show_whose_car -%>
+
+<table style="border-bottom:1px solid black; width: 100%">
+	<tr>
+		<td>
+			<h3>מכוניות</h3>
+		</td>
+		<td style="text-align: left">
+			<%= button_link "הוסף מכונית", "car_add", :action=>"car_add"%>
+		</td>
+	</tr>
+</table>
+	
+<% if @user.business.has_cars?
+	i = 1;
+%>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>מס"ד</th>
+		<th>מספר<th>
+		<th>תיאור</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+
+	<% for car in @user.business.cars %>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td><%= i.to_s() 			  %></td>
+		<td><%= pp_car(h(car.number)) %></td>
+		<td><%= h(car.description) 	  %></td>
+		<td><%= link_to image_tag("edit.png"), :action=>"car_edit", :id=>car, :return_to=>@action %></td>
+		<td><%= link_to image_tag("cross.png"), {:action=>"car_destroy", :id=>car, :return_to=>@action}, {:post=>true, :confirm=>"למחוק את מכונית #{car.number}?"} %></td>
+	</tr>
+	<% i = i+1
+		end %>
+</table>
+<% else %>
+אין מכוניות
+<% end %>
+<%- end -%>

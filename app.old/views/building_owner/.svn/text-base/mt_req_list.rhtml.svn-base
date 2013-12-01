@@ -1,0 +1,14 @@
+<%= begin_page_title "רשימת תקלות פתוחות", true%>
+<%- if @mt_requests.size > 0 -%>
+	<%= button_tag "חלון בקרה", {:action=>"mt_req_list_control"}, "bell", false, true %>
+<% end -%>
+<%= end_page_title %>
+<%= begin_help_section%>רשימת כל התקלות שעדיין לא תוקנו.<%= end_help_section %>
+
+<%- if @mt_requests.size > 0 -%>
+<div id="report">
+	<%= render :partial=>"/shared/mt_request/table" %>
+</div>
+<%- else -%>
+	<h3>אין דיווחי תקלות</h3>
+<%- end -%>

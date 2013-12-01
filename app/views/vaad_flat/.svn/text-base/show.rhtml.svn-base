@@ -1,0 +1,49 @@
+<%= begin_page_title "פרטי דירה" %>
+	<%= button_tag 'חזרה לרשימת הדירות', {:action => 'list'}, 'flat_list', false %>
+	<%= button_tag 'עריכת דירה', {:action=>:edit, :id=>@flat}, 'flat_view', false %>
+<%= end_page_title %>
+
+<table>
+	<tr>
+		<td>
+	<h2>נתונים</h2>
+	<table class="report">
+		<tr>
+			<td class="key">מספר דירה</td>
+			<td class="value"><%= @flat.number  %></td>
+		</tr><tr>
+			<td class="key">קומה</td>
+			<td class="value"><%= @flat.floor  %></td>
+		</tr><tr>
+			<td class="key">מצב</td>
+			<td class="value"><%=@flat.state%></td>
+		</tr><tr>
+			<td class="key">מספר חדרים</td>
+			<td class="value"><%= @flat.num_of_rooms %></td>
+		</tr><tr>
+			<td class="key">שטח</td>
+			<td class="value"><%= @flat.area %></td>
+		</tr><tr>
+			<td class="key">שכר-ועד בסיסי</td>
+			<td class="value"><%= @flat.base_payment  %></td>
+		</tr>
+	</table>
+	</td>
+	<td style="padding:0em 2em 0em 0em;">
+		<h2>דיירים</h2>
+		<% if @tenants.size > 0 -%>
+		<table>
+		<% i=0; for tnnt in @tenants %>
+			<% i += 1%>
+			<tr>
+				<td><%=i%></td>
+				<td><%= link_to tnnt.first_name + " " + tnnt.surname, :action=>"show", :controller=>"tenants", :id=>tnnt%></td>
+			</tr>
+		<% end -%>
+		</table>
+		<% else %>
+			<div><br />לא רשומים דיירים בדירה</div>
+		<% end %>
+	</td>
+</tr>
+</table>

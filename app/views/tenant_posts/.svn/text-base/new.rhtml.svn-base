@@ -1,0 +1,8 @@
+<%= begin_page_title "מודעת דייר חדשה" %>
+	<%= button_tag 'חזרה לרשימת המודעות', {:action => 'list'}, 'tenant_post_list', false %>
+<%= end_page_title %>
+
+<%= start_form_tag( {:action => 'create'}, :multipart => true ) %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "פרסם מודעה" %>
+<%= end_form_tag %>

@@ -1,0 +1,15 @@
+<%- if ( ! params[:back].blank? )
+		back_to_list = params[:back]
+	else
+		back_to_list = session[BuildingOwnerController::MT_REQ_LIST_ACTION]
+	end
+-%>
+<%= begin_page_title "פרטי תקלה" %>
+    <% if @popup_mode==true -%>
+	<%= button_function_tag "סגור חלון", "window.close();", "cross.png", false %>
+    <%- else -%>
+	<%= button_tag "חזרה לרשימה", {:action=>back_to_list}, "list", false %>
+	<% end -%>
+<%= end_page_title %>
+
+<%= render :partial=>'shared/mt_request/mt_request_data', :object=>@mt_req, :locals=>{:link_building=>true, :building_action=>"building_show"} %>

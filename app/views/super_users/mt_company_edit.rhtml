@@ -1,0 +1,9 @@
+<h1>Editing mt_company</h1>
+
+<%= start_form_tag :action => 'mt_company_update', :id => @mt_company %>
+  <%= render :partial => 'mt_company_form' %>
+  <%= submit_tag 'Edit' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'mt_company_show', :id => @mt_company %> |
+<%= link_to 'Back', :action => 'mt_company_list' %>

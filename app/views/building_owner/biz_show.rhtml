@@ -1,0 +1,84 @@
+<%= begin_page_title "פרטי עסק" %>
+	<%= button_tag "רשימת עסקים", {:action=>"biz_list"}, "list", false %>
+	<%= button_tag "ניהול משתמשים", {:action=>"biz_list_users", :id=>@business}, "user_edit", false %>
+	<%= button_tag "ערוך פרטים", {:action=>"biz_edit", :id=>@business},"edit", false %>
+<%= end_page_title %>
+
+
+<table class="report">
+<tr>
+	<td class="key"><label for="business_name">שם</label></td>
+	<td class="value"><%= h @business.name  %></td>
+</tr>
+
+<tr>
+	<td class="key"><label for="business_eng_name">כינוי מערכת</label></td>
+	<td class="value"><%= crlfs_to_brs @business.eng_name  %></td>
+</tr>
+
+<tr>
+	<td class="key"><label for="business_description">תאור</label></td>
+	<td class="value"><%= crlfs_to_brs @business.description  %></td>
+</tr>
+
+<tr>
+	<td class="key"><label for="business_site">אתר</label></td>
+	<td class="value">
+		<% if @business.site.blank? -%>
+			[אין]
+		<% else -%>
+			<%= link_to h(@business.site),h(@business.site), :target=>"_blank"  %>
+		<% end -%>		
+	</td>
+</tr>
+<tr>
+	<td class="key"><label for="business_site">דואר אלקטרוני</label></td>
+	<td class="value">
+		<% if @business.email.blank? -%>
+			[אין]
+		<% else -%>
+			<%= mail_to h(@business.email)  %>
+		<% end -%>		
+	</td>
+</tr>
+
+<tr>
+	<td class="key"><label for="business_phone">טלפון</label></td>
+	<td class="value"><%= crlfs_to_brs @business.phone  %></td>
+</tr>
+
+<tr>
+	<td class="key"><label for="business_fax">פקס</label></td>
+	<td class="value"><%= crlfs_to_brs @business.fax  %></td>
+</tr>
+
+</table>
+
+<%- unless @business.unit_contracts.empty? -%>
+<h3>חוזים</h3>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>סוג</th>
+		<th>ת. התחלה</th>
+		<th>ת. סיום</th>
+		<th>יחידות</th>
+	</tr>
+
+	<% for contract in @business.unit_contracts %>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td>
+			<% if contract.mode == UnitContract::MODE_RENT %><%= link_to "השכרה", :action=>"uc_show", :id=>contract %><% end -%>
+			<% if contract.mode == UnitContract::MODE_SELL %><%= link_to "מכירה", :action=>"uc_show", :id=>contract %><% end -%>
+		</td>
+		<td><%= link_to pp_date(contract.start_date), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to pp_date(contract.end_date), :action=>"uc_show", :id=>contract %></td>
+		<td>
+			<% for unit in contract.building_units %>
+				<%= link_to pp_place(unit), :action=>"bu_show", :id=>unit %>
+			<% end %>
+			
+		</td>
+	</tr>
+	<% end -%>
+</table>
+<%- end -%>

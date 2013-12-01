@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title || "רימון#{ current_user().nil? ? "" : " -  " << current_user().hr_name}" %></title>
+  	<%= stylesheet_link_tag 'vaadnet_base' %>
+	<%= stylesheet_link_tag 'tables' %>
+	<%= javascript_include_tag 'application.js' %>
+	<%= javascript_include_tag 'date-picker.js' %>
+	<%= javascript_include_tag 'prototype.js' %>
+	<%= javascript_include_tag 'scriptaculous.js' %>
+	<% if @js_files -%>
+		<% for f in @js_files -%>
+			<%=javascript_include_tag f %>
+		<% end -%>
+	<% end -%>
+    <script type="text/javascript" charset="utf-8">
+		function resizeWindow() {
+			window.resizeTo(550,600);
+		}
+    </script>
+</head>
+<body onLoad="resizeWindow()">
+<center>
+<div>
+<%= render :partial=>"/layouts/beta_note_tr" %>
+</div>
+<%= @content_for_layout %>
+<div>
+<%= render :partial=>"/layouts/footer" %>
+</div>
+</center>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<%= begin_page_title "משימות לחברת האחזקה", true %>
+	<%= button_tag "הוסף משימה חדשה", {:action => 'mt_tsk_new'}, "add",false %>
+<%= end_page_title %>
+<%= begin_help_section%>כאן ניתן לקבוע משימות לחברת האחזקה, כגון החלפת שמן במעליות, תליית דגלים ליום העצמאות וכיוצא בזה.<%= end_help_section %>
+
+<%- if @tasks.size == 0 -%>
+	<h3>אין משימות במערכת</h3>
+<%- else -%>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>כותרת          	</th>
+		<th>חב' אחזקה		</th>
+ 		<th>לא לפני תאריך   </th>
+		<th>לא יאוחר מתאריך </th>
+		<th>מצב             </th>
+		<th>תאריך יצירה     </th>
+		<th colspan="2">פעולות</th>
+	</tr>
+
+	<% for task in @tasks %>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td><%= link_to h(task.title), :action=>"mt_tsk_show", :id=>task %></td>
+		<td><%= link_to h(task.mt_company.name),     :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to pp_date(task.from_date),     :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to pp_date(task.until_date),    :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to task_status_image_tag(task) + " " +
+						pp_task_status(task.status), :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to pp_date(task.created_on),    :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to image_tag("edit.png"), 		 :action=>"mt_tsk_edit", 	:id=>task %></td>
+		<td><%= link_to image_tag("cross.png"), 	 {:action=>"mt_tsk_destroy", :id=>task}, :post=>true, :confirm=>"למחוק את המשימה?" %></td>
+	</tr>
+	<% end -%>
+</table>
+<%- end -%>

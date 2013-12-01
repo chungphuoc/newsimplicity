@@ -1,0 +1,46 @@
+<%= begin_page_title "רשימת עסקים", true %>
+<%= button_tag "הוסף עסק חדש", {:action => 'biz_new'},"add", false %>
+<%= rs_player_controls(@pgr) %>
+<%= end_page_title %>
+<%= begin_help_section%>עסקים יכולים לשכור יחידות מסחר בבניינים.<%= end_help_section %>
+
+<% if @businesses.size > 0 -%>
+
+<%= start_form_tag :action=>"biz_list", :method=>"get" %>
+<%= radio_button_tag 'all_buildings', 'true', @all_buildings %>
+כל הבניינים&nbsp;&nbsp;
+
+<%= radio_button_tag 'all_buildings', 'false', ! @all_buildings, :id=>"all_buildings_false"%>
+בניין אחד:
+<%= collection_select 'current_building', 'id', @buildings , :id, :hr_address %>
+
+<%= submit_tag "רענן רשימה" %>
+<%= end_form_tag %>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>שם</th>
+		<th>בניין</th>
+		<th>מספר יחידות</th>
+		<th>דוא"ל</th>
+		<th>טלפון</th>
+		<th>פקס</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+
+	<% for business in @businesses %>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td><%= link_to h(business.name), :action=>"biz_show", :id=>business %></td>
+		<td><%= link_to h(business.building.hr_address), :action=>"biz_show", :id=>business %></td>
+		<td><%= link_to business.building_units.size, :action=>"biz_show", :id=>business %></td>
+		<td><%= link_to crlfs_to_brs( business.email ), :action=>"biz_show", :id=>business %></td>
+		<td><%= link_to crlfs_to_brs( business.phone ), :action=>"biz_show", :id=>business %></td>
+		<td><%= link_to crlfs_to_brs( business.fax ), :action=>"biz_show", :id=>business %></td>
+		<td><%= link_to image_tag("edit.png"), :action => 'biz_edit', :id=>business %></td>
+		<td><%= link_to image_tag("cross.png"), { :action => 'biz_destroy', :id=>business }, :confirm => 'למחוק את בית העסק?', :post => true %></td>
+	</tr>
+	<% end -%>
+</table>
+<%= rs_page_links( @pgr ) %>
+<% else -%>
+<h3>לא רשומים עסקים במערכת</h3>
+<% end -%>

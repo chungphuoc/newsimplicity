@@ -1,0 +1,5 @@
+<%= begin_page_title "פרטי משימה" %>
+	<%= button_tag "לרשימת המשימות", {:action=>"mt_tsk_list"}, "list", false %>
+	<%= button_tag "עריכה", {:action=>"mt_tsk_edit", :id=>@task},"edit", false %>
+<%= end_page_title %>
+<%= render :partial=>"shared/mt_tsk/task", :object=>@task %>

@@ -1,0 +1,9 @@
+<h1>Editing building_owner</h1>
+
+<%= start_form_tag :action => 'bo_update', :id => @building_owner %>
+  <%= render :partial => 'bo_form' %>
+  <%= submit_tag 'Edit' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'bo_show', :id => @building_owner %> |
+<%= link_to 'Back', :action => 'bo_list' %>

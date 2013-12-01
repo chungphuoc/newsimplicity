@@ -1,0 +1,6 @@
+---
+mode: development
+bundle: /Applications/Locomotive2/Bundles/standardRailsSept2006.locobundle
+port: 3000
+identifier: trunk
+runs_at_launch: 1

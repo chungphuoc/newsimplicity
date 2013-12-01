@@ -1,0 +1,43 @@
+p.big_links {
+	text-align: center;
+	width: 30%;
+	border: 1px solid black;
+	padding: 1px 0px 1px 0px;
+	background-color: #EEE;
+}
+
+p.big_links a {
+	display: block;
+	background-color: #8C8C90;
+	border: 1px solid black;
+	font-size: 1.5em;
+	margin: 1px 2px 2px 2px ;
+	padding: 2px;
+}
+
+p.big_links a:hover {
+	background-color: #4D7899;
+}
+
+div.big_links {
+	direction: ltr;
+	text-align: center;
+	border: 1px solid black;
+	padding: 0.5em;
+	background-color: #EEE;
+}
+
+div.big_links a {
+	background-color: #6B6D70;
+	color: #DCC;
+	border: 1px solid black;
+	font-size: 1.2em;
+	margin: 1px 2px 2px 2px ;
+	padding: 2px;
+	display: block;
+}
+
+div.big_links a:hover {
+	background-color: #B30004;
+	color: #FFF;
+}

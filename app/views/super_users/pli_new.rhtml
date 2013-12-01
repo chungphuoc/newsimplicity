@@ -1,0 +1,8 @@
+<h1>New place_list_item</h1>
+
+<%= start_form_tag :action => 'pli_create' %>
+  <%= render :partial => 'pli_form' %>
+  <%= submit_tag "Create" %>
+<%= end_form_tag %>
+
+<%= link_to 'Back', :action => 'pli_list' %>

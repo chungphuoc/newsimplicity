@@ -1,0 +1,10 @@
+<%= begin_page_title "בקשות שירות במעקב אוטומטי" %>
+<%= rs_player_controls( @pgr ) %>
+
+<%= end_page_title %>
+
+<%= begin_help_section %>
+בקשות שירות במעקב אוטומטי הן בקשות שהמשתמש היה מעורב בהן באופן כלשהו - על ידי פתיחתן, ביצוע פעולות עליהן וכדומה.
+<%= end_help_section %>
+<%= render :partial=>'/shared/mt_request/contextless_table', :locals=>{:reqs=>@reqs, :back=>params[:action]} %>
+<%= rs_page_links( @pgr ) %>

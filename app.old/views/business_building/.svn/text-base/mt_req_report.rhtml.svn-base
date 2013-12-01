@@ -1,0 +1,30 @@
+<%= begin_page_title "דו\"חות מוכנים", true %>
+	<%= button_tag "בקשות שירות פתוחות", {:action=>"mt_req_list", :type=>BusinessBuildingController::MT_QUERY_TYPE_PENDING},"list",false %>
+	<%= button_tag "דווח תקלה חדשה", {:action=>"mt_req_add"},"add",false %>
+<%= end_page_title %>
+<%= begin_help_section %>
+כאן ניתן לצפות בדו"חות המפרטים סוגי בקשות שירות, הסטוריה, חיובים צפויים וכיו"ב.
+<%= end_help_section %>
+<p>
+<%= link_to "בקשות שירות ממתינות לחיוב&larr;", :action=>:mt_req_list,
+								   :type=>BusinessBuildingController::MT_QUERY_TYPE_TO_BE_DEBITED,
+								   :clean_state=>true.to_s %><br />
+ כל בקשות השירות שבוצעו וממתינות לחיוב, בשטחים שברשות 
+<%= current_user().business.name %>
+ או שנוצרו על ידי משתמשים מ<%= current_user().business.name %>.
+</p>
+<p>
+<%= link_to "בקשות שירות שחוייבו&larr;", :action=>:mt_req_list,
+										 :type=>BusinessBuildingController::MT_QUERY_TYPE_DEBITED,
+										 :clean_state=>true.to_s %><br />
+כל בקשות השירות שחוייבו, בשטחים שברשות 
+<%= current_user().business.name %>
+ או שנוצרו על ידי משתמשים מ<%= current_user().business.name %>.
+</p>
+<p>
+<%= link_to "כל בקשות השירות שיצרתי&larr;", :action=>:mt_req_list,
+											:type=>BusinessBuildingController::MT_QUERY_TYPE_REPORTED_BY_USER,
+											:clean_state=>true.to_s %><br />
+כל בקשות השירות שנוצרו על ידי 	
+<%= current_user().hr_name %>
+ ללא קשר למצבן הנוכחי. מי שתוהה מה קורה עם בקשה שלו, ולא בטוח איפה למצוא אותה, וודאי ימצא אותה כאן.

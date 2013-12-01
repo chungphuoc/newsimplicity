@@ -1,0 +1,227 @@
+<%-
+# shows a table of mt_reqs
+
+#set the column set
+if ( ! defined?(columns) || columns.nil? )
+	columns = ContextlessTableConstants::DEFAULT_COLUMNS;
+end
+
+# make sure the columns are valid
+# TODO can be removed in production, if performance hit is too high
+ne_cols=[];
+columns.each{ |c| ne_cols << c unless ContextlessTableConstants::VALID_COLUMNS.include?(c) }
+throw "Illegal columns: #{ne_cols}" if (ne_cols.size > 0)
+
+back = params[:action] unless defined? back
+print_mode = (defined?( print_mode ) && (print_mode.to_s==true.to_s))
+header_params = {:action=>back}
+req_params = {:back=>back, :action=>"mt_req_show"}
+if ( defined?(param_hash) && !(param_hash.nil?) )
+	header_params.update( param_hash ) 
+	req_params[:back_params]=HashMarshaler.marshal_hash(param_hash);
+end
+-%>
+<%- unless reqs.blank? -%>
+<table class="data_table" cellspacing="0" width="100%">
+	<tr>
+		<%- columns.each do | col | -%>
+		<th>
+			<%- if col==:accepted -%>
+				<%= link_to "קבלה אושרה",  header_params.update( :order_by=>MtRequestQuery::KEY_ACCEPTED) %>
+			<%- end -%>
+			<%- if col==:assignee -%>
+				<%= link_to "נמען",  header_params.update( :order_by=>MtRequestQuery::KEY_ASSIGNEE) %>
+			<%- end -%>
+			<%- if col==:body -%>
+				<%= link_to "פרטים",  header_params.update( :order_by=>MtRequestQuery::KEY_BODY) %>
+			<%- end -%>
+			<%- if col==:budget -%>
+				<%= link_to "תקציב",  header_params.update( :order_by=>MtRequestQuery::KEY_BUDGET) %>
+			<%- end -%>
+			<%- if col==:budget_name -%>
+				<%= link_to "תקציב",  header_params.update( :order_by=>MtRequestQuery::KEY_BUDGET_NAME) %>
+			<%- end -%>
+			<%- if col==:building -%>
+				<%= link_to "בניין",  header_params.update( :order_by=>MtRequestQuery::KEY_BUILDING) %>
+			<%- end -%>
+			<%- if col==:business -%>
+				<%= link_to "עסק",  header_params.update( :order_by=>MtRequestQuery::KEY_BUSINESS) %>
+			<%- end -%>
+			<%- if col==:created_on -%>
+				<%= link_to "ת. דיווח", header_params.update( :order_by=>MtRequestQuery::KEY_CREATED_ON ) %>
+			<%- end -%>
+			<%- if col==:fixed_price_of_fix -%>
+				<%= link_to "מחיר קבוע",  header_params.update( :order_by=>MtRequestQuery::KEY_FIXED_PRICE_OF_FIX) %>
+			<%- end -%>
+			<%- if col==:hours_of_fix -%>
+				<%= link_to "שעות עבודה",  header_params.update( :order_by=>MtRequestQuery::KEY_HOURS_OF_FIX) %>
+			<%- end -%>
+			<%- if col==:mt_company -%>
+				<%= link_to "חברת אחזקה",  header_params.update( :order_by=>MtRequestQuery::KEY_MT_COMPANY) %>
+			<%- end -%>
+			<%- if col==:mt_company_task -%>
+				<%= link_to "משימה",  header_params.update( :order_by=>MtRequestQuery::KEY_MT_COMPANY_TASK) %>
+			<%- end -%>
+			<%- if col==:parts_cost_of_fix -%>
+				<%= link_to "מחיר חלקים",  header_params.update( :order_by=>MtRequestQuery::KEY_PARTS_COST_OF_FIX) %>
+			<%- end -%>
+			<%- if col==:place -%>
+				<%= link_to "מקום",  header_params.update( :order_by=>MtRequestQuery::KEY_PLACE) %>
+			<%- end -%>
+			<%- if col==:place_free_text -%>
+				<%= link_to "פירוט מיקום",  header_params.update( :order_by=>MtRequestQuery::KEY_PLACE_FREE_TEXT) %>
+			<%- end -%>
+			<%- if col==:price_per_hour -%>
+				<%= link_to "עלות שעה",  header_params.update( :order_by=>MtRequestQuery::KEY_PRICE_PER_HOUR) %>
+			<%- end -%>
+			<%- if col==:qoute_text -%>
+				<%= link_to "פירוט הצעת מחיר",  header_params.update( :order_by=>MtRequestQuery::KEY_QOUTE_TEXT) %>
+			<%- end -%>
+			<%- if col==:quoted_price -%>
+				<%= link_to "הצעת מחיר",  header_params.update( :order_by=>MtRequestQuery::KEY_QUOTED_PRICE) %>
+			<%- end -%>
+			<%- if col==:remarks -%>
+				<%= link_to "הערות",  header_params.update( :order_by=>MtRequestQuery::KEY_REMARKS) %>
+			<%- end -%>
+			<%- if col==:reporter -%>
+				<%= link_to "מדווח",  header_params.update( :order_by=>MtRequestQuery::KEY_REPORTER) %>
+			<%- end -%>
+			<%- if col==:service_type -%>
+				<%= link_to "סוג",    header_params.update( :order_by=>MtRequestQuery::KEY_SERVICE_TYPE ) %>
+			<%- end -%>
+			<%- if col==:solved_on -%>
+				<%= link_to "ת. תיקון",  header_params.update( :order_by=>MtRequestQuery::KEY_SOLVED_ON) %>
+			<%- end -%>
+			<%- if col==:solving_worker -%>
+				<%= link_to "מתקן",  header_params.update( :order_by=>MtRequestQuery::KEY_SOLVING_WORKER) %>
+			<%- end -%>
+			<%- if col==:state -%>
+				<%= link_to "מצב",    header_params.update( :order_by=>MtRequestQuery::KEY_STATE ) %>
+			<%- end -%>
+			<%- if col==:title -%>
+				<%= link_to "תיאור",  header_params.update( :order_by=>MtRequestQuery::KEY_TITLE ) %>
+			<%- end -%>
+			<%- if col==:updated_on -%>
+				<%= link_to "עדכון אחרון",  header_params.update( :order_by=>MtRequestQuery::KEY_UPDATED_ON) %>
+			<%- end -%>
+			<%- if col==:urgency -%>
+				<%= link_to "דחיפות", header_params.update( :order_by=>MtRequestQuery::KEY_URGENCY ) %>
+			<%- end -%>
+			<%- if col==:total_cost -%>מחיר כולל<%- end -%>
+			
+		</th>
+		<%- end -%>
+	</tr>
+	<% for req in reqs
+	 	row_class = cycle("odd_row", "even_row") -%>
+	<tr class="<%= row_class %>">
+		<%- columns.each do | col | -%>
+		<td>
+			<%- if col==:accepted -%>
+			<%= link_to_function pp_boolean(req.id.accepted), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:assignee -%>
+			<%= link_to_function pp_assignee(req), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:body -%>
+			<%= link_to_function h(req.body), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:budget -%>
+			<%= link_to_function h(req.budget), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:budget_name -%>
+			<%= link_to_function h(req.budget_name), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:building -%>
+			<%= link_to_function h(req.building.hr_address), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:business -%>
+			<%= link_to_function h(req.business.name), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:created_on -%>
+			<%= link_to_function pp_date( req.created_on ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:fixed_price_of_fix -%>
+			<%= link_to_function pp_price( req.fixed_price_of_fix ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:hours_of_fix -%>
+			<%= link_to_function req.hours_of_fix, "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:mt_company -%>
+			<%= link_to_function req.mt_company.name, "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:mt_company_task -%>
+			<%= link_to_function ( req.has_mt_company_task? ? "אין" : "יש" ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:parts_cost_of_fix -%>
+			<%= link_to_function pp_price( req.parts_cost_of_fix), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:place -%>
+			<%= link_to_function h( pp_place(req.place) ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:place_free_text -%>
+			<%= link_to_function h( req.place_free_text ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:price_per_hour -%>
+			<%= link_to_function pp_price( req.price_per_hour ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:qoute_text -%>
+			<%= link_to_function h( req.qoute_text ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:quoted_price -%>
+			<%= link_to_function pp_price( req.quoted_price ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:remarks -%>
+			<%= link_to_function h( req.remarks ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:reporter -%>
+			<%= link_to_function pp_reporter( req.reporter), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:service_type -%>
+			<%= link_to_function icon_service_type(req.service_type), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:solved_on -%>
+			<%= link_to_function pp_date( req.solved_on ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:solving_worker -%>
+			<%= link_to_function (req.has_solving_worker? ? req.solving_worker.name : "-" ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:state -%>
+			<%= link_to_function loc.mt_state(req.state), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:title -%>
+			<%= link_to_function h( req.title ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:updated_on -%>
+			<%= link_to_function pp_date( req.updated_on ), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:urgency -%>
+			<%= link_to_function image_tag("urgency/#{req.urgency}.gif"), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			<%- if col==:total_cost -%>
+			<%= link_to_function pp_price(req.total_cost), "toggleVisibility('req#{req.id}')" %>
+			<%- end -%>
+			</td>
+		<%- end -%>
+	</tr>
+	<%- if print_mode != true -%>
+	<tr class="hidden_<%= row_class %>" id="req<%= req.id %>">
+		<td colspan="<%= columns.size %>">
+			<div style="float:left">
+			<%- req_params[:id]=req -%>
+			<%= icon_service_type(req.service_type)%> <%= loc.mt_req_service_type( req.service_type ) %>
+			<%= button_tag "פרטים", req_params,"zoom",false %>
+			<%= button_tag "הדפס", {:action=>"mt_req_print", :id=>req}, "print", false, true %>
+			</div>
+			<%= crlfs_to_brs req.body %>
+	</tr>
+	<%- else -%>
+		<tr class="hidden_<%= row_class %>" id="req<%= req.id %>">
+			<td colspan="5"><div class="data_cell"><%= crlfs_to_brs req.body %></div></td>
+		</tr>
+	<%- end -%>
+	<% end -%>
+</table>
+<%- else -%>
+לא נמצאו בקשות שירות
+<%- end -%>

@@ -1,0 +1,54 @@
+8
+
+dir
+120
+file://localhost/svn/vaadnet/trunk/public/images/sidebar
+file://localhost/svn/vaadnet
+
+
+
+2007-07-07T03:40:03.690302Z
+38
+michaelbar-sinai
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+a7d5a6ee-9b2d-0410-bb23-a881a0c5062c
+
+sidebar-bottom.gif
+file
+
+
+
+
+2007-08-16T09:09:50.000000Z
+b1807fa52ebe8bddd83877639706471d
+2007-04-08T15:56:51.660965Z
+1
+michaelbar-sinai
+has-props
+
+sidebar-top.gif
+file
+
+
+
+
+2007-08-16T09:09:50.000000Z
+d4856b17eee07377bea9a1439cf81476
+2007-07-07T03:40:03.690302Z
+38
+michaelbar-sinai
+has-props
+

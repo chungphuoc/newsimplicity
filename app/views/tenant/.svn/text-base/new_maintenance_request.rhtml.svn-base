@@ -1,0 +1,32 @@
+<%= begin_page_title "דיווח תקלה" %>
+<%= button_tag 'רשימת תקלות', {:action => "maintenance_requests"}, "list", false %>
+<%= end_page_title %>
+
+<table>
+	<tr>
+		<td>
+			<h3>פרטי התקלה החדשה</h3>
+<%= start_form_tag :action => 'create_maintenance_request' %>
+  <%= render :partial => 'maintenance_request_form' %>
+  <%= submit_tag "שלח דיווח" %>
+<%= end_form_tag %>
+	</td>
+		<td class="valign_top">
+			<% if @recents.size > 0 -%>
+			<h3>דיווחים אחרונים</h3>
+			<table class="data_table" cellspacing="0">
+				<tr><th>מתי</th><th>מיקום</th><th>פרטים</th>
+			<% for req in @recents -%>
+				<tr class="<%=cycle("oddRow", "evenRow")%>">
+					<td><%=link_to pp_date_time(req.created_on), :action=>"show_single_request", :id=>req%></td>
+					<td><%=link_to pp_place(req.place), :action=>"show_single_request", :id=>req%></td>
+					<td><%=link_to req.title, :action=>"show_single_request", :id=>req%></td>
+				</tr>
+			<% end -%>
+			</table>
+			<% else -%>
+				<h3>אין תקלות פתוחות במערכת</h3>
+			<% end -%>
+		</td>
+	</tr>
+</table>

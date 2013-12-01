@@ -1,0 +1,6 @@
+<%= begin_page_title "פרטי משתמש" %>
+	<%= button_tag 'ערוך', {:action => 'user_edit', :id => @cur_user}, 'user_edit', false %>
+	<%= button_tag 'חזרה לרשימת משתמשים', {:action => 'user_list'}, 'user_list', false %>
+<%= end_page_title %>
+
+<%= render :partial=>"user_data", :object=>@cur_user %>

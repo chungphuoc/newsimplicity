@@ -1,0 +1,36 @@
+<table border="0">
+	<tr>
+		<td>שם פרטי</td>
+		<td><%= text_field 'fresh_worker', 'first_name' %></td>
+	</tr><tr>
+		<td>שם משפחה</td>
+		<td><%= text_field 'fresh_worker', 'surname' %></td>
+	</tr><tr>
+		<td>שם משתמש</td>
+		<td class="ltr"><%= text_field 'fresh_worker', 'username' %></td>
+	</tr><tr>
+		<td>סיסמא</td>
+		<td><%= password_field 'fresh_worker', 'password' %>
+			<% unless @fresh_worker.new_record? -%>
+			<div class="remark">השאר ריק על מנת לשמור על סיסמא קודמת</div>
+			<%- end -%></td>
+	</tr><tr>
+		<td>אישור סיסמא</td>
+			<td><%= password_field 'fresh_worker', 'password_confirmation' %></td>
+	</tr><tr>
+		<td>דואר אלקטרוני</td>
+		<td class="ltr"><%= text_field 'fresh_worker', 'email' %></td>
+	</tr><tr>
+		<td>טלפון נייד</td>
+		<td class="ltr"><%= text_field 'fresh_worker', 'mobile' %></td>
+	</tr><tr>
+		<td>ביפר</td>
+		<td><%= text_field 'fresh_worker', 'beeper' %></td>
+	</tr><tr>
+		<td>תפקיד</td>
+		<td><%= collection_select 'fresh_worker' ,'mt_company_role_id', @mt_company.roles, :id, :name %></td>
+	</tr><tr>
+		<td style="vertical-align: top; padding-top: 3px">פרטים</td>
+		<td><%= text_area 'fresh_worker', 'details', :rows=>5 %></td>
+	</tr>
+</table>

@@ -1,0 +1,9 @@
+<%= begin_page_title "עריכת בקשת שירות"%>
+	<%= button_link "לרשימת התקלות", {:action=>"mt_req_list", :find=>@find},"list",false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action=>"mt_req_edit", :id=>@mt_req, :post=>true %>
+<%= render :partial=>"mt_req_form", :object=>@mt_req %>
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>
+

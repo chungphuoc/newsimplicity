@@ -1,0 +1,10 @@
+<%= begin_page_title "עריכת יחידה" %>
+	<%= button_tag 'חזרה לרשימה', {:action => 'bu_list'}, "list", false %>
+<%= end_page_title %>
+
+
+<%= start_form_tag :action => 'bu_update', :id => @building_unit %>
+  <%= render :partial => 'bu_form' %>
+  <%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>
+

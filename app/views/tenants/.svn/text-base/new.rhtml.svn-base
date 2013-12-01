@@ -1,0 +1,9 @@
+<%= begin_page_title "דייר/ת חדש/ה" %>
+<% if !@flat_mode -%>
+	<%= button_tag 'חזרה לרשימת הדיירים', {:action => 'list'}, "user_list", false %>
+<% end %>
+<%= end_page_title %>
+<%= start_form_tag :action => 'create' %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "שמור" %>
+<%= end_form_tag %>

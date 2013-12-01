@@ -1,0 +1,54 @@
+<%= begin_page_title "עריכת פרטים אישיים" %>
+<%= button_tag "הפרטים שלי", {:action=>:personal_details}, "info", false %>
+<%=end_page_title%>
+<%= start_form_tag :action=>"update_personal_details", :id => @worker %>
+<% if @worker.role.smsable? -%>
+<div class="left_floater">
+	<p>רמת דחיפות למשלוח SMS:
+		<%= collection_select 'worker', 'sms_urgency', @urgencies, :id, :name %></p>
+	<p>רמת דחיפות למשלוח Email:
+		<%= collection_select 'worker', 'email_urgency', @urgencies, :id, :name %></p>
+		
+</div>
+<% end -%>
+<table border="0">
+	<tr>
+		<td>שם פרטי</td>
+		<td><%= text_field 'worker', 'first_name' %></td>
+	</tr><tr>
+		<td>שם משפחה</td>
+		<td><%= text_field 'worker', 'surname' %></td>
+	</tr><tr>
+		<td>שם משתמש</td>
+		<td class="ltr"><%= text_field 'worker', 'username' %></td>
+	</tr><tr>
+		<td>סיסמא</td>
+		<td><%= password_field 'worker', 'password' %>
+			<div class="remark">השאר ריק על מנת לשמור על סיסמא קודמת</div></td>
+	</tr><tr>
+		<td>סיסמא (אישור)</td>
+		<td><%= password_field 'worker', 'password_confirmation' %></td>
+	</tr><tr>
+		<td>דואר אלקטרוני</td>
+		<td class="ltr"><%= text_field 'worker', 'email' %></td>
+	</tr><tr>
+		<td>טלפון נייד</td>
+		<td class="ltr"><%= text_field 'worker', 'mobile' %></td>
+	</tr><tr>
+		<td>ביפר</td>
+		<td><%= text_field 'worker', 'beeper' %></td>
+	</tr><tr>
+		<td>תפקיד</td>
+		<td><% if @worker.mt_company_role.admin? -%>
+				<%= collection_select 'worker' ,'mt_company_role_id', @roles, :id, :name %>
+			<% else %>
+				<%= @worker.mt_company_role.name %>
+			<% end %>
+		</td>
+	</tr><tr>
+		<td style="vertical-align: top; padding-top: 3px">פרטים</td>
+		<td><%= text_area 'worker', 'details', :rows=>5 %></td>
+	</tr>
+</table>
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>

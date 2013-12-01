@@ -1,0 +1,7 @@
+<%= begin_page_title "עריכת מסמך משותף" %>
+<%= end_page_title %>
+
+<%= start_form_tag( {:action => 'update', :id => @shared_document}, :multipart => true )%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>

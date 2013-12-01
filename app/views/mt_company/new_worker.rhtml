@@ -1,0 +1,8 @@
+<%=begin_page_title "עובד חדש" %>
+<%= button_tag "לרשימת העובדים", {:action=>:worker_list}, "list", false %>
+<%=end_page_title %>
+
+<%= start_form_tag :action=>"update_worker" %>
+<%= render :partial => 'worker_form' %>
+<%= submit_tag "שמור" %>
+<%= end_form_tag %>

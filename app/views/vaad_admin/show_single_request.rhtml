@@ -1,0 +1,5 @@
+<%= begin_page_title "דיווח תקלה" %>
+	<%= button_tag 'חזרה לרשימת הדיווחים', {:action=>"maintenance_requests"}, 'tenant_post_list', false%>
+	<%= button_tag 'ערוך דיווח', {:action=>"edit_maintenance_request", :id=>@req}, 'tenant_post_edit', false%>
+<%= end_page_title %>
+<%= render :partial=>"shared/mt_request/mt_request_data", :object=>@req, :locals=>{:link_building=>false}  %>

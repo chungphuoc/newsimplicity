@@ -1,0 +1,19 @@
+<%- history = mt_request_history.history_items -%>
+<%- history.each do | itm | -%>
+<table class="history_item" cellspacing="0">
+	<tr class="title">
+		<td class="acting_user"><%= itm.acting_user_data %></td>
+		<td class="date"><%= pp_date_time(itm.created_on) %></td>
+	</tr><tr>
+		<td colspan="2" class="description">
+			<%= loc.describe_history_item( itm ) %>
+		</td>
+		<%- unless itm.remarks.blank? -%>
+		</tr><tr>
+		<td colspan="2" class="remarks">
+			<%= crlfs_to_brs itm.remarks -%>
+		</td>
+		<%- end -%>
+	</tr>
+</table>
+<%- end -%>

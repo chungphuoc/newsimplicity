@@ -1,0 +1,15 @@
+<%=begin_page_title"פרטי בקשת שירות", (@popup_mode!=true)%>
+    <% if @popup_mode==true -%>
+	<%= button_function_tag "סגור חלון", "window.close();", "cross.png", false %>
+    <%- else -%>
+	<%= button_tag "חזרה לרשימה", {:action=>@back}, "list",false %>
+	<%= button_tag "הדפס", {:action=>"mt_req_print", :id=>@req}, "print", false, true %>
+	<% end -%>
+<%= end_page_title %>
+<%- unless @popup_mode -%>
+<%= begin_help_section %>
+פרטי בקשת שירות. ניתן לערוך את הפרטים על ידי לחיצה על כפתור
+<%= image_tag("edit.png") %>.
+<%= end_help_section %>
+<%- end -%>
+<%= render :partial=>'shared/mt_request/mt_request_data', :object=>@req %>

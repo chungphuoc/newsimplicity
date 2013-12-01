@@ -1,0 +1,12 @@
+<h1>איך מגיעים</h1>
+<% if @building.has_map? %>
+	<div style="float: left">
+	<img src="<%=@building.map_address%>" alt="map" />
+	</div>
+<% end %>
+<p>
+<%= crlfs_to_brs(@building.directions)%>
+</p>
+<p align="center">
+<%=link_to "עותק להדפסה", {:controller=>"guest", :action=>"print_map"}, :target=>"_blank"%>
+</p>

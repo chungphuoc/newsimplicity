@@ -1,0 +1,52 @@
+<%= begin_page_title "רשימת אנשי קשר", @print_mode != true %>
+<% if ! @workers.empty? %>
+<% unless @print_mode -%>
+	<%= button_tag "הדפס", {:action=>params[:action], :sort_by=>@sort_by, :print=>true}, "print", false, true %>
+<% end -%>
+<%= end_page_title %>
+<%= begin_help_section %>
+כאן ניתן למצוא את פרטי הקשר של כל העובדים בארגון. אם הסכם השימוש מאפשר זאת, ניתן אפילו לשלוח להם SMS.
+<%= end_help_section %>
+<table class="data_table" cellspacing="0" cellpadding="0">
+	<tr>
+		<th><%= link_to "שם", :action=>params[:action], :sort_by=>"nam" %></th>
+		<th><%= link_to "טלפון", :action=>params[:action], :sort_by=>"phn" %></th>
+		<th><%= link_to "ביפר", :action=>params[:action], :sort_by=>"bpr" %></th>
+		<th><%= link_to "דואר אלקטרוני", :action=>params[:action], :sort_by=>"eml" %></th>
+		<th><%= link_to "תפקיד", :action=>params[:action], :sort_by=>"rol" %></th>
+	</tr>
+	<% for wkr in @workers -%>	
+	<tr class="<%= cycle("oddRow", "evenRow") %>">
+		<td><%= link_to wkr.hr_name, :action=>"view_worker", :id=>wkr, :ref=>params[:action]  %></td>
+		<td><%= link_to_if( !wkr.mobile.blank?, wkr.mobile, :action=>"view_worker", :id=>wkr, :ref=>params[:action]) %></td>
+		<td><%= link_to_if( !wkr.beeper.blank?, wkr.beeper, :action=>"view_worker", :id=>wkr, :ref=>params[:action]) %></td>
+		<td><%= link_to_if( !wkr.email.blank?, wkr.email, :action=>"view_worker", :id=>wkr, :ref=>params[:action]) %></td>
+		<td><%= link_to_if( !wkr.mt_company_role.blank?, wkr.mt_company_role.name, :action=>"view_worker", :id=>wkr, :ref=>params[:action]) %></td>
+	</tr>
+	<% end -%>
+</table>
+<% else %>
+<h3>לא רשומים עובדים</h3>
+<% end %>
+
+<% if false %>
+<p>&nbsp;</p>
+<h2>אנשי קשר בבניינים</h2>
+
+<table class="data_table" cellspacing="0" cellpadding="0">
+	<tr>
+		<th>שם</th>
+		<th>בניין</th>
+		<th>טלפון</th>
+		<th>דואר אלקטרוני</th>
+	</tr>
+	<% for tnt in @bld_contacts -%>	
+	<tr class="<%= cycle("oddRow", "evenRow") %>">
+		<td><%= tnt.hr_name %></td>
+		<td><%= tnt.building.hr_address %></td>
+		<td><%= tnt.mobile %></td>
+		<td><%= mail_to tnt.email %></td>
+	</tr>
+	<% end -%>
+</table>
+<% end %>

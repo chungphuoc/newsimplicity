@@ -1,0 +1,21 @@
+<%= begin_page_title "הבניינים שלי" %><%= end_page_title %>
+<table class="data_table" cellspacing="0">
+  <tr>
+	<th>כתובת</th>
+	<th>איש קשר</th>
+	<th>תקלות</th>
+	<th>פרטים</th>
+  </tr>
+  
+<% for bld in @worker.buildings %>
+  	<tr class="<%=cycle('evenRow', 'oddRow')%>">
+  		<td><%= link_to bld.hr_address, :action => "show_building", :id => bld, :back_action=>"my_buildings" %></td>
+		<td><% if ! bld.get_company_contact.nil? %>
+				<%= bld.get_company_contact.hr_name%> - <%= bld.get_company_contact.mobile%>
+			<% else %>[אין]<% end %></td>
+		<td><%= bld.maintenance_requests.count %></td>
+		<td><%= link_to image_tag("zoom.png"),:action => "show_building", :id => bld, :back_action=>"my_buildings"  %></td>
+  	</tr>
+<% end %>
+
+</table>

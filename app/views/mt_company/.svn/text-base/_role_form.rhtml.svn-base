@@ -1,0 +1,24 @@
+<table border="0" cellspacing="5" cellpadding="5">
+	<tr>
+		<td>שם</td>
+		<td><%= text_field 'role', 'name' %></td>
+	</tr><tr>
+		<td>יכולות</td>
+		<td>
+			<%= labeled_checkbox("אב-בית", @role.building_manager?, 'role', 'building_manager') %><br/>
+			<div class="remark">מאפשר לבעלי התפקיד לקבל עדכונים מהבניינים שלהם</div>
+		</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>
+			<%= labeled_checkbox("ניהול אתר", @role.admin?, 'role', 'admin') %><br/>
+			<div class="remark">מאפשר לבעלי התפקיד לנהל את אתר רימון של החברה</div>
+		</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>
+			<%= labeled_checkbox("בעל מקצוע", @role.professional?, 'role', 'professional') %><br/>
+			<div class="remark">מאפשר לבעלי התפקיד לטפל בתקלות</div>
+		</td>
+	</tr>
+</table>

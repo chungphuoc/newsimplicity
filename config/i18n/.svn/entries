@@ -1,0 +1,52 @@
+8
+
+dir
+120
+file://localhost/svn/vaadnet/trunk/config/i18n
+file://localhost/svn/vaadnet
+
+
+
+2007-10-21T21:21:00.247074Z
+120
+michaelbar-sinai
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+a7d5a6ee-9b2d-0410-bb23-a881a0c5062c
+
+reader_test.rb
+file
+
+
+
+
+2007-08-16T09:09:49.000000Z
+6566c032f8edc9b2bd2679dd1858a0d9
+2007-08-08T01:23:17.094131Z
+48
+michaelbar-sinai
+
+hebrew.properties
+file
+140
+
+
+
+2007-12-13T19:10:35.000000Z
+2483ae71dca580d3bb9b0665bbe3a566
+2007-12-22T00:01:39.863438Z
+140
+michaelbar-sinai
+

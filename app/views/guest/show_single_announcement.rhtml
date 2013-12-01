@@ -1,0 +1,37 @@
+<h1>הודעת ועד</h1>
+
+<table class="report">
+	<tr>
+		<td colspan="2" class="value"><h2><%=@ann.title%></h2></td>
+	</tr>
+	<tr>
+		<td class="key">פורסם ב:</td>
+		<td class="value"><%= pp_date_time @ann.published_on %>
+	</tr>
+<% if @ann.link.length != 0 %>
+	<tr>
+		<td class="key">קישור: </td>
+		<td class="value"><span style="direction: ltr"><%= link_to h(@ann.link), h(@ann.link) %></span></td>
+	</tr>
+<% end %>
+<% if @ann.has_file %>
+	<tr>
+		<td class="key">קובץ: </td>
+		<td class="value"><a href="<%=@ann.web_file_path%>" target="_blank"><span style="direction: ltr"><%=@ann.web_file_path%></span></a></td>
+	</tr>
+<% end %>
+<tr>
+	<td colspan="2" class="key">תוכן ההודעה</td>
+</tr><tr>
+	<td class="value" colspan="2">
+		<% if @ann.body != "" %>
+			<%=h(@ann.body).gsub(/\r\n/,"<br/>")%>
+		<%else%>
+			(אין תוכן)
+		<%end%>
+	</td>
+</tr>
+</table>
+<p>
+	<%= button_link 'חזרה לרשימת ההודעות', 'ann_list', :action => 'announcements' %>
+</p>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title %></title>
+	<%= stylesheet_link_tag 'print', :media=>"all" %> 
+	<script type="text/javascript" charset="utf-8">
+		function printWindow() {
+			window.resizeTo(550,600);
+			setTimeout("doPrint()", 500);
+		}
+		
+		function doPrint() {
+			window.print();
+		<%- unless @do_not_close==true -%>
+			window.close();
+		<%- end -%>
+		}
+		
+		function nowText() {
+			d = new Date();
+			mts = d.getMinutes();
+			if ( mts<10 ) {
+				mts = "0" + mts;
+			} else {
+				mts = "" + mts;
+			}
+			outStr = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear() + " " + d.getHours() + ":" + mts;
+			
+			return outStr;
+		}
+	</script>
+	<style type="text/css" media="all">
+		table.page_header {
+			font: 100% "Arial Hebrew", sans-serif;
+			border-bottom: 1px solid #AAA;
+		}
+		table.page_header td {
+			border: none;
+		}
+		table.page_header td.company_name {
+			text-align: right;
+			width: 20%;
+		}
+
+		table.page_header td.worker_name {
+			text-align: center;
+			width: 50%;
+		}
+
+		table.page_header td.time {
+			text-align: left;
+			font-family: Monaco, Courier, monospace;
+			width: 20%;
+		}
+		
+		table.report td.key {
+			white-space: nowrap;
+			font-weight: bold;
+		}
+
+	</style>
+</head>
+<body onload="printWindow();">
+	<center>
+<!-- header -->
+	<table class="page_header" border="0">
+		<tr>
+		<%- if ! @mt_company.nil? -%>
+				<td class="company_name"><%= h @mt_company.name %></td>
+			<% if @worker != nil -%>
+				<td class="worker_name">הופק על ידי <%= h @worker.hr_name %></td>
+			<% end -%>
+		<%- end -%>
+		<%- if ! current_user().nil? -%>
+			<td class="company_name">הופק על ידי <%= h("#{current_user().first_name} #{current_user().surname}") %>
+		<%- end -%>
+			<td class="time"><script type="javascript">document.write( nowText() )</script></td>
+		</tr>
+	</table>
+<!--  end header -->
+	<%= @content_for_layout %>
+	<div class="footer" style="width: 70%">
+		www.rimon-systems.com
+		&nbsp;<%= image_tag "logo_large.gif", :size=>"x30", :style=>"vertical-align: middle" %>
+		&nbsp;הופק בעזרת מערכת רימון
+	</div>
+	</center>
+</body>
+</html>

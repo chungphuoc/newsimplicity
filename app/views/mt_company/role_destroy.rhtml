@@ -1,0 +1,25 @@
+<%=begin_page_title "בעיות במחיקת תפקיד"%><%= end_page_title %>
+<% if @reason == "LAST_ROLE" %>
+	<h2>לא ניתן למחוק את התפקיד האחרון.</h2>
+	<%= link_to "חזרה לרשימת התפקידים", :action => "role_list" %>
+<% elsif @reason == "WORKERS_EXIST" %>
+	<h2>קיימים עובדים המחזיקים בתפקיד זה. מה ברצונך לעשות?</h2>
+	<ul>
+		<li>העברת את העובדים לתפקיד :
+			<%= start_form_tag :action=>"role_destroy"%>
+			<%= hidden_field_tag 'solution', "MOVE_TO_ROLE", :id=>"sol1" %>
+			<%= collection_select 'new_role','id',@roles_left, :id, :name%>
+			<%= submit_tag "בצע" %>
+			<%= end_form_tag%>
+		</li>
+		<li>מחיקת העובדים המחזיקים בתפקיד זה.
+			<%= start_form_tag :action=>"role_destroy"%>
+			<%= hidden_field_tag 'solution', "DELETE_WORKERS", :id=>"sol2"  %>
+			<%= submit_tag "בצע" %>
+			<%= end_form_tag%>
+		</li>
+		<li>ביטול הפעולה וחזרה לרשימת התפקידים
+			<%= button_to "בצע", :action=>"role_list" %>
+		</li>
+	</ul>
+<% end %>

@@ -1,0 +1,45 @@
+<%- 
+show_mt_company ||= true unless show_mt_company==false
+ -%>
+<table>
+	<tr>
+		<td>כותרת</td>
+		<td><%= text_field 'task', 'title' %></td>
+	</tr>
+<%- if ( show_mt_company != false ) -%>
+	<tr>
+		<td>חברת אחזקה</td>
+		<td><%= collection_select "task", "mt_company_id", current_user().mt_companies, :id, :name %></td>
+	</tr>
+<%- end -%>
+	<tr>
+		<td>בניין</td>
+		<td><%= collection_select "task", "building_id", buildings.sort, :id, :hr_address, :include_blank=>"true" %><br/>
+			<div class="remark">שדה זה אינו חובה</div></td>
+	</tr>	
+	<tr class="valign_top">
+		<td rowspan="2">החל מתאריך</td>
+		<td><%= date_select 'task', 'from_date' %></td>
+	</tr>
+	<tr>
+		<td><%= labeled_checkbox("ללא", @task.from_date.nil?, 'task', 'no_from_date') %></td>
+	</tr>
+	<tr>
+		<td>לא יאוחר מתאריך</td>
+		<td><%= date_select 'task', 'until_date' %></td>
+	</tr>
+	<tr>
+		<td class="valign_top">פירוט</td>
+		<td><%= text_area 'task', 'description', :rows=>5 %></td>
+	</tr>
+<%- if ( show_state == true ) -%>
+	<td class="key">מצב</td>
+	<td class="value">
+		<select id="task_status" name="task[status]" onmouseup="updateStatusImage(<%= @task.id %>)">
+			<%- for i in (0..4) -%>
+			<option value="<%= i %>" <% if i==@task.status %>selected <%end%>><%= pp_task_status(i) %></option>
+			<%- end -%>
+		</select>
+	</td>
+<%- end -%>
+</table>

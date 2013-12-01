@@ -1,0 +1,9 @@
+<%= begin_page_title "בקשת שירות חדשה", true%><%= end_page_title %>
+<%= begin_help_section%>בעזרת טופס זה ניתן לדווח לבעל הבניין ולחברת האחזקה על ליקויים הדורשים תיקון. אנא התייחסו ברצינות לשדה "דחיפות" - סימון כל תקלה כדחופה ביותר ("[!!!!]") עלול לגרום לכך שלא ייחסו לו חשיבות.<%= end_help_section %>
+
+<%= start_form_tag :action=>"mt_req_add" %>
+
+<%= render :partial=>"mt_req_form" %>
+
+<%= submit_tag "שלח דיווח" %>
+<%= end_form_tag %>

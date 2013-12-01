@@ -1,0 +1,141 @@
+<%= error_messages_for 'building' %>
+
+<!--[form:building]-->
+<table border="0" cellspacing="5" cellpadding="5">
+	<tr><td>
+			<p><label for="building_number">Number</label><br/>
+			<%= text_field 'building', 'number'  %></p>
+
+			<p><label for="building_street">Street</label><br/>
+			<%= text_field 'building', 'street'  %></p>
+
+			<p><label for="building_city">City</label><br/>
+			<%= text_field 'building', 'city'  %></p>
+
+			<p><label for="building_zip_code">Zip code</label><br/>
+			<%= text_field 'building', 'zip_code'  %></p>
+		</td>
+		<td>
+			<p><label for="building_eng_number">eng_Number</label><br/>
+			<%= text_field 'building', 'eng_number'  %></p>
+
+			<p><label for="building_eng_street">eng_Street</label><br/>
+			<%= text_field 'building', 'eng_street'  %></p>
+
+			<p><label for="building_eng_city">eng_City</label><br/>
+			<%= text_field 'building', 'eng_city'  %></p>
+		
+		</td>
+	</tr><tr>
+		<td>
+			<p><label for="building_welcome_note">Welcome note</label><br/>
+			<%= text_area 'building', 'welcome_note', :rows=>"6"  %></p>
+		</td>
+		<td>
+			<p><label for="building_directions">Directions</label><br/>
+			<%= text_area 'building', 'directions', :rows=>"6"  %></p>
+		</td>
+	</tr><tr>
+		<td>
+			<p>חברת אחזקה<br/>
+			<%= collection_select 'building', 'mt_company_id', @mt_companies, :id, :name %></p></td>
+	</tr>
+	<% if @building.respond_to?('owner') -%>	
+	<tr>
+		<td>
+			<p>בעל הבניין<br/>
+			<%= collection_select 'building', 'building_owner_id', @owners, :id, :hr_name %></p></td>
+	</tr>
+	<% end -%>
+	<tr>
+		<td>של מי האוטו?</td>
+		<td><%= radio_button 'building', 'show_whose_car', true %>הצג<br/>
+			<%= radio_button 'building', 'show_whose_car', false %>אל תציג<br/>
+		</td>
+	</tr>
+	<tr>
+		<td>ייחודיות שם משתמש</td>
+		<td>
+			<%- if @non_unique_usernames.nil? || @non_unique_usernames.empty? -%>
+				<%= radio_button 'building', 'is_user_login_unique', true %>לכל הבניין<br/>
+				<%= radio_button 'building', 'is_user_login_unique', false %>ליישות מאכלסת<br/>
+			<%- elsif ! @non_unique_usernames.nil? -%>
+				קיימים שמות משתמש לא ייחודיים בבניין. יש לשנות אותם לפני שניתן לשנות את ייחודיות שם המשתמש ל-"לכל הבניין".
+				<br />
+				<% @non_unique_usernames.each { | ur | %>
+					<%= ur["username"] %> (<%= ur["count"] %>) <br />
+				<% } %>
+			<%- end -%>
+		</td>
+	</tr>
+	<tr>
+		<td>קומה נמוכה ביותר</td>
+		<td><span class="ltr"><%= text_field 'building', 'lowest_floor', :size=>"5" %></span><br/>
+			<div class="remark">קומה 0 היא קומת הקרקע. יש לציין אותה.</div></td>
+	</tr><tr>
+		 <td>קומה גבוהה ביותר</td>
+		 <td><span class="ltr"><%= text_field 'building', 'highest_floor', :size=>"5" %></span></td>
+	</tr>
+	<% if @building.new_record?%>
+	<tr>
+		<td colspan="2"><h2>initial user</h2></td>
+	</tr><tr>
+		<td>username</td>
+		<td><%= text_field_tag 'username', "username" %></td>
+	</tr><tr>
+		<td>password</td>
+		<td><%= text_field_tag 'password', "password" %></td>
+	</tr><tr>
+		<td>
+			<table id="building_type_tp" class="tab_panel" cellspacing="0">
+				<tr>
+					<th id="building_tab" class="selected"><a href="#" onclick="selectTab('building_type_tp','building')">בניין מגורים</a></th>
+					<th class="spacer">&nbsp;</th>
+					<th id="business_building_tab"><a href="#" onclick="selectTab('building_type_tp', 'business_building')">בניין משרדים</a></th>
+				</tr>
+				<tr>
+					<td colspan="3" id="building_type_tp_contents" class="contents">
+						<div id="building_div">
+							<input type="hidden" name="building_type_tp_value" value="building" id="building_type_tp_value" />
+							<table border="0">
+								<tr><td colspan="2"><b>initial flats</b></td></tr>
+								<tr>
+									<td>מספר דירות</td>
+									<td><span class="ltr"><%= text_field_tag 'flat_num', "20", :size=>"5" %></span></td>
+								</tr><tr>
+									 <td>חדרים לדירה</td>
+									 <td><span class="ltr"><%= text_field_tag 'rooms_per_flat', "5", :size=>"5" %></span></td>
+								</tr><tr>
+									 <td>שטח דירה</td>
+									 <td><span class="ltr"><%= text_field_tag 'area', "150", :size=>"5" %></span></td>
+								</tr><tr>
+									 <td>שכ"ד בסיס</td>
+									 <td><span class="ltr"><%= text_field_tag 'base_payment', "100", :size=>"5" %></span></td>
+								</tr>
+							</table>
+						</div>
+						<div style="display: none;" id="business_building_div">
+							<table border="0">
+								<tr>
+						 			<td>בעל הבניין</td>
+									<td>
+										<%= select_tag 'owner_id', @owners.collect{|x| "<option value='#{x.id}'>#{x.hr_name_with_id}</option>" }.join(""); %>
+									</td>
+								</tr><tr>
+									<td>סה"כ יחידות</td>
+									<td><span class="ltr"><%= text_field_tag 'total_unit_num', "100", :size=>"8" %></span></td>
+								</tr><tr>
+ 									<td>סה"כ שטח (מ"ר)</td>
+									<td><span class = "ltr"><%= text_field_tag 'total_area', "90000", :size=>"8" %></span></td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		<td>
+	</tr>
+	<% end %>
+</table>
+<!--[eoform:building]-->
+

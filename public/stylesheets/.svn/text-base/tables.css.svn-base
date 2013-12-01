@@ -1,0 +1,122 @@
+tr {
+	padding: 0px;
+	margin: 0px;
+}
+
+table {
+	border:  none;
+	padding: 0px;
+	margin: 0px;
+}
+
+tr.odd_row,
+tr.oddRow {
+	background-color: #EEE;
+}
+
+tr.even_row,
+tr.evenRow {
+	background-color: #BBB;
+}
+
+tr.hidden_odd_row {
+	background-color: #EEE;
+	display: none;
+}
+
+tr.hidden_even_row {
+	background-color: #BBB;
+	display: none;
+}
+
+table.data_table {
+	width: 100%;
+}
+
+table.data_table td {
+	margin: 2px 0px 1px 0px;
+	padding: 3px 5px 1px 5px;
+	border: none;
+	vertical-align: top;
+}
+
+/* apply to cells you want to strech over */
+table.data_table .strecher {
+	width: 90%;
+}
+
+table.data_table td.nowrap {
+	white-space: nowrap;
+}
+
+table.data_table th {
+	border: none;
+	text-align: right;
+	text-shadow: #522 2px 2px 2px;
+	padding: 1px 5px 1px 5px;
+	background-color: #755;
+	color:  #FFF;
+}
+
+table.data_table th a,
+table.data_table th a:visited {
+	color: #FFF;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+table.data_table th a:hover {
+	color: #FF0;
+	text-decoration: overline underline;
+	background: transparent;
+}
+
+table.data_table th a:active {
+	color: #FF0;
+	text-decoration: line-through;
+	background: transparent;
+}
+
+
+table.data_table td.table_sub_title {
+	background-color: #977;
+	text-align: right;
+	text-shadow: #522 2px 2px 2px;
+	padding: 1px 5px 1px 5px;
+	color:  #EEE;
+}
+
+table.data_table td.centered {
+	text-align: center;
+}
+
+.data_cell {
+	margin: 0px 3px 0px 0px;
+	padding: 2px;
+}
+
+table.data_table a,
+table.data_table a:visited {
+	display: block;
+	padding: 1px;
+	color: black;
+	background-color: transparent;
+	font-weight:  normal;
+}
+table.data_table a:hover {
+	text-shadow:  none;
+	background-color: #999;
+	color: yellow;
+}
+
+table.data_table a:active {
+	text-shadow:  none;
+	color: white;
+	background-color: #006;
+}
+
+a.title_link {
+	display: block;
+	background-color: red;
+	color: black;
+}

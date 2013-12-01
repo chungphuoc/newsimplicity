@@ -1,0 +1,416 @@
+<%- 
+@serial = 0;
+def remarks_field
+	@serial = @serial+1
+	return "<br/>הערות<br/>#{text_area_tag "remarks", nil, :size=>"25x3", :id=>"remarks#{@serial}"}<br/>";
+end
+
+# retrieve privileges.
+prvs = MaintenanceRequestHistoryItem.privileges_for( current_user(), mt_request_data );
+
+@mt_request_data = mt_request_data;
+building_action ||= "show_building"
+link_building = true if link_building != false
+
+# the business effecting the list of places this request can be reported in.
+# might not be the user's, if it was reported by someone not from the business (e.g. maintenance guy)
+effective_business = ( (!@user.nil?) && (@user.respond_to?(:business))) ? @user.business : mt_request_data.business;
+
+-%>
+
+<table width="100%">
+	<tr>
+		<td class="valign_top">
+<table class="report" width="100%">
+	<tr>
+		<td class="key">מספר זיהוי</td>
+		<td class="value"><%=mt_request_data.id%></td>
+	</tr>
+	<%- unless mt_request_data.mt_company_task.nil? -%>
+	<tr>
+		<td class="key">משימה</td>
+		<td class="value"><%= link_to mt_request_data.mt_company_task.title, :action=>:mt_tsk_show, :id=>mt_request_data.mt_company_task %></td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">כותרת</td>
+		<td class="value"><%=h mt_request_data.title%>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_TITLE_CHANGE ) -%>
+			<%= start_subform_tag "title_sub_form", mt_request_data, "mt_request_change", "change_title" %>
+			<%= text_field 'mt_request_data', 'title', :value=>h(mt_request_data.title) %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_TITLE_CHANGE ) -%>
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button("title_sub_form") %>
+		</td>
+		<%- end -%>
+	</tr>
+	<tr>
+		<td class="key">תאריך דיווח</td>
+		<td class="value"><%= pp_date_time mt_request_data.created_on %></td>
+	</tr>
+	<tr>
+		<td class="key">עודכן לאחרונה</td>
+		<td class="value"><%= pp_date_time mt_request_data.updated_on %></td>
+	</tr>
+	<%- unless mt_request_data.solved_on.blank? -%>
+	<tr>
+		<td class="key">תאריך תיקון</td>
+		<td class="value"><%= pp_date_time mt_request_data.solved_on %></td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">מדווח</td>
+		<td class="value"><%= render :partial=>"/shared/reporter_one_line", :object=>mt_request_data.reporter %></td>
+	</tr>
+	<%- # only show the business part if the request has a business and its reporter is not from that business.
+		if 	((! mt_request_data.business.nil?) &&
+				(( mt_request_data.reporter.respond_to?(:business) &&
+						(mt_request_data.reporter.business != mt_request_data.business)
+				 ) || ( ! mt_request_data.reporter.respond_to?(:business) )))
+		 -%>
+	<tr>
+		<td class="key">עסק</td>
+		<td class="value"><%= h mt_request_data.business.name %></td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">נמען</td>
+		<td class="value">
+			<%= pp_assignee( mt_request_data.assignee ) %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_ASSIGNEE_CHANGE ) -%>
+			<%= start_subform_tag "assignee_sub_form", mt_request_data, "mt_request_change", "change_assignee" %>
+				<%= assignee_menu mt_request_data, mt_request_data.building %>
+				<%= remarks_field %>				
+				<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_ASSIGNEE_CHANGE ) -%>
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button("assignee_sub_form") %>
+		</td>
+		<%- end -%>
+	</tr>
+	<tr>
+		<td class="key">בניין</td>
+		<td class="value">
+			<%- if mt_request_data.has_building? -%>
+				<%- if link_building == false -%>
+				<%= h mt_request_data.building.hr_address %>
+				<%- else -%>
+				<%= link_to mt_request_data.building.hr_address, :action=>building_action, :id=>mt_request_data.building%>
+				<%- end -%>
+			<%- else -%>[אין]<%- end -%>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_BUILDING_CHANGE )-%>
+			<br />
+			<%= start_subform_tag "building_sub_form", mt_request_data, "mt_request_change", "change_building" %>
+			בניין:
+			<%= select 'mt_request_data', 'building_id', mt_request_data.mt_company.buildings.collect{ |x| [x.hr_address, x.id] }, { :include_blank=>true} %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_BUILDING_CHANGE )-%>
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button("building_sub_form") %>
+		</td><%- end -%>
+	</tr>
+	<%- if mt_request_data.has_building? -%>
+	<tr>
+		<td class="key">מקום</td>
+		<td class="value">
+			<%= render :partial=>"/shared/place_one_line", :object=>mt_request_data %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_PLACE_CHANGE ) -%>
+			<%= start_subform_tag "place_sub_form", mt_request_data, "mt_request_change", "change_place" %>
+			מיקום: 
+			<%= mt_request_place_menu("place", mt_request_data, effective_business, mt_request_data.building) %>
+			<br/>פירוט: <%= text_field 'mt_request_data', 'place_free_text' %>
+			<br/><%= remarks_field %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_PLACE_CHANGE ) -%>
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button("place_sub_form") %>
+		</td><%- end -%>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">סוג שירות</td>
+		<td class="value">
+			<%=icon_service_type(mt_request_data.service_type)%> <%= loc.mt_req_service_type( mt_request_data.service_type) %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_SERVICE_TYPE_CHANGE ) -%>
+			<%= start_subform_tag "service_type_sub_form", mt_request_data, "mt_request_change", "change_service_type" %>
+			<%= radio_button 'mt_request_data', 'service_type', MaintenanceRequest::SERVICE_TYPE_QOUTE %>הצעת מחיר&nbsp;&nbsp;
+			<%= radio_button 'mt_request_data', 'service_type', MaintenanceRequest::SERVICE_TYPE_FIX %>תיקון
+			<%= remarks_field %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_SERVICE_TYPE_CHANGE ) -%>
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button("service_type_sub_form") %>
+		</td>
+		<%- end -%>
+	</tr>
+	<tr>
+		<td class="key">דחיפות</td>
+		<td class="value"><%=image_tag("urgency/#{mt_request_data.urgency}.gif")%> (מתוך 4)
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_URGENCY_CHANGE ) -%>		
+		<%= start_subform_tag 'urgency_sub_form',mt_request_data, "mt_request_change", "change_urgency" %>
+		<%= collection_select 'mt_request_data', 'urgency', MaintenanceRequest.urgencies, :key, :value %>
+		<%= remarks_field %>
+		<%= submit_tag "שמור" %>
+		<%= end_subform_tag %>
+		<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_URGENCY_CHANGE ) -%>		
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button('urgency_sub_form') %>
+		</td><%- end -%>
+	</tr>
+	<tr>
+		<td class="key valign_top">פרטי הדיווח</td>
+		<td class="value">
+			<%=crlfs_to_brs( mt_request_data.body ) %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_BODY_CHANGE ) -%>		
+			<%= start_subform_tag "body_sub_form", mt_request_data, 'mt_request_change', "change_body" %>
+			<%= text_area 'mt_request_data', 'body', :rows=>"4" %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_BODY_CHANGE ) -%>		
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button('body_sub_form') %>
+		</td><%- end -%>
+	</tr>
+	<tr>
+		<td class="key">מצב</td>
+		<td class="value"><%= loc.mt_state(mt_request_data.state) %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_STATE_CHANGE ) -%>		
+			<%= start_subform_tag "state_sub_form", mt_request_data, "mt_request_change", "change_state" %>
+			<%= select 'mt_request_data', 'state', MaintenanceRequest.state_ids.collect{|x| [loc.mt_state(x),x]} %>
+			<%= remarks_field %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_STATE_CHANGE ) -%>		
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button('state_sub_form') %>
+		</td>
+		<%- end -%>
+	</tr>
+	<%- if mt_request_data.has_cost? -%>
+	<tr>
+		<td class="key">זמן עבודה</td>
+		<td class="value"><%= mt_request_data.hours_of_fix %> שעות
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_HOURS_OF_FIX_CHANGE ) -%>		
+			<%= start_subform_tag "hrs_sub_form", mt_request_data, "mt_request_change", "change_hrs" %>
+			שעות עבודה:
+			<%= text_field 'mt_request_data', 'hours_of_fix' %>
+			<%= remarks_field %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %><%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_HOURS_OF_FIX_CHANGE ) -%>		
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button('hrs_sub_form') %>
+		</td><%- end -%>
+	</tr>
+	<tr>
+		<td class="key">עלות שעה</td>
+		<td class="value"><%= pp_price mt_request_data.price_per_hour %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_PRICE_PER_HOUR_CHANGE ) -%>		
+			<%= start_subform_tag "pph_sub_form", mt_request_data, "mt_request_change", "change_pph" %>
+עלות שעה:
+			<%= text_field 'mt_request_data', 'price_per_hour' %>
+			<%= remarks_field %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_PRICE_PER_HOUR_CHANGE ) -%>		
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button('pph_sub_form') %>
+		</td><%- end -%>
+	</tr>
+	<tr>
+		<td class="key">מחיר חלקים</td>
+		<td class="value"><%= pp_price mt_request_data.parts_cost_of_fix %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_PARTS_COST_CHANGE ) -%>
+			<%= start_subform_tag "pc_sub_form", mt_request_data, "mt_request_change", "change_pc" %>
+עלות חלקים:
+			<%= text_field 'mt_request_data', 'parts_cost_of_fix' %>
+			<%= remarks_field %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_PARTS_COST_CHANGE ) -%>
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button('pc_sub_form') %>
+		</td><%- end -%>
+	</tr>
+	<tr>
+		<td class="key">מחיר קבוע</td>
+		<td class="value"><%= pp_price mt_request_data.fixed_price_of_fix %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_FIXED_PRICE_CHANGE ) -%>
+			<%= start_subform_tag "fp_sub_form", mt_request_data, "mt_request_change", "change_fx" %>
+מחיר קבוע:
+			<%= text_field 'mt_request_data', 'fixed_price_of_fix' %>
+			<%= remarks_field %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_FIXED_PRICE_CHANGE ) -%>
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button('fp_sub_form') %>
+		</td><%- end -%>
+	</tr>
+	<tr>
+		<td class="key">עלות כוללת</td>
+		<td class="value"><%= pp_price mt_request_data.total_cost %></td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td class="key">תקציב</td>
+		<td class="value"><%= h mt_request_data.budget_name %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_BUDGET_CHANGE ) -%>
+			<%= start_subform_tag "budget_sub_form", mt_request_data, "mt_request_change", "change_budget" %>
+			תקציב
+			<%= text_field 'mt_request_data', 'budget_name' %>
+			<%= remarks_field %>
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_BUDGET_CHANGE ) -%>
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button('budget_sub_form') %>
+		</td><%- end -%>
+	</tr>
+	<% unless mt_request_data.solving_worker.nil? -%>
+	<tr>
+		<td class="key">עובד</td>
+		<td class="value"><%= link_to mt_request_data.solving_worker.hr_name, :action=>"view_worker", :id=>mt_request_data.solving_worker %></td>
+	</tr>
+	<% end -%>
+	<%- if mt_request_data.has_uploaded_files? -%>
+	<tr>
+		<td class="key">קבצים מצורפים</td>
+		<td class="value">
+			<% for file in mt_request_data.uploaded_files %>
+				<%= link_to h(file.title), :action=>"get_file", :controller=>"uploaded_files", :id=>file, :origin=>HashMarshaler::marshal_hash(params)  %>
+				<%- if file != mt_request_data.uploaded_files.last -%><br /><%- end -%>
+			<% end %>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_REMOVE_FILES ) -%>
+			<%= start_subform_tag "files_sub_form", mt_request_data, 'mt_request_change', "remove_files" %>
+			מחיקת קבצים:<br />
+			<% for file in mt_request_data.uploaded_files %>
+				<%= labeled_checkbox(file.title, false, "file", file.id)  %>
+				<%- if file != mt_request_data.uploaded_files.last -%><br /><%- end -%>
+			<% end %>
+			<%= remarks_field %>
+			<%= submit_tag "מחק קבצים" %>
+			<%= end_subform_tag %>
+			<%- end -%>
+		</td>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_REMOVE_FILES ) -%>
+		<td style="white-space: nowrap; vertical-align: top">
+			<%= subform_toggle_button('files_sub_form') %>
+		</td><%- end -%>
+	</tr>
+	<%- end -%>
+	<% unless mt_request_data.remarks.blank? -%>
+	<tr>
+		<td class="key">הערות</td>
+		<td class="value"><%= mt_request_data.remarks %></td>
+	</tr>
+	<% end -%>
+	<tr>
+		<td colspan='3'>
+			<%- if ( prvs.include?( MaintenanceRequestHistoryItem::TYPE_ADD_REMARK ) ) -%>	
+			<%= subform_toggle_button "add_remark_sub_form", "הוסף הערה", "add.png" %>
+			<%- end -%>
+			<%- if (!mt_request_data.has_cost? && prvs.include?( MaintenanceRequestHistoryItem::TYPE_ADD_COST_DATA ) ) -%>	
+			<%= subform_toggle_button "add_cost_sub_form", "הוסף נתוני עלות", "add.png" %>
+			<%- end -%>
+			<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_ADD_FILES ) -%>	
+			<%= subform_toggle_button "add_files_sub_form", "צירוף קבצים", "attach.png" %>
+			<%- end -%>
+			<br/>
+		</td>
+	</tr>
+	<tr>
+		<td colspan='3'>
+		<%- if ( prvs.include?( MaintenanceRequestHistoryItem::TYPE_ADD_REMARK ) ) -%>	
+			<%= start_subform_tag "add_remark_sub_form", mt_request_data, "mt_request_change", "add_remark" %>
+			<%= remarks_field %>
+			<%= submit_tag "שמור הערה" %>
+			<%= end_subform_tag %>
+		<%- end -%>
+		<%- if (!mt_request_data.has_cost? && prvs.include?( MaintenanceRequestHistoryItem::TYPE_ADD_COST_DATA ) ) -%>	
+			<%= start_subform_tag "add_cost_sub_form", mt_request_data, "mt_request_change", "add_cost_data" %>
+			<table>
+				<tr>
+					<td class="key">זמן עבודה</td>
+					<td class="value"><%= text_field 'mt_request_data', 'hours_of_fix' %> שעות</td>
+				</tr>
+				<tr>
+					<td class="key">עלות שעה</td>
+					<td class="value"><%= text_field 'mt_request_data', 'price_per_hour' %><%= loc.currency() %></td>
+				</tr>
+				<tr>
+					<td class="key">מחיר חלקים</td>
+					<td class="value"><%= text_field 'mt_request_data', 'parts_cost_of_fix' %><%= loc.currency() %></td>
+				</tr>
+				<tr>
+					<td class="key">מחיר קבוע</td>
+					<td class="value"><%= text_field 'mt_request_data', 'fixed_price_of_fix' %><%= loc.currency() %></td>
+				</tr>
+			</table>
+					
+			<%= submit_tag "שמור" %>
+			<%= end_subform_tag %>
+		<%- end -%>
+		<%- if prvs.include?( MaintenanceRequestHistoryItem::TYPE_ADD_FILES ) -%>
+		<%= start_subform_tag "add_files_sub_form", mt_request_data, "mt_request_change", "add_files", true%>
+			<table border="0">
+			<tr>
+				<th>כותרת</th>
+				<th>קובץ</th>
+			</tr>
+			<%- for i in (0..2) -%>
+				<tr>
+					<td><input id="file_<%= i.to_s %>_title" name="file[<%= i.to_s %>][title]" type="text" /></td>
+					<td><input id="file_<%= i.to_s %>_file" name="file[<%= i.to_s %>][file]" type="file" /></td>
+				</tr>
+			<%- end -%>
+			</table>
+			<%= submit_tag "צרף קבצים" %>
+		<%= end_subform_tag %>
+		<%- end -%>
+		</td>
+	</tr>
+</table>
+<%- if mt_request_data.history_items.size > 0 -%>
+	</td>
+	<td width="200px" style="vertical-align: top">
+		<h3>היסטוריה</h3>
+		<div class="history">
+			<%= render :partial=>"shared/mt_request/mt_request_history", :object=>mt_request_data %>			
+		</div>
+	</td>
+<%- end -%>
+</tr>
+</table>
+

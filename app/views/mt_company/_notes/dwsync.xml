@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="worker_list.rhtml" server="rimon-systems.com/demo/" local="128404974080000000" remote="128427541800000000" />
+<file name="view_worker.rhtml" server="rimon-systems.com/demo/" local="128326821840000000" remote="128427542400000000" />
+<file name="touched_mt_reqs.rhtml" server="rimon-systems.com/demo/" local="128326260640000000" remote="128427542400000000" />
+<file name="show_role.rhtml" server="rimon-systems.com/demo/" local="128326838480000000" remote="128427542400000000" />
+<file name="show_building.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="role_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="role_destroy.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="personal_details.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="new_worker.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="new_role.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="my_mt_requests.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="my_buildings.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="mt_tsk_show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="mt_tsk_new.rhtml" server="rimon-systems.com/demo/" local="128425303060000000" remote="128427542400000000" />
+<file name="mt_tsk_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="mt_tsk_edit.rhtml" server="rimon-systems.com/demo/" local="128413481620000000" remote="128427542400000000" />
+<file name="mt_requests_list_control.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="mt_requests_list.rhtml" server="rimon-systems.com/demo/" local="128352928000000000" remote="128427542400000000" />
+<file name="mt_req_show.rhtml" server="rimon-systems.com/demo/" local="128328094840000000" remote="128427542400000000" />
+<file name="mt_req_report_build.rhtml" server="rimon-systems.com/demo/" local="128326273120000000" remote="128427542400000000" />
+<file name="mt_req_print.rhtml" server="rimon-systems.com/demo/" local="128419514660000000" remote="128427542400000000" />
+<file name="mt_req_new.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427542400000000" />
+<file name="login.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="invoice_reports.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="invoice_report_xls.rhtml" server="rimon-systems.com/demo/" local="128328083980000000" remote="128427543000000000" />
+<file name="invoice_report_tsv.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="invoice_report_show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="index.rhtml" server="rimon-systems.com/demo/" local="128419736180000000" remote="128427543000000000" />
+<file name="edit_worker.rhtml" server="rimon-systems.com/demo/" local="128362478500000000" remote="128427543000000000" />
+<file name="edit_role.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="edit_personal_details.rhtml" server="rimon-systems.com/demo/" local="128382910500000000" remote="128427543000000000" />
+<file name="edit_company_details.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="edit_building.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="contacts_list.rhtml" server="rimon-systems.com/demo/" local="128327908340000000" remote="128427543000000000" />
+<file name="company_details.rhtml" server="rimon-systems.com/demo/" local="128326824640000000" remote="128427543000000000" />
+<file name="change_mt_request_state.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="building_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="_worker_form.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427543000000000" />
+<file name="_role_form.rhtml" server="rimon-systems.com/demo/" local="128326839100000000" remote="128427543000000000" />
+<file name="_mt_requests_table.rhtml" server="rimon-systems.com/demo/" local="128326116940000000" remote="128427543000000000" />
+</dwsync>

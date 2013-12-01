@@ -1,0 +1,25 @@
+<%= begin_page_title "תפקידים"%>
+	<%= button_tag 'תפקיד חדש', {:action=>"new_role"}, 'add', false %>
+<%=end_page_title%>
+<table class="data_table" cellspacing="0">
+  <tr>
+	<th>שם</th>
+	<th>אב-בית</th>
+	<th>בעל-מקצוע</th>
+	<th>מנהל אתר</th>
+	<th colspan="3">פעולות</th>
+  </tr>
+  
+<% for role in @roles %>
+  <tr class="<%=cycle('evenRow', 'oddRow')%>">
+  	<td><%= link_to role.name, :action => "show_role", :id => role %></td>
+	<td><%= image_tag role.building_manager? ? 'accept.png' : 'no_mark.png'%></td>
+	<td><%= image_tag role.professional? ? 'accept.png' : 'no_mark.png'%></td>
+	<td><%= image_tag role.admin? ? 'accept.png' : 'no_mark.png'%></td>
+    <td><%= link_to image_tag("edit.png"), :action => 'edit_role', :id => role %></td>
+    <td><%= link_to image_tag('cross.png'), { :action => 'role_destroy', :id => role }, :confirm => 'למחוק את התפקיד?', :post => true %></td>
+  </tr>
+<% end %>
+
+</table>
+

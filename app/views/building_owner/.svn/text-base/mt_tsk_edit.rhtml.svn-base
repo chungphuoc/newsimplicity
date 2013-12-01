@@ -1,0 +1,7 @@
+<%= begin_page_title "עריכת פרטי משימה" %>
+	<%= button_tag "לרשימת המשימות", {:action=>"mt_tsk_list"}, "list", false %>
+<%= end_page_title %>
+<%= start_form_tag :id=>@task, :action => "mt_tsk_edit"  %>
+<%= render :partial=>"shared/mt_tsk/mt_task_form", :object=>@task, :locals=>{:buildings=>@buildings}  %>
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>

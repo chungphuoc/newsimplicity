@@ -1,0 +1,6 @@
+<%= begin_page_title "עריכת הפרטים שלי"%><%= end_page_title %>
+
+<%= start_form_tag :action=>"my_details_edit" %>
+<%= render :partial=>"user_form", :object=>@user %>
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>

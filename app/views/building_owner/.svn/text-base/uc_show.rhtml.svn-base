@@ -1,0 +1,6 @@
+<%= begin_page_title "פרטי חוזה" %>
+	<%= button_tag "חזרה לרשימה", {:action=>"uc_list"}, "list", false %>
+	<%= button_tag "עריכה", {:action=>"uc_edit", :id=>@uc}, "edit", false %>	
+<%= end_page_title %>
+
+<%= render :partial=>"/shared/unit_contract", :object=>@uc %>

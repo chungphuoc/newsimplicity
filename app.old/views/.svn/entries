@@ -1,0 +1,97 @@
+8
+
+dir
+120
+file://localhost/svn/vaadnet/trunk/app/views
+file://localhost/svn/vaadnet
+
+
+
+2007-10-21T21:21:00.247074Z
+120
+michaelbar-sinai
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+a7d5a6ee-9b2d-0410-bb23-a881a0c5062c
+
+super_users
+dir
+
+uploaded_files
+dir
+
+mt_requests_change
+dir
+
+tenant_posts
+dir
+
+vaad_flat
+dir
+
+vaad_admin
+dir
+
+contact_mailer
+dir
+
+dispatcher
+dir
+
+shared_documents
+dir
+
+guest
+dir
+
+tenant
+dir
+
+vaadnet_common
+dir
+
+contact_people
+dir
+
+layouts
+dir
+
+users
+dir
+
+shared
+dir
+
+mt_company
+dir
+
+building_owner
+dir
+
+business_building
+dir
+
+suggestions
+dir
+
+tenants
+dir
+
+general
+dir
+
+announcements
+dir
+

@@ -1,0 +1,35 @@
+<%= begin_page_title "ניהול דיירים" %>
+<%= button_tag 'הוספת דייר', {:action => 'new'}, 'user_add', false %>
+<%= end_page_title %>
+
+<table cellspacing="0" class="data_table">
+  <tr>
+    <th>שם פרטי</th>
+	<th>שם משפחה</th>
+	<th>דירה</th>
+	<th>טלפון</th>
+	<th>סלולרי</th>
+	<th>דואר אלקטרוני</th>
+	<th>שם משתמש</th>
+	<th colspan="2">פעולות</th>
+
+  </tr>
+  
+<% for tenant in @tenants %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+    <td><%=link_to h(tenant.first_name), :action => 'show', :id => tenant %></td>
+    <td><%=link_to h(tenant.surname), :action => 'show', :id => tenant %></td>
+    <td><%=link_to h(tenant.flat.human_description), :action => 'show', :id => tenant %></td>
+    <td style="direction: ltr"><%=link_to h(tenant.phone), :action => 'show', :id => tenant %></td>
+    <td style="direction: ltr"><%=link_to h(tenant.mobile), :action => 'show', :id => tenant %></td>
+    <td style="direction: ltr;"><a href="mailto:<%= h(tenant.email)%>"><%= h(tenant.email)%></a></td>
+	<td><%= h(tenant.username) %></td>
+    <td><%= link_to image_tag('user_view.png'), :action => 'show', :id => tenant %></td>
+    <td><%= link_to image_tag('user_delete.png'), { :action => 'destroy', :id => tenant }, :confirm => 'הדייר ימחק. להמשיך?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+<p>
+<%= link_to 'דיירים קודמים', { :page => @tenant_pages.current.previous } if @tenant_pages.current.previous %>
+<%= link_to 'עוד דיירים', { :page => @tenant_pages.current.next } if @tenant_pages.current.next %> 
+</p>

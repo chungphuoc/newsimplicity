@@ -1,0 +1,25 @@
+<h1>Listing building_owners</h1>
+
+<table>
+  	<tr>
+    	<th>hr_name</th>
+		<th>username</th>
+  	</tr>
+  
+<% for building_owner in @building_owners %>
+  <tr>
+    <td><%=h building_owner.hr_name %></td>
+    <td><%=h building_owner.username %></td>	
+    <td><%= link_to 'Show', :action => 'bo_show', :id => building_owner %></td>
+    <td><%= link_to 'Edit', :action => 'bo_edit', :id => building_owner %></td>
+    <td><%= link_to 'Destroy', { :action => 'bo_destroy', :id => building_owner }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @building_owner_pages.current.previous } if @building_owner_pages.current.previous %>
+<%= link_to 'Next page', { :page => @building_owner_pages.current.next } if @building_owner_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New building_owner', :action => 'bo_new' %>

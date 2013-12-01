@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="advertisement.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="announcement.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="application_state.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="building.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="building_owner.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="building_unit.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="business.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="business_building.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="car.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="condo_question.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="contact_mailer.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="contact_person.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="cp_category.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="flat.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="KVObj.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="localized_entry.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="maintenance_request.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="maintenance_request_history_item.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="mt_company.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="mt_company_task.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="mt_company_worker.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="mt_company_worker_role.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="mt_request_query.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="place_list_item.rb.svn-base" server="rimon-systems.com/demo/" local="128368515600000000" remote="128368515600000000" />
+<file name="post.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="shared_document.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="suggestion.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="super_user.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="tenant.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="tenant_post.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="unit_contract.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="unit_type.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="uploaded_file.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+<file name="user.rb.svn-base" server="rimon-systems.com/demo/" local="128419740600000000" remote="128419740600000000" />
+</dwsync>

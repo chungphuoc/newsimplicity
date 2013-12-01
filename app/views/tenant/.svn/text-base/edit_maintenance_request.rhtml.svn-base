@@ -1,0 +1,9 @@
+<%= begin_page_title "עריכת דיווח" %>
+	<%= button_tag 'חזרה לרשימת הדיווחים', {:action => 'maintenance_requests'}, 'tenant_post_list', false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action => 'update_maintenance_request', :id => @maintenance_request %>
+  <%= render :partial => 'maintenance_request_form' %>
+  <%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>
+

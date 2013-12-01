@@ -1,0 +1,55 @@
+<table class="report">
+	<tr>
+		<td class="key">בניין</td>
+		<td class="value"><%- bld = unit_contract.building_units[0].building -%>
+			<%= link_to bld.hr_address, :action=>"building_show", :id=>bld %>
+		</td>
+	</tr>
+	<tr>
+		<td class="key">עסק</td>
+		<td class="value"><%= link_to unit_contract.business.name, :action=>"biz_show", :id=>unit_contract.business %></td>
+	</tr>
+	<tr>
+		<td class="key">מהות</td>
+		<td class="value">
+			<% if unit_contract.mode == UnitContract::MODE_RENT %>השכרה<% end %>
+			<% if unit_contract.mode == UnitContract::MODE_SELL %>מכירה<% end %>
+		</td>
+	</tr>
+	<tr>
+		<td class="key">תאריך התחלה</td>
+		<td class="value"><%= pp_date( unit_contract.start_date) %></td>
+	</tr>
+	<% if unit_contract.mode == UnitContract::MODE_RENT -%>
+	<tr>
+		<td class="key">תאריך סיום</td>
+		<td class="value"><%= pp_date( unit_contract.end_date) %></td>
+	</tr>
+	<% end -%>
+	<tr>
+		<td class="key valign_top">יחידות</td>
+		<td class="value">
+			<% for unit in unit_contract.building_units %>
+				<%= link_to pp_place(unit), :action=>"bu_show", :id=>unit %>
+			<% end %>
+		</td>
+	</tr>
+	<%- if unit_contract.has_uploaded_files? -%>
+		<tr>
+			<td class="key valign_top">קבצים</td>
+			<td class="value">
+				<table class="inner_report_table" cellspacing="0">
+					<tr>
+						<th>שם</th><th>גודל</th><th>תאריך שמירה</th>
+					</tr>
+					<%- for uf in unit_contract.uploaded_files -%>
+						<tr>
+							<td><%= link_to h(uf.title),             :action=>:uc_get_uploaded_file, :id=>uf %></td>
+							<td><%= link_to pp_file_size(uf.size),   :action=>:uc_get_uploaded_file, :id=>uf %></td>
+							<td><%= link_to pp_date(uf.upload_date), :action=>:uc_get_uploaded_file, :id=>uf %></td>
+						</tr>
+					<%- end -%>
+				</table>
+			</td></tr>
+	<%- end -%>
+</table>

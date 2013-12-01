@@ -1,0 +1,57 @@
+<%= begin_page_title "פרטי הנכס" %>
+	<%= button_tag "עריכה", {:action=>"building_edit", :id=>@building},"edit", false %>
+<%= end_page_title %>
+
+<table border="0" class="report">
+	<tr>
+		<td class="key">עיר</td>
+		<td class="value"><%= h @building.city %></td>
+	</tr><tr>
+		<td class="key">רחוב</td>
+		<td class="value"><%= h @building.street %></td>
+	</tr><tr>
+		<td class="key">מספר</td>
+		<td class="value"><%= h @building.number %></td>
+	</tr><tr>
+		<td class="key">טקסט פתיחה</td>
+		<td class="value"><%= crlfs_to_brs @building.welcome_note %></td>
+	</tr><tr>
+		<td class="key">הוראות הגעה</td>
+		<td class="value"><%= crlfs_to_brs @building.directions %></td>
+	</tr><tr>
+		<td class="key">קומה נמוכה ביותר</td>
+		<td class="value"><span class="ltr"><%= h @building.lowest_floor %></span><br/>
+			<div class="remark">קומה 0 היא קומת הקרקע.</div></td>
+	</tr><tr>
+		 <td class="key">קומה גבוהה ביותר</td>
+		 <td class="value"><span class="ltr"><%= h @building.highest_floor %></span></td>
+	</tr>
+	<tr>
+		<td class="key">חברת אחזקה</td>
+		<td class="value">
+                    <%- if @building.has_mt_company? -%>
+                          <%= link_to h(@building.mt_company.name), :action=>"mt_company_show", :building_id=>@building  %>
+                    <%- else -%>[אין]<%- end %>
+		</td>
+	</tr>
+	<tr>
+		<td class="key">אב בית</td>
+		<td class="value"><%= crlfs_to_brs( @building.has_mt_building_manager? ? @building.mt_building_manager.name : "[אין]")  %></td>
+	</tr>
+    <tr>
+        <td class="key">סוג יחידות אוטומטי</td>
+        <td class="value">
+			<%- unless @building.default_public_unit_type.nil? -%>
+			<%= h(@building.default_public_unit_type.name) %>
+			<%- else
+			 		add_error("NO_DEFAULT_PUBLIC_UNIT")-%>[אין]
+			<%- end -%>
+		</td>
+       </tr>
+	<% if @building.has_map? -%>
+	<tr>
+		<td class="key">מפה</td>
+		<td class="value"><a href="<%=@building.map_address%>" target="_blank">הצג מפה קיימת</a></td>
+	</tr>
+	<% end -%>
+</table>

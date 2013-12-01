@@ -1,0 +1,9 @@
+<%= begin_page_title "עריכת איש קשר" %>
+	<%= button_tag 'הצג', {:action => 'show', :id => @contact_person}, 'contact_person_view', false %>
+	<%= button_tag 'חזרה לרשימה', {:action => 'list'}, 'contact_person_list', false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action => 'update', :id => @contact_person %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>

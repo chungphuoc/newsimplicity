@@ -1,0 +1,40 @@
+8
+
+dir
+120
+file://localhost/svn/vaadnet/trunk/app
+file://localhost/svn/vaadnet
+
+
+
+2007-10-21T21:21:00.247074Z
+120
+michaelbar-sinai
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+a7d5a6ee-9b2d-0410-bb23-a881a0c5062c
+
+helpers
+dir
+
+models
+dir
+
+controllers
+dir
+
+views
+dir
+

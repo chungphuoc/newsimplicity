@@ -1,0 +1,24 @@
+<%= begin_page_title "סוגי יחידות",true %>
+	<%= button_tag 'הוסף סוג יחידה', {:action => 'ut_new'}, "add", false%>
+<%= end_page_title %>
+<%= begin_help_section %>
+	כל יחידה בבניין שייכת לסוג מסויים, למשל "חנויות" או "חניונים". 
+	כל משתמש יכול להגדיר את הסוגים כראות עיניו, לדוגמא "חנויות נעלים", "חנויות בגדים", "חניוני קטנועים" וכדומה.<br />
+        משתמשים יכולים לדווח על תקלות במקומות ציבוריים גם אם אין להם חוזה למקומות אלו.
+        <%= end_help_section %>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>שם</th>
+                <th>ציבורי</th>
+                <th colspan="2">פעולות</th>
+	</tr>
+
+	<% for unit_type in @unit_types %>
+	<tr class="<%= cycle('odd_row','even_row') %>">
+		<td><%= h unit_type.name %></td>
+                <td><%= gpp_boolean(unit_type.is_public) %></td>
+                <td><%= link_to image_tag("edit.png"), :action => 'ut_edit', :id => unit_type %></td>
+		<td><%= link_to image_tag("cross.png"), { :action => 'ut_destroy', :id => unit_type }, :confirm => 'למחוק את סוג היחידה?', :post => true %></td>
+	</tr>
+	<% end %>
+</table>

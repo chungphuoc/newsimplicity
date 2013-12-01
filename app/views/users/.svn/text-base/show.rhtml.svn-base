@@ -1,0 +1,31 @@
+<%= begin_page_title "פרטי משתמש" %>
+	<%= button_tag 'ערוך', {:action => 'edit', :id => @user}, 'user_edit', false %>
+	<%= button_tag 'חזרה לרשימת משתמשים', {:action => 'list'}, 'user_list', false %>
+<%= end_page_title %>
+<table class="report">
+
+<tr>
+	<td class="key">שם פרטי</td>
+	<td class="value"><%= h @user.first_name  %></td>
+</tr>
+<tr>
+	<td class="key">שם משפחה</td>
+	<td class="value"><%= h @user.surname  %></td>
+</tr>
+<tr>
+	<td class="key">שם משתמש</td>
+	<td class="value"><%= h @user.username  %></td>
+</tr>
+<tr>
+	<td class="key">תפקיד</td>
+	<td class="value"><%= @user.user_type %></td>
+</tr>
+<tr>
+	<td class="key">תיאור</td>
+	<td class="value"><%= crlfs_to_brs @user.description %></td>
+</tr>
+<tr>
+	<td class="key">יצירת קשר</td>
+	<td class="value"><%= crlfs_to_brs @user.contact_info %></td>
+</tr>
+</table>

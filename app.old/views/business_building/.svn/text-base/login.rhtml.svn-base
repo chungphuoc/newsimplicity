@@ -1,0 +1,25 @@
+<%= begin_page_title "כניסה למערכת - משרדים"%><%= end_page_title %>
+<%= start_form_tag :action=>"login" %>
+<%= hidden_field_tag 'biz_id', @business.nil? ? "" : @business.id %>
+<table border="0">
+	<%- unless @building.is_user_login_unique -%>
+	<tr>
+		<td>עסק:</td>
+		<td><%= collection_select 'business', 'id', @businesses, :id, :name %></td>
+	</tr>
+	<%- end -%>
+	<tr>
+		<td>שם משתמש:</td>
+		<td class="ltr"><%= text_field_tag 'username', @username %></td>
+	</tr>
+	<tr>
+		<td>סיסמא:</td>
+		<td class="ltr"><%= password_field_tag 'password' %></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+			<%= submit_tag 'כניסה למערכת' %>
+		</td>
+	</tr>
+</table>
+<%= end_form_tag %>

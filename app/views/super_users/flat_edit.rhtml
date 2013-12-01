@@ -1,0 +1,9 @@
+<h1>Editing flat</h1>
+
+<%= start_form_tag :action => 'flat_update', :id => @flat %>
+  <%= render :partial => 'flat_form' %>
+  <%= submit_tag 'Edit' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'flat_show', :id => @flat %> |
+<%= link_to 'Back', :action => 'flat_list' %>

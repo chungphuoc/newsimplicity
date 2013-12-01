@@ -1,0 +1,8 @@
+<%= begin_page_title "מסמך משותף חדש" %>
+	<%= button_tag 'חזרה לרשימת המסמכים', {:action => 'list'}, 'list', false %>
+<%= end_page_title %>
+
+<%= start_form_tag( {:action => 'create'}, :multipart => true ) %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "שמור" %>
+<%= end_form_tag %>

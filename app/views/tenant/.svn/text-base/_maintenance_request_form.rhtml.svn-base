@@ -1,0 +1,22 @@
+<!--[form:maintenance_request]-->
+<table>
+	<tr>
+		<td><label for="maintenance_request_title">כותרת</label></td>
+		<td><%= text_field 'maintenance_request', 'title'  %></td>
+	</tr><tr>
+		<td class="valign_top">מיקום</td>
+		<td>
+			<%= mt_request_place_menu("place", @maintenance_request, nil, @building) %>
+			<br/>פירוט: <%= text_field 'maintenance_request', 'place_free_text' %>
+		</td>
+	</tr><tr>
+		<td>דחיפות</td>
+		<td><%= collection_select 'maintenance_request', 'urgency', MaintenanceRequest.urgencies, :key, :value %></td>
+	</tr><tr>
+		<td class="valign_top"><label for="maintenance_request_body">פירוט התקלה</label></td>
+		<td><%= text_area 'maintenance_request', 'body', :rows=>"5"  %></td>
+	</tr>
+</table>
+
+<!--[eoform:maintenance_request]-->
+

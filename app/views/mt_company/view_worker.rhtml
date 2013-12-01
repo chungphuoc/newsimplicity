@@ -1,0 +1,60 @@
+<%=begin_page_title "פרטי עובד"%>
+<%= button_tag "לרשימת העובדים", {:action=>@return_to}, "list", false %>
+<% if @worker.mt_company_role.admin? -%>
+	<%= button_tag "עריכת פרטים", {:action=>"edit_worker", :id=>@fresh_worker},"edit", false %>
+<% end %>
+<%=end_page_title%>
+<% if @fresh_worker.count_buildings > 0  -%>
+	<div class="left_floater">
+		<table class="report">
+			<tr><td class="key">אב הבית של הבניינים</td></tr>
+		<% for b in @fresh_worker.buildings -%>
+			<tr><td class="value"><%= link_to b.hr_address, :action=>"show_building", :id=>b %></td></tr>
+		<% end -%>
+		</table>
+	</div>
+<% end -%>
+<table class="report">
+	<tr>
+		<td class="key">שם פרטי</td>
+		<td class="value"><%= crlfs_to_brs @fresh_worker.first_name %></td>
+	</tr><tr>
+		<td class="key">שם משפחה</td>
+		<td class="value"><%= crlfs_to_brs @fresh_worker.surname %></td>
+	</tr><tr>
+		<td class="key">שם משתמש</td>
+		<td class="value"><%= crlfs_to_brs @fresh_worker.username %></td>
+	</tr><tr>
+		<td class="key">טלפון נייד</td>
+		<td class="value"><%= crlfs_to_brs @fresh_worker.mobile %></td>
+	</tr><tr>
+		<td class="key">ביפר</td>
+		<td class="value"><%= crlfs_to_brs @fresh_worker.beeper %></td>
+	</tr><tr>
+		<td class="key">דואר אלקטרוני</td>
+		<% if ! @fresh_worker.email.blank? %>
+			<td class="value ltr">
+				<a href="mailto:<%= crlfs_to_brs @fresh_worker.email %>"><%= crlfs_to_brs @fresh_worker.email %></a>
+			</td>
+		<% else -%>
+			<td class="value">[אין]</td>
+		<% end %>
+	</tr><tr>
+		<td class="key">תפקיד</td>
+		<td class="value"><%= link_to @fresh_worker.mt_company_role.name, :action=>"show_role", :id=>@fresh_worker.mt_company_role %></td>
+	</tr><tr>
+		<td class="key">פרטים</td>
+		<td class="value"><%= crlfs_to_brs @fresh_worker.details %></td>
+	</tr>
+</table>
+<!--
+<p>&nbsp;</p>
+<fieldset>
+	<legend>שלח SMS</legend>
+	<%= start_form_tag :action=>params[:action], :reason=>"send_sms" %>
+	<%= text_field_tag 'sms_text', '', :maxlength=>"120", :size=>"60" %><br />
+	<span class="remark">SMS מוגבל לאורך של 120 תווים. עלויות המשלוח בהתאם לחוזה עם חברת רימון.</span>
+	<%= submit_tag 'שלח' %>
+	<%= end_form_tag %>
+</fieldset>
+-->

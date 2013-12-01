@@ -1,0 +1,48 @@
+<table class="report">
+<tr>
+	<td class="key"><label for="data_name">שם</label></td>
+	<td class="value"><%= h data.name  %></td>
+</tr>
+
+<tr>
+	<td class="key"><label for="data_eng_name">כינוי מערכת</label></td>
+	<td class="value"><%= crlfs_to_brs data.eng_name  %></td>
+</tr>
+
+<tr>
+	<td class="key"><label for="data_description">תאור</label></td>
+	<td class="value"><%= crlfs_to_brs data.description  %></td>
+</tr>
+
+<tr>
+	<td class="key"><label for="data_site">אתר</label></td>
+	<td class="value">
+		<% if data.site.blank? -%>
+			[אין]
+		<% else -%>
+			<%= link_to h(data.site),h(data.site), :target=>"_blank"  %>
+		<% end -%>		
+	</td>
+</tr>
+<tr>
+	<td class="key"><label for="data_site">דואר אלקטרוני</label></td>
+	<td class="value">
+		<% if data.email.blank? -%>
+			[אין]
+		<% else -%>
+			<%= mail_to h(data.email)  %>
+		<% end -%>		
+	</td>
+</tr>
+
+<tr>
+	<td class="key"><label for="data_phone">טלפון</label></td>
+	<td class="value"><%= crlfs_to_brs data.phone  %></td>
+</tr>
+
+<tr>
+	<td class="key"><label for="data_fax">פקס</label></td>
+	<td class="value"><%= crlfs_to_brs data.fax  %></td>
+</tr>
+
+</table>

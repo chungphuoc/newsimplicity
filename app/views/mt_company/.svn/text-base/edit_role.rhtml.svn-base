@@ -1,0 +1,5 @@
+<%= begin_page_title "עריכת תפקיד" %><%=end_page_title%>
+<%= start_form_tag :action=>"update_role", :id=>@role%>
+<%= render :partial => 'role_form' %>
+<%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>

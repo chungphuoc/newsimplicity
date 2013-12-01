@@ -1,0 +1,19 @@
+<%= begin_page_title "עריכת סוג יחידה", true %>
+	<%= button_tag 'חזור לרשימה', {:action => 'ut_list'}, "list", false %>
+<%= end_page_title %>
+<%= begin_help_section %>
+  במסך זה ניתן לשנות את שם סוג היחידה ולקבוע האם הוא ציבורי או לא. משתמשים יכולים לפתוח בקשות שירות בשטחים ציבוריים גם אם אין לעסק שלהם חוזה עבור שטחים אלו.
+<%= end_help_section %>
+<%- if @units.size>0 -%>
+  <div class="left_floater">
+    <h1>יחידות מסוג זה</h1>
+    <%- @units.each do | unit | -%>
+    <%= link_to "#{h(unit.name)} (#{unit.building.hr_address})", :action=>:bu_show, :id=>unit %><br/>
+    <%- end -%>
+  </div>
+<%- end -%>
+<%= start_form_tag :action => 'ut_update', :id => @unit_type %>
+  <%= render :partial => 'ut_form' %>
+  <%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>
+

@@ -1,0 +1,84 @@
+<%= begin_page_title "עריכת פרטי חוזה" %>
+	<%= button_tag "חזרה לרשימה", {:action=>"uc_list"}, "list", false %>
+<%= end_page_title %>
+<%= start_form_tag( {:action=>"uc_update", :id=>@uc}, :multipart=>true )%>
+<table border="0">
+	<tr>
+		<td class="key">בניין</td>
+		<td class="value"><%= @building.hr_address %></td>
+	</tr><tr>
+		<td class="valign_top">עסק</td>
+		<td class="value">
+			<%= collection_select 'uc', 'business_id', @businesses, :id, :name %>
+		</td>
+	</tr><tr>
+		<td class="valign_top">יחידות</td>
+		<td class="value">
+			<span class="scroll_list">
+				<% for unit in @units -%>
+					<%= labeled_checkbox( "#{unit.name} (#{unit.unit_type.name})", @uc.building_units.include?(unit), 'units', unit.id.to_s ); %><br/>
+				<% end -%>
+			</span>
+		</td>
+	</tr>
+	<tr>
+		<td>מהות</td>
+		<td class="value"><%= collection_select 'uc','mode', @modes, :first, :last, {}, :onchange=>"updateVisibility();" %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><strong>תאריכים</strong></td>
+	</tr>
+	<tr>
+		<td>התחלה</td>
+		<td class="value"><%= date_select 'uc', 'start_date' %></td>
+	</tr>
+	<tr id="date_finish" style="<%= @uc.mode == UnitContract::MODE_SELL ? 'display: none' : '' %>" >
+		<td>סיום</td>
+		<td class="value"><%= date_select 'uc', 'end_date' %></td>
+	</tr>
+	<%- if @uc.has_uploaded_files? -%>
+	<tr>
+		<td colspan="2"><strong>קבצים</strong></td>
+	</tr>
+		<tr>
+			<td class="valign_top">&nbsp;</td>
+			<td>
+				<table>
+					<tr>
+						<th>שם</th><th>פעולות</th>
+					</tr>
+					<%- for uf in @uc.uploaded_files -%>
+						<tr>
+							<%- fields_for "uploaded_file_#{uf.id}", uf do |f|-%>
+							<td><%=f.text_field :title %><%= f.hidden_field :id %></td>
+							<td><%= labeled_checkbox "מחק", false, "uploaded_file_" + uf.id.to_s, "delete" %></td>
+							<td><%= link_to "הורד", :action=>:uc_get_uploaded_file, :id=>uf %>
+							<%- end -%>
+						</tr>
+					<%- end -%>
+				</table>
+			</td></tr>
+	<%- end -%>
+	<tr>
+		<td colspan="2"><strong>הוספת קבצים</strong></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>
+			<table border="0">
+				<tr>
+					<th>כותרת</th>
+					<th>קובץ</th>
+				</tr>
+				<%- for i in (0..2) -%>
+					<tr>
+						<td><input id="file_<%= i.to_s %>_title" name="file[<%= i.to_s %>][title]" type="text" /></td>
+						<td><input id="file_<%= i.to_s %>_file"  name="file[<%= i.to_s %>][file]"  type="file" /></td>
+					</tr>
+				<%- end -%>
+			</table>
+		</td>
+	</tr>	
+</table>
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>

@@ -1,0 +1,37 @@
+table.tab_panel {
+	width: 100%;
+}
+
+table.tab_panel th {
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	margin: 0px;
+	background-color: #AAA;
+}
+
+table.tab_panel th.selected {
+	background-color: #DDD;	
+	border-bottom: none;
+}
+
+table.tab_panel th.spacer {
+	border-bottom: 1px solid black;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	background-color: transparent;
+}
+
+table.tab_panel td.contents {
+	border-bottom: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;	
+	background-color: #DDD;
+	padding: 4px;
+}
+
+table.tab_panel th a {
+	display: block;
+}

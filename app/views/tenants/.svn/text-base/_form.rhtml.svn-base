@@ -1,0 +1,68 @@
+<!--[form:tenant]-->
+<%= start_form_tag %>
+<fieldset>
+	<legend>פרטי הדייר</legend>
+	<input type="hidden" name="flat_mode" value="<%=@flat_mode %>" />
+<table>
+	<tr>
+		<td><label for="tenant_first_name">שם פרטי</label><br />
+			<%= text_field 'tenant', 'first_name'  %></td>
+
+		<td><label for="tenant_surname">שם משפחה</label><br/>
+			<%= text_field 'tenant', 'surname'  %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><label for="tenant_flat">דירה</label><br/>
+			<% if @flat_mode %>
+				<%= hidden_field 'tenant', 'flat_id' %>
+				<%= data_label @tenant.flat.human_description %>
+			<% else %>
+				<%= collection_select 'tenant', 'flat_id', Flat.find(:all, :order => "number"), :id, :human_description %></td>
+			<% end %>
+	</tr>
+	<tr>
+		<td style="direction: ltr"><label for="tenant_phone">טלפון</label><br/>
+			<%= text_field 'tenant', 'phone'  %></td>
+
+		<td style="direction: ltr"><label for="tenant_mobile">סלולרי</label><br/>
+			<%= text_field 'tenant', 'mobile'  %></td>
+	</tr>
+	<tr>
+		<td style="direction: ltr"><label for="tenant_fax">פקס</label><br/>
+			<%= text_field 'tenant', 'fax'  %></td>
+
+		<td><label for="tenant_email">דואר אלקטרוני</label><br/>
+			<span style="direction: ltr"><%= text_field 'tenant', 'email'  %></span></td>
+	</tr>
+	<tr>
+		<td><label for="tenant_gender">מין</label><br/>
+			<%= radio_button 'tenant', 'is_male', 'true'  %>&nbsp;גבר
+		</td>
+		<td>&nbsp;<br/>
+			<%= radio_button 'tenant', 'is_male', 'false'  %>&nbsp;אשה</td>
+	</tr>
+	<tr>
+		<td colspan="2"><label for="tenant_site">אתר</label><br/>
+			<span style="direction:ltr"><%= text_field 'tenant', 'site', "size" => 65  %></span></td>
+	</tr>
+	<tr>
+		<td><label for="tenant_username">שם משתמש</label><br/>
+			<span style="direction: ltr"><%= text_field 'tenant', 'username'  %></span></td>
+		<td><label for="tenant_password">סיסמא</label><br/>
+			<span style="direction: ltr"><%=password_field 'tenant','password' %></span><br/>
+			<% if @tenant.id != nil -%>
+				<span class="remark">השאר ריק על מנת להשאיר סיסמא קודמת</span>
+			<% end -%>
+		</td>
+		<td><label for="tenant_role">תפקיד</label><br/>
+			<%= select 'tenant', 'role', Tenant::ROLES %></td>
+	</tr>
+	
+	<tr>
+		<td colspan="2">
+			<label for="tenant_about">הערות</label><br/>
+			<%= text_area 'tenant', 'about', "cols" => 65, "rows"=>5  %></td>
+	</tr>
+</table>
+
+</fieldset>

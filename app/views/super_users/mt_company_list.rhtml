@@ -1,0 +1,25 @@
+<h1>חברות אחזקה</h1>
+
+<table>
+  <tr>
+  	<th>שם</th>
+	<th>שם אנגלי</th>
+  </tr>
+  
+<% for mt_company in @mt_companies %>
+  <tr>
+    <td><%=h mt_company.name %></td>
+    <td><%=h mt_company.eng_name %></td>
+    <td><%= link_to 'Show', :action => 'mt_company_show', :id => mt_company %></td>
+    <td><%= link_to 'Edit', :action => 'mt_company_edit', :id => mt_company %></td>
+    <td><%= link_to 'Destroy', { :action => 'mt_company_destroy', :id => mt_company }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @mt_company_pages.current.previous } if @mt_company_pages.current.previous %>
+<%= link_to 'Next page', { :page => @mt_company_pages.current.next } if @mt_company_pages.current.next %> 
+
+<br />
+
+<%= link_to 'צור חברה חדשה', :action => 'mt_company_new' %>

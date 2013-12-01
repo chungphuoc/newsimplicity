@@ -1,0 +1,8 @@
+<%
+a = LocalizedEntry.find( :all )
+%>
+	<pre style="direction: ltr; text-align:left">
+		<% a.each do | l | %>
+			<%= l.entry %>=<%= l.value %>
+		<%- end -%>
+	</pre>

@@ -1,0 +1,5 @@
+<div class="footer">
+	<a href="<%=request.relative_url_root%>/terms_and_conditions.html" target="_blank">תנאי השימוש באתר</a><br />
+	2006-7 Rimon Systems, all rights reserved &copy; Rev:trunk/138
+	<!-- $Revision: $ -->
+</div>

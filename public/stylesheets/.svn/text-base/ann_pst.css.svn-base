@@ -1,0 +1,50 @@
+.announcemet,
+.tenant_post {
+	margin: 0.5em;
+}
+
+.announcement.tr.th,
+.tenant_post.tr.th {
+	text-align: right;
+	white-space: nowrap;
+}
+
+.announcement.tr.th.a,
+.tenant_post.tr.th.a {
+	display:  block;
+}
+
+.announcement.tr.td,
+.tenant_post.tr.td {
+	text-align: left;
+	direction: ltr;
+	white-space: nowrap;
+}
+
+.announcemet a ,
+.tenant_post a{
+	color: black;
+	background-color: transparent;
+}
+
+.announcemet a:visited ,
+.tenant_post a:visited{
+	color: black;
+	background-color: transparent;
+}
+
+.announcemet a:hover,
+.tenant_post a:hover {
+	color: #440;
+	background-color: transparent;
+}
+
+.announcemet a:active,
+.tenant_post a:active {
+	color: #880;
+	background-color: transparent;
+}
+
+.tenant a {
+	font: normal normal normal 1em "Arial Hebrew", sans-serif;
+}

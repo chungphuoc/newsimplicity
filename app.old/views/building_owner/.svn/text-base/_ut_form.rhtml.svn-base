@@ -1,0 +1,28 @@
+<%- 
+	blds = @unit_type.buildings
+ -%>
+<!--[form:unit_type]-->
+<table>
+	<tr>
+		<td><label for="unit_type_name">שם:</label></td>
+		<td><%= text_field 'unit_type', 'name'  %></td>
+	</tr><tr>
+		<td>מאפיינים</td>
+		<td>
+			<%- if blds.size == 0 -%>
+				<%= labeled_checkbox( "ציבורי", @unit_type.is_public, 'unit_type', 'is_public' ) %>
+			<%- else -%>ציבורי<br/>
+			<span class="remark">
+				לא ניתן להפוך את סוג היחידה ללא-ציבורי, מכיוון שהוא משמש כסוג יחידות אוטומטי עבור
+				<%= blds.size==1 ? "" : "הבניינים הבאים:" %>
+				<%- blds.each do | b | -%>
+					<%= b.hr_address %><br />
+				<%- end -%>
+				</span>
+			<%- end -%>
+		</td>
+	</tr>
+</table>
+
+<!--[eoform:unit_type]-->
+

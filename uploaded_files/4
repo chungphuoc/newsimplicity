@@ -1,0 +1,45 @@
+<invoke description="Get the page: רימון מערכות" url="http://www.rimon-systems.com/demo/"/>
+<clickLink label="חברי המשק"/>
+<setInputField name="username" value="17141"/>
+<setInputField description="Set password field password: 17141" name="password" value="17141"/>
+<clickButton label="כניסה למערכת"/>
+<setInputField forLabel="כותרת" value="test"/>
+<setInputField name="mt_request_data[place_free_text]" value="test"/>
+<setInputField forLabel="פרטי בקשת השירות" value="test"/>
+<clickButton label="דווח"/>
+<clickLink label="•20/12/07 test ( 2/2004 )"/>
+<setInputField name="mt_request_data[title]" value="test-test"/>
+<clickButton label="שמור"/>
+<clickButton label=""/>
+<setSelectField name="mtreq_assignee" text="ענפי שירות יזרעאל (חברת האחזקה)"/>
+<setInputField name="remarks" value="test"/>
+<clickButton label="שמור"/>
+<clickButton label=""/>
+<setSelectField name="place" text=" אחר... "/>
+<setInputField forLabel="מיקום חדש:" value="test"/>
+<setInputField name="remarks" value="test"/>
+<clickButton label="שמור"/>
+<clickButton label=""/>
+<clickButton label=""/>
+<clickButton label=""/>
+<clickButton label=""/>
+<clickButton label=""/>
+<setInputField name="remarks" value="test"/>
+<setRadioButton description="Check radio button mt_request_data[service_type]: 1" name="mt_request_data[service_type]" value="1"/>
+<clickButton label="שמור"/>
+<clickButton label=""/>
+<setRadioButton description="Check radio button mt_request_data[service_type]: 0" name="mt_request_data[service_type]" value="0"/>
+<setInputField name="remarks" value="testtest"/>
+<clickButton label="שמור"/>
+<clickButton label=""/>
+<setSelectField name="mt_request_data[urgency]" text="[!!!!]"/>
+<setInputField name="remarks" value="test"/>
+<clickButton label="שמור"/>
+<clickButton label=""/>
+<setInputField name="mt_request_data[body]" value="--test--testtest--test"/>
+<clickButton label="שמור"/>
+<clickButton label="הוסף הערה"/>
+<setInputField name="remarks" value="test"/>
+<clickButton label="שמור הערה"/>
+<clickLink label="דף הבית"/>
+<clickLink label="יציאה"/>

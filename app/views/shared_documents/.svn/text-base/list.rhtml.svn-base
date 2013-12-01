@@ -1,0 +1,32 @@
+<%= begin_page_title "רשימת מסמכים משותפים" %>
+	<%= button_tag 'הוסף מסמך', {:action => 'new'}, "add", false %>
+<%= end_page_title %>
+<% if @docs.size > 0 %>
+<table cellspacing="0" class="data_table">
+	<tr>
+		<th>כותרת</th>
+		<th>עדכון אחרון</th>
+		<th>מסמך</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+  
+	<% for doc in @docs %>
+		<tr class="<%=cycle("oddRow", "evenRow")%>">
+			<td><%= link_to doc.title, :action => 'show', :id => doc %></td>
+			<td><%= link_to pp_date_time(doc.updated_on), :action => 'show', :id => doc %></td>
+			<td><%= link_to image_tag("file.png"), {:action=>:get_shared_document, :id=>doc}, :target=>"_blank" %>
+			<td><%= link_to image_tag("edit.png"), :action => 'edit', :id => doc %></td>
+	    	<td><%= link_to image_tag("cross.png"), { :action => 'destroy', :id => doc }, :confirm => 'Are you sure?', :post => true %></td>
+		</tr>
+	<% end %>
+</table>
+
+<p>
+<%= link_to 'Previous page', { :page => @doc_pages.current.previous } if @doc_pages.current.previous %>
+<%= link_to 'Next page', { :page => @doc_pages.current.next } if @doc_pages.current.next %> 
+</p>
+<% else %>
+<h3>אין מסמכים משותפים</h3>
+<% end %>
+<br />
+

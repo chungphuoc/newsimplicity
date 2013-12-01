@@ -1,0 +1,24 @@
+<%= begin_page_title "מסמך משותף - #{h(@shared_document.title)}" %>
+	<%= button_tag 'ערוך מסמך', {:action => 'edit', :id => @shared_document}, "edit", false %>
+	<%= button_tag 'חזרה לרשימה', {:action => 'list'}, "list", false %>
+<%= end_page_title %>
+
+<table class="report">
+	<tr>
+		<td class="key">כותרת</td>
+		<td class="value"><%=crlfs_to_brs(@shared_document.title)%></td>
+	</tr><tr>
+		<td class="key">עדכון אחרון</td>
+		<td class="value"><%=pp_date_time(@shared_document.updated_on)%></td>
+	</tr><tr>
+		<td class="key">המסמך</td>
+		<td class="value"><%=link_to( image_tag("file.png") + "&nbsp;" + "צפיה", :action=>:get_shared_document, :id=>@shared_document ) %></td>
+	</tr>
+	<% if ! @shared_document.description.blank? %>
+	<tr>
+		<td colspan="2" class="key">תאור</td>
+	</tr><tr>
+		<td colspan="2" class="value"><%= crlfs_to_brs(@shared_document.description) %></td>
+	</tr>
+	<% end %>
+</table>

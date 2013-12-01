@@ -1,0 +1,27 @@
+<h1>Listing place_list_items</h1>
+
+<table>
+  <tr>
+  <% for column in PlaceListItem.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for place_list_item in @place_list_items %>
+  <tr>
+  <% for column in PlaceListItem.content_columns %>
+    <td><%=h place_list_item.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'pli_show', :id => place_list_item %></td>
+    <td><%= link_to 'Edit', :action => 'pli_edit', :id => place_list_item %></td>
+    <td><%= link_to 'Destroy', { :action => 'pli_destroy', :id => place_list_item }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @place_list_item_pages.current.previous } if @place_list_item_pages.current.previous %>
+<%= link_to 'Next page', { :page => @place_list_item_pages.current.next } if @place_list_item_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New place_list_item', :action => 'pli_new' %>

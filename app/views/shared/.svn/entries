@@ -1,0 +1,136 @@
+8
+
+dir
+120
+file://localhost/svn/vaadnet/trunk/app/views/shared
+file://localhost/svn/vaadnet
+
+
+
+2007-10-21T21:21:00.247074Z
+120
+michaelbar-sinai
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+a7d5a6ee-9b2d-0410-bb23-a881a0c5062c
+
+_login_form.rhtml
+file
+
+
+
+
+2007-08-16T09:09:48.000000Z
+1a75408aed4124e9f6532ea058077ada
+2007-04-08T15:56:51.660965Z
+1
+michaelbar-sinai
+
+_places_menu.rhtml
+file
+
+
+
+
+2007-10-21T22:06:07.000000Z
+d442361ae2a072c091f3b8aa6e5f26ff
+2007-10-21T21:21:00.247074Z
+120
+michaelbar-sinai
+
+_place_one_line.rhtml
+file
+138
+
+
+
+2007-12-13T00:52:24.000000Z
+f108d91850dd70151f663bf7619dd9dc
+2007-12-13T00:57:21.755241Z
+138
+michaelbar-sinai
+
+_unit_contract.rhtml
+file
+133
+
+
+
+2007-11-30T01:14:17.000000Z
+6052635798a37167b394c29e4904368e
+2007-11-30T01:21:07.280682Z
+133
+michaelbar-sinai
+
+mt_tsk
+dir
+
+car
+dir
+
+_wizard_stage.rhtml
+file
+
+
+
+
+2007-08-16T09:09:48.000000Z
+86c6ba2fb67fb24e010fcebdb8379d8f
+2007-04-08T15:56:51.660965Z
+1
+michaelbar-sinai
+
+mt_request
+dir
+
+business
+dir
+
+_new_user.rhtml
+file
+
+
+
+
+2007-08-16T09:09:48.000000Z
+69c09cbfa92bfb922cbd54f4a449d34b
+2007-04-08T15:56:51.660965Z
+1
+michaelbar-sinai
+
+unimplemented.rhtml
+file
+
+
+
+
+2007-08-16T09:09:48.000000Z
+45a6eaf351a0f54e1109351608be35e7
+2007-04-12T01:27:18.682583Z
+6
+michaelbar-sinai
+
+_reporter_one_line.rhtml
+file
+
+
+
+
+2007-09-11T17:50:52.000000Z
+e17c2eea7b68e9d5223a0c56f2594552
+2007-08-07T21:35:01.150146Z
+45
+michaelbar-sinai
+

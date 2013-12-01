@@ -1,0 +1,6 @@
+<%= begin_page_title("פרטי תקלה") %>
+<%= button_tag "הדפס", {:action=>"mt_req_print", :id=>@mt_req}, "print", false, true %>
+<%= button_tag "חזרה לרשימה", @back_hash, "list.png", false %>
+<%= end_page_title %>
+
+<%= render :partial=>'shared/mt_request/mt_request_data', :object=>@mt_req, :locals=>{:link_building=>false} %>

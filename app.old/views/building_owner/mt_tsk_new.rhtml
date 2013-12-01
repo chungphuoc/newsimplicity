@@ -1,0 +1,8 @@
+<%= begin_page_title "הוספת משימה חדשה" %>
+	<%= button_tag "לרשימת המשימות", {:action=>"mt_tsk_list"}, "list", false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action=>"mt_tsk_create" %>
+<%= render :partial=>"shared/mt_tsk/mt_task_form", :locals=>{:buildings=>@buildings} %>
+<%= submit_tag "שמור משימה" %>
+<%= end_form_tag %>

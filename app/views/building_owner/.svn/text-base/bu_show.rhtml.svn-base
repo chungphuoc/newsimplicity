@@ -1,0 +1,81 @@
+<%= begin_page_title "פרטי יחידה" %>
+	<%= button_tag "לרשימת היחידות", {:action=>"bu_list"}, "list", false %>
+	<%= button_tag "ערוך פרטים", {:action=>"bu_edit", :id=>@building_unit}, "edit", false %>
+<%= end_page_title %>
+
+<table class="report">
+	<tr>
+		<td class="key">מספר מערכת</td>
+		<td class="value"><%= @building_unit.new_record? ? "[אין]" : @building_unit.id %></td>
+	</tr>
+	<tr>
+		<td class="key"><label for = "building_unit_name">שם</label></td>
+		<td class="value"><%= h(@building_unit.name)  %></td>
+	</tr>
+
+	<tr>
+		<td class="key"><label for = "building_unit_unit_type">סוג</label></td>
+		<td class="value"><%= link_to h(@building_unit.unit_type.name), :action=>"ut_list"  %></td>
+	</tr>
+	
+	<tr>
+		<td class="key valign_top">
+			<label for = "building_unit_unit_type">
+				<%- biz = @building_unit.current_businesses; -%>
+				<%- if biz.length < 2-%>עסק נוכחי<%- else -%>עסקים נוכחיים<%- end -%></label>
+		</td>
+		<td class="value">
+				<%- if ( biz.empty? ) -%>
+					<%= loc.term( Localization::UNASSIGNED )%>
+				<%- else -%>
+					<%- biz.each do | b | -%>
+						<%= link_to h(b.name), :action=>"biz_show", :id=>b %><br />
+					<%- end -%>
+				<%- end -%>
+		</td>
+	</tr>
+		
+	<tr>
+		<td class="key"><label for = "building_unit_building">בניין</label></td>
+		<td class="value"><%= link_to h(@building_unit.building.hr_address), :action=>"building_show", :id=>@building_unit.building %></td>
+	</tr>
+	
+	<tr>
+		<td class="key"><label for = "building_unit_area">שטח</label></td>
+		<td class="value"><%= h @building_unit.area  %></td>
+	</tr>
+
+	<tr>
+		<td class="key"><label for = "building_unit_floor">קומה</label></td>
+		<td class="value"><%= @building_unit.floor  %></td>
+	</tr>
+	<tr>
+		<td class="key"><label for="building_unit_remarks">הערות</label></td>
+		<td class="value"><%= crlfs_to_brs @building_unit.remarks %></td>
+	</tr>
+	
+</table>
+
+<%- unless @building_unit.unit_contracts.empty? -%>
+<h3>חוזים</h3>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>ת. התחלה</th>
+		<th>ת. סיום</th>
+		<th>עסק</th>
+		<th>סוג</th>
+	</tr>
+
+	<% for contract in @building_unit.unit_contracts %>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td><%= link_to pp_date(contract.start_date), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to pp_date(contract.end_date), :action=>"uc_show", :id=>contract %></td>
+		<td><%= link_to h(contract.business.name), :action=>"biz_show", :id=>contract.business %></td>
+		<td>
+			<% if contract.mode == UnitContract::MODE_RENT %><%= link_to "השכרה", :action=>"uc_show", :id=>contract %><% end -%>
+			<% if contract.mode == UnitContract::MODE_SELL %><%= link_to "מכירה", :action=>"uc_show", :id=>contract %><% end -%>
+		</td>
+	</tr>
+	<% end -%>
+</table>
+<%- end -%>

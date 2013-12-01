@@ -1,0 +1,17 @@
+<table class="wizard_stage">
+	<tr>
+		<td class="title">שלב: </td>
+		<% for i in 0...stages.size  -%>
+		<%
+		if current_stage < i
+			td_class = "done"
+		elsif current_stage == i
+			td_class = "current"
+		elsif current_stage > i
+			td_class = "pending"
+		end
+		-%>
+			<td class="<%= td_class %>"><%= stages[i] %></td>
+		<% end -%>
+	</tr>
+</table>

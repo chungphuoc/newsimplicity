@@ -1,0 +1,66 @@
+body {
+	direction: rtl;
+	font: normal normal normal 0.7em "Arial Hebrew", Arial, sans-serif;
+}
+
+a,
+a:hover,
+a:visited,
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+th {
+	color: white;
+	background-color: black;
+}
+
+th a {
+	color: white;
+}
+
+td {
+	border: 1px solid #888;
+	padding: 0.2em 0.5em 0.2em 0.5em;
+}
+
+.footer {
+	font-size: 0.7em;
+	border-top: 1px solid #888;
+	text-align: center;
+	margin-top: 2em;
+}
+
+table.printed_report td.key {
+	font: 1.2em "Arial Hebrew", sans-serif;
+	font-weight: bold;
+	border: none;
+	vertical-align: top;
+	white-space: nowrap;
+}
+
+table.printed_report td.value {
+	font: 1.2em "Arial Hebrew", sans-serif;
+	border: none;
+	vertical-align: top;
+}
+
+table.printed_report td.underline {
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px solid black;
+}
+
+table.printed_report td.dotted_left {
+	border-left: 1px dotted black;
+}
+
+h1 {
+	text-align: right;
+}
+
+h2 {
+	text-align: right;
+}

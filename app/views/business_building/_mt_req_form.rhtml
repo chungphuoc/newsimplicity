@@ -1,0 +1,39 @@
+<%- if @js_files == nil
+	 	@js_files = ["maintenance_report"]
+	else
+		@js_files << "maintenance_report" 
+	end 
+		
+-%>
+
+<!--[form:mt_req]-->
+<table>
+	<tr>
+		<td><label for="mt_req_title">כותרת</label></td>
+		<td><%= text_field 'mt_req', 'title'  %></td>
+</tr><tr>
+	<td class="valign_top">מיקום</td>
+	<td>
+		<%= mt_request_place_menu("place", @mt_req, @user, @building) %>
+		<br/>פירוט: <%= text_field 'mt_request_data', 'place_free_text' %>
+	</td>
+</tr><tr>
+	<td>דחיפות</td>
+	<td><%= collection_select 'mt_req', 'urgency', MaintenanceRequest.urgencies, :key, :value %></td>
+</tr>
+<tr>
+	<td>נמען</td>
+	<td><%= assignee_menu @mt_req, @building %></td>
+</tr>
+<tr>
+	<td colspan="2">
+		<%= labeled_checkbox "הצעת מחיר", @mt_req.qoute?, "mt_req", "is_qoute" %>
+	</td>
+</tr>
+<tr>
+	<td class="valign_top"><label for="mt_req_body">פרטי בקשת השירות</label></td>
+	<td><%= text_area 'mt_req', 'body', :rows=>"5", :cols=>"30"  %></td>
+</tr>
+</table>
+
+<!--[eoform:mt_req]-->

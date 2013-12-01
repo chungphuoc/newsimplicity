@@ -1,0 +1,51 @@
+<%= begin_page_title "יחידות", true %>
+	<%= button_tag "הוסף יחידה", {:action => 'bu_new', :building_id=>@current_building}, "add", false %>
+	<%= rs_player_controls(@pgr) %>
+<%= end_page_title %>
+<%= begin_help_section%>יחידות הן החלקים הניתנים להשכרה בנכס (למשל חנות, מחסן, חניון...)<%= end_help_section %>
+<%= start_form_tag :action=>"bu_list", :method=>"get" %>
+<%= radio_button_tag 'all_buildings', 'true', @all_buildings %>
+כל הנכסים&nbsp;&nbsp;
+
+<%= radio_button_tag 'all_buildings', 'false', ! @all_buildings, :id=>"all_buildings_false"%>
+נכס מסויים:
+<%= collection_select 'current_building', 'id', @buildings , :id, :hr_address %>
+
+<%= submit_tag "רענן רשימה" %>
+<%= end_form_tag %>
+<%- if (@units.size>0) -%>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>מספר מערכת</th>
+		<th>בניין</th>
+		<th>שם</th>
+		<th>סוג</th>
+		<th>עסק</th>
+		<th>שטח (מ"ר)</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+	<% for unit in @units -%>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td><%= link_to unit.id, :action=>"bu_show", :id=>unit %></td>
+		<td><%= link_to h(unit.building.hr_address), :action=>"bu_show", :id=>unit %></td>
+		<td><%= link_to h(unit.name), :action=>"bu_show", :id=>unit %></td>
+		<td><%= link_to h(unit.unit_type.name), :action=>"bu_show", :id=>unit %></td>
+		<td><%- biz = unit.current_businesses; -%>
+			<%- if biz.empty? -%>
+				<%=  loc.term( Localization::UNASSIGNED )  %>
+			<%- else -%>
+				<%- biz.each do | b | -%>
+					<%= link_to h(b.name), :action=>"bu_show", :id=>unit %>
+				<%- end -%>
+			<%- end -%>
+		</td>
+		<td><%= link_to h(unit.area), :action=>"bu_show", :id=>unit %></td>
+		<td><%= link_to image_tag("edit.png"), :action => 'bu_edit', :id=>unit %></td>
+		<td><%= link_to image_tag("cross.png"), { :action => 'bu_destroy', :id=>unit }, :confirm => 'למחוק את היחידה?', :post => true %></td>
+	</tr>
+	<% end -%>
+</table>
+<%= rs_page_links( @pgr ) %>
+<%- else -%>
+לא נמצאו יחידות.
+<%- end -%>

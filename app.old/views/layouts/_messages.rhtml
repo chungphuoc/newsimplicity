@@ -1,0 +1,17 @@
+<%- if errors?() -%>
+<%- get_errors().each { | msg | -%>
+<%= image_tag("error.png") %> <%= loc.translate( msg ) %><br/>
+<%- } end -%>
+<%- if warnings?() -%>
+<%- get_warnings().each { | msg | -%>
+<%= image_tag("warnning.png") %> <%= loc.translate( msg ) %><br/>
+<%- } end -%>
+<%- if info?() -%>
+<%- get_info().each { | msg | -%>
+<%= image_tag("info.png") %> <%= loc.translate( msg )%><br/>
+<%- } end-%>
+<%- if confirmations?() -%>
+<%- get_confirmations().each { | msg | -%>
+<%= image_tag("confirmation.png") %> <%= loc.translate( msg )%><br/>
+<%- } end-%>
+<%- clear_messages(); -%>

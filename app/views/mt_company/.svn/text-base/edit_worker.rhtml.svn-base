@@ -1,0 +1,9 @@
+<%= begin_page_title "עריכת פרטי עובד" %>
+<%= button_tag "לרשימת העובדים", {:action=>:worker_list}, "list", false %>
+<%= button_tag "הצג פרטים", {:action=>:view_worker, :id=>@fresh_worker}, "info", false %>
+<%=end_page_title%>
+
+<%= start_form_tag :action=>"update_worker", :id=>@fresh_worker %>
+<%= render :partial => 'worker_form' %>
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>

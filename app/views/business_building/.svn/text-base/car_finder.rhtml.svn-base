@@ -1,0 +1,10 @@
+<%= begin_page_title "של מי האוטו?"%><%= end_page_title %>
+<%= start_form_tag :action=>:car_finder_result %>
+<table>
+	<tr>
+		<td>מספר מכונית</td>
+		<td><%= text_field :car, :number %></td>
+	</tr>
+</table>
+<%= submit_tag "מצא מכונית" %>
+<%= end_form_tag %>

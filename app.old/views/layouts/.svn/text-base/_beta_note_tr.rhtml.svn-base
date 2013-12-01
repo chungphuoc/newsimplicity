@@ -1,0 +1,7 @@
+<tr>
+	<td colspan="2" class="beta_note">
+		<%= image_tag "bug" %>
+	האתר בהרצה. אם יש לכם הערות או הצעות 
+	<% openscript = url_for(:controller=>"suggestions", :action=>"new", :ctrl=>params[:controller], :actn=>params[:action])%>
+	<a href="javascript:popWindow('<%=openscript%>');">נשמח לשמוע</a>
+</td></tr>

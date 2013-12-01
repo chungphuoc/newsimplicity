@@ -1,0 +1,8 @@
+<%= begin_page_title "הוספת איש קשר" %>
+	<%= button_tag 'חזרה לרשימת אנשי הקשר', {:action => 'list'}, 'contact_person_list', false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action => 'create' %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "צור איש קשר חדש" %>
+<%= end_form_tag %>

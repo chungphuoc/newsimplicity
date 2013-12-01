@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="advertisement.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="announcement.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="application_state.rb" server="rimon-systems.com/demo/" local="128387547080000000" remote="128427555000000000" />
+<file name="building.rb" server="rimon-systems.com/demo/" local="128404991100000000" remote="128427555000000000" />
+<file name="building_owner.rb" server="rimon-systems.com/demo/" local="128374743660000000" remote="128427555000000000" />
+<file name="building_unit.rb" server="rimon-systems.com/demo/" local="128404921240000000" remote="128427555000000000" />
+<file name="business.rb" server="rimon-systems.com/demo/" local="128404953240000000" remote="128427555000000000" />
+<file name="business_building.rb" server="rimon-systems.com/demo/" local="128366512660000000" remote="128427555000000000" />
+<file name="car.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="condo_question.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="contact_mailer.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="contact_person.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="cp_category.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="flat.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="KVObj.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="localized_entry.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427555000000000" />
+<file name="maintenance_request.rb" server="rimon-systems.com/demo/" local="128383336440000000" remote="128427555000000000" />
+<file name="maintenance_request_history_item.rb" server="rimon-systems.com/demo/" local="128417789100000000" remote="128427555000000000" />
+<file name="mt_company.rb" server="rimon-systems.com/demo/" local="128404984900000000" remote="128427555000000000" />
+<file name="mt_company_task.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427554400000000" />
+<file name="mt_company_worker.rb" server="rimon-systems.com/demo/" local="128404985320000000" remote="128427554400000000" />
+<file name="mt_company_worker_role.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427554400000000" />
+<file name="mt_request_query.rb" server="rimon-systems.com/demo/" local="128358201500000000" remote="128427554400000000" />
+<file name="post.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427554400000000" />
+<file name="shared_document.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427554400000000" />
+<file name="suggestion.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427554400000000" />
+<file name="super_user.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427553800000000" />
+<file name="tenant.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427553800000000" />
+<file name="tenant_post.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427553800000000" />
+<file name="unit_contract.rb" server="rimon-systems.com/demo/" local="128427154340000000" remote="128427553800000000" />
+<file name="unit_type.rb" server="rimon-systems.com/demo/" local="128417176540000000" remote="128427553800000000" />
+<file name="uploaded_file.rb" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427553800000000" />
+<file name="user.rb" server="rimon-systems.com/demo/" local="128404787160000000" remote="128427553800000000" />
+</dwsync>

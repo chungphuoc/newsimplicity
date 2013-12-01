@@ -1,0 +1,36 @@
+<%= begin_page_title "ניהול משתמשים", true %>
+	<%= button_tag "רשימת עסקים", {:action=>"biz_list"}, "list", false %>
+	<%= button_tag "פרטי העסק", {:action=>"biz_show", :id=>@business}, "view", false %>
+	<%= button_tag "הוסף משתמש", {:action=>"biz_add_user", :id=>@business},"user_add", false %>
+<%= end_page_title %>
+<%= begin_help_section%>מסך זה מפרט את רשימת המשתמשים של העסק. משתמשים אלו יכולים להכנס לעסק ולבצע בו פעולות.<%= end_help_section %>
+<% if @users.size > 0 %>
+<table cellspacing="0" class="data_table">
+  <tr>
+    <th>שם פרטי</th>
+	<th>שם משפחה</th>
+	<th>שם משתמש</th>
+	<th>טלפון</th>
+	<th>נייד</th>
+	<th>דוא"ל</th>
+	<th colspan="2">פעולות</th>
+  </tr>
+ 
+
+<% for user in @users %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+    <td><%=link_to h(user.first_name), :action => 'biz_user_show', :id => user%></td>
+	<td><%=link_to h(user.surname),    :action => 'biz_user_show', :id => user%></td>
+	<td><%=link_to h(user.username),   :action => 'biz_user_show', :id => user%></td>
+	<td><%=link_to h(user.phone),      :action => 'biz_user_show', :id => user%></td>
+	<td><%=link_to h(user.mobile),     :action => 'biz_user_show', :id => user%></td>
+	<td><%=link_to h(user.email),      :action => 'biz_user_show', :id => user%></td>
+    <td><%= link_to image_tag('user_view.png'),   :action => 'biz_user_show', :id => user %></td>
+    <td><%= link_to image_tag('key.png'), :action => 'biz_user_reset_password', :id => user %></td>
+  </tr>
+<% end %>
+</table>
+
+<% else %>
+	<h3>אין משתמשים במערכת</h3>
+<% end %>

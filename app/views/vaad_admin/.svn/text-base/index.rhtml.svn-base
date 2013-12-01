@@ -1,0 +1,30 @@
+<h1>ניהול הבית של הבניין</h1>
+
+<h2>קצת נתונים:</h2>
+<ul>
+	<% if @m_req_count > 0 -%>
+		<li><%=link_to "#{@m_req_count} תקלות מדווחות", :action=>"maintenance_requests"%></li>
+	<% else -%>
+		<li><%=link_to "אין דיווחים על תקלות", :action=>"maintenance_requests" %></li>
+	<% end -%>
+	<li><%=link_to "#{@tenant_count} דיירים", :action=>"list", :controller=>"tenants" %></li>
+	<li><%=link_to "#{@flat_count} דירות", :action=>"list", :controller=>"vaad_flat" %></li>
+	<% if @ann_count > 0 -%>
+		<li><%=link_to "מוצגות #{@ann_count} הודעות ועד", :action=>"list", :controller=>"announcements" %></li>
+	<% else -%>
+		<li><%=link_to "לא מוצגות הודעות ועד", :action=>"list", :controller=>"announcements" %></li>
+	<% end -%>
+	<% if @tp_count > 0 -%>
+		<li><%=link_to "מוצגות #{@tp_count} מודעות דיירים", :action=>"list", :controller=>"tenant_posts" %></li>   
+	<% else -%>
+		<li><%=link_to "לא מוצגות מודעות דיירים", :action=>"list", :controller=>"announcements" %></li>
+	<% end -%>
+	<li><% if @cp_count > 0 -%>
+		<%=link_to "#{@cp_count} אנשי קשר", :action=>"list", :controller=>"contant_people" %>
+		<%else-%>
+		<%= link_to "אין אנשי קשר", :action=>"list", :controller=>"contant_people" %><% end %></li>
+	<li><% if @user_count > 0 -%>
+		<%=link_to "#{@user_count} משתמשים", :action=>"list", :controller=>"users" %>
+		<% else -%>
+		<%=link_to "אין משתמשים", :action=>"list", :controller=>"users" %><% end %></li>
+</ul>

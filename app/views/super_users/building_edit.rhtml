@@ -1,0 +1,9 @@
+<h1>Editing building</h1>
+
+<%= start_form_tag :action => 'building_update', :id => @building %>
+  <%= render :partial => 'building_form' %>
+  <%= submit_tag 'שמור' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'building_show', :id => @building %> |
+<%= link_to 'Back', :action => 'building_list' %>

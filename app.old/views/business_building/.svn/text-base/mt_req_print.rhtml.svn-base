@@ -1,0 +1,2 @@
+<h1>פרטי בקשת שירות</h1>
+<%= render :partial=>'shared/mt_request/mt_request_data_ro', :object=>@req %>

@@ -1,0 +1,56 @@
+<%- @user_form = user_form -%>
+
+<!--[form:user_form]-->
+<table>
+<tr>
+	<td><label for="user_form_private_name">שם פרטי</label></td>
+	<td><%= text_field 'user_form', 'first_name' %></td>
+</tr>
+
+<tr>
+	<td><label for="user_form_surname">שם משפחה</label></td>
+	<td><%= text_field 'user_form', 'surname' %></td>
+</tr>
+
+<tr>
+	<td><label for="user_form_user_formname">שם משתמש</label></td>
+	<td><%= text_field 'user_form', 'username' %></td>
+</tr>
+
+<tr>
+	<td><label for="user_form_password">סיסמא</label></td>
+	<td><%= password_field 'user_form', 'password' %>
+		<%- if user_form.id != nil -%>
+			<br/><span class="remark">השאר ריק על מנת להשאיר סיסמא קודמת</span>
+		<%- end -%>
+	</td>
+</tr>
+<tr>
+	<td><label for="user_form_password_confirmation">אישור סיסמא</label></td>
+	<td><%= password_field 'user_form', 'password_confirmation' %></td>
+</tr>
+<tr>
+	<td class="valign_top"><label for="user_form_phone">טלפון</label></td>
+	<td><%= text_field 'user_form', 'phone' %></td>
+</tr>
+<tr>
+	<td class="valign_top"><label for="user_form_mobile">טלפון נייד</label></td>
+	<td><%= text_field 'user_form', 'mobile' %></td>
+</tr>
+<tr>
+	<td class="valign_top"><label for="user_form_email">דואר אלקטרוני</label></td>
+	<td><%= text_field 'user_form', 'email' %></td>
+</tr>
+
+<tr>
+	<td class="valign_top"><label for="user_form_description">פרטים</label></td>
+	<td><%= text_area 'user_form', 'description', "rows"=>5 %></td>
+</tr>
+
+<tr>
+	<td class="valign_top"><label for="user_form_contact_info">יצירת קשר</label></td>
+	<td><%= text_area 'user_form', 'contact_info', "rows"=>5 %></td>
+</tr>
+<!--[eoform:user_form]-->
+</table>
+<%- @user_form = nil -%>

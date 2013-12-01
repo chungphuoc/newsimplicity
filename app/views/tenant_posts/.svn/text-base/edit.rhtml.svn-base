@@ -1,0 +1,10 @@
+<%= begin_page_title "עריכת מודעה" %>
+<%= button_tag 'הצג מודעה', {:action => 'show', :id => @tenant_post}, 'tenant_post_view', false %>
+<%= button_tag 'חזרה לרשימת המודעות', {:action => 'list'}, 'tenant_post_list', false %>
+<%= end_page_title %>
+
+<%= start_form_tag( {:action => 'update', :id => @tenant_post},  :multipart => true ) %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>
+

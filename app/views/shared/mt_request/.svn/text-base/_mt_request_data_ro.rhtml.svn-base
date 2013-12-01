@@ -1,0 +1,114 @@
+<%- 
+mt_request_data = mt_request_data_ro; -%>
+<table class="report" width="100%">
+<tr>
+	<td class="key">מספר זיהוי</td>
+	<td class="value"><%=mt_request_data.id%></td>
+</tr>
+<tr>
+	<td class="key">כותרת</td>
+	<td class="value"><%=h mt_request_data.title%></td>
+</tr>
+<tr>
+	<td class="key">תאריך דיווח</td>
+	<td class="value"><%= pp_date_time mt_request_data.created_on %></td>
+</tr>
+<tr>
+	<td class="key">עודכן לאחרונה</td>
+	<td class="value"><%= pp_date_time mt_request_data.updated_on %></td>
+</tr>
+<%- unless mt_request_data.solved_on.blank? -%>
+<tr>
+	<td class="key">תאריך תיקון</td>
+	<td class="value"><%= pp_date_time mt_request_data.solved_on %></td>
+</tr>
+<%- end -%>
+<tr>
+	<td class="key">מדווח</td>
+	<td class="value"><%= render :partial=>"/shared/reporter_one_line", :object=>mt_request_data.reporter %></td>
+</tr>
+<tr>
+	<td class="key">נמען</td>
+	<td class="value">
+		<%= pp_assignee( mt_request_data.assignee ) %>
+	</td>
+</tr>
+<tr>
+	<td class="key">בניין</td>
+	<td class="value">
+		<%- if mt_request_data.has_building? -%>
+			<%= h mt_request_data.building.hr_address %>
+			<%- else -%>[אין]<%- end -%>
+	</td>
+</tr>
+<tr>
+	<td class="key">מקום</td>
+	<td class="value">
+		<%= render :partial=>"/shared/place_one_line", :object=>mt_request_data %>
+	</td>
+</tr>
+<tr>
+	<td class="key">סוג שירות</td>
+	<td class="value">
+		<%=icon_service_type(mt_request_data.service_type)%> <%= loc.mt_req_service_type( mt_request_data.service_type) %>
+	</td>
+</tr>
+<tr>
+	<td class="key">דחיפות</td>
+	<td class="value"><%=image_tag("urgency/#{mt_request_data.urgency}.gif")%> (מתוך 4)
+	</td>
+</tr>
+<tr>
+	<td class="key valign_top">פרטי הדיווח</td>
+	<td class="value">
+		<%=crlfs_to_brs( mt_request_data.body ) %>
+	</td>
+</tr>
+<tr>
+	<td class="key">מצב</td>
+	<td class="value"><%= loc.mt_state(mt_request_data.state) %>
+	</td>
+</tr>
+<%- if mt_request_data.has_cost? -%>
+<tr>
+	<td class="key">זמן עבודה</td>
+	<td class="value"><%= mt_request_data.hours_of_fix %> שעות
+	</td>
+</tr>
+<tr>
+	<td class="key">עלות שעה</td>
+	<td class="value"><%= pp_price mt_request_data.price_per_hour %>
+	</td>
+</tr>
+<tr>
+	<td class="key">מחיר חלקים</td>
+	<td class="value"><%= pp_price mt_request_data.parts_cost_of_fix %>
+	</td>
+</tr>
+<tr>
+	<td class="key">מחיר קבוע</td>
+	<td class="value"><%= pp_price mt_request_data.fixed_price_of_fix %>
+	</td>
+</tr>
+<tr>
+	<td class="key">עלות כוללת</td>
+	<td class="value"><%= pp_price mt_request_data.total_cost %></td>
+</tr>
+<%- end -%>
+<tr>
+	<td class="key">תקציב</td>
+	<td class="value"><%= h mt_request_data.budget_name %></td>
+</tr>
+<% unless mt_request_data.solving_worker.nil? -%>
+<tr>
+	<td class="key">עובד</td>
+	<td class="value"><%= link_to mt_request_data.solving_worker.hr_name, :action=>"view_worker", :id=>mt_request_data.solving_worker %></td>
+</tr>
+<% end -%>
+<% unless mt_request_data.remarks.blank? -%>
+<tr>
+	<td class="key">הערות</td>
+	<td class="value"><%= mt_request_data.remarks %></td>
+</tr>
+<% end -%>
+</table>

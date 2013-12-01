@@ -1,0 +1,17 @@
+<%= error_messages_for 'condo_question' %>
+
+<!--[form:condo_question]-->
+<p><label for="condo_question_question">Question</label><br/>
+<%= text_field 'condo_question', 'question'  %></p>
+
+<p><label for="condo_question_answer">Answer</label><br/>
+<%= text_area 'condo_question', 'answer'  %></p>
+<!--
+<p><label for="condo_question_link">Link</label><br/>
+<%= text_field 'condo_question', 'link'  %></p>
+-->
+<p><label for="condo_question_display_on_site">Display on site</label><br/>
+	<%=check_box 'condo_question', 'display_on_site'%>
+</p>
+<!--[eoform:condo_question]-->
+

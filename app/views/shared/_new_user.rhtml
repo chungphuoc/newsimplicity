@@ -1,0 +1,14 @@
+<table>
+<tr>
+	<td>שם משתמש</td>
+	<td><%= text_field 'new_user', 'username' %></td>
+</tr>
+<tr>
+	<td>סיסמא</td>
+	<td><%= password_field 'new_user', 'password' %></td>
+</tr>
+<tr>
+	<td>סיסמא (לאישור)</td>
+	<td><%= password_field 'new_user', 'password_confirm', :value=>"" %></td>
+</tr>
+</table>

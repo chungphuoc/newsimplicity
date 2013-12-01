@@ -1,0 +1,2 @@
+module CondoQuestionsHelper
+end

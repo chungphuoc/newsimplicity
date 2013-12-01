@@ -1,0 +1,11 @@
+<%= begin_page_title "פרטי משימה" %>
+	<%= button_tag "לרשימת המשימות", {:action=>"mt_tsk_list", :id=>@task},"list", false %>
+	<%- if @task.maintenance_request.nil? -%>
+		<%= button_tag "צור בקשת שירות", {:action=>"mt_tsk_create_request", :id=>@task},"wrench_add",false %>
+	<%- else -%>
+		<%= button_tag "בקשת שירות", {:action=>"mt_req_show", :id=>@task.maintenance_request},"wrench_go",false %>
+	<%- end -%>
+	<%= button_tag "עריכה", {:action=>"mt_tsk_edit", :id=>@task},"edit",false %>
+ <%=end_page_title%>
+<%= render :partial=>"shared/mt_tsk/task", :object=>@task %>
+

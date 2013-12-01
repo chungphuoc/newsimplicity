@@ -1,0 +1,86 @@
+<table class="multi_subject" cellspacing="5">
+	<tr>
+		<td class="subject_cell" rowspan="2">
+			<!-- mt_req form -->
+			<div class="subject_navigate">
+				<%= link_to image_tag("add.png"), :action=>"mt_req_add" %>
+				<%= link_to image_tag("go_left.png"), :action=>"mt_req_list" %>
+			</div>
+			<div class="subject_title">בקשת שירות</div>
+			<div class="subject_contents">
+				<%= start_form_tag :action=>"mt_req_add", :from_action=>"index" %>
+				<%= render :partial=>"mt_req_form" %>
+				<center><%= submit_tag "דווח" %></center>
+				<%= end_form_tag %>
+			</div>
+		</td>
+		<td colspan="1" class="subject_cell">
+			<!-- mt requests-->
+			<div class="subject_navigate"><%= link_to image_tag("go_left.png"), :action=>"mt_req_list", :type=>BusinessBuildingController::MT_QUERY_TYPE_PENDING %></div>
+			<div class="subject_title">בקשות שירות אחרונות</div>
+			<div class="subject_contents">
+				<%- if @mt_requests.size > 0 -%>
+				<%- for mtr in @mt_requests -%>
+					<%= link_to "&bull;#{pp_date(mtr.created_on)} #{h mtr.title} (#{pp_place(mtr.place)})", :action=>"mt_req_show", :id=>mtr, :back=>:index %>
+				<%- end -%>
+				<%- else -%>[אין הודעות]
+				<%- end -%>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<!-- td colspan="2" class="subject_cell">
+			<div class="subject_navigate">
+				<%= link_to image_tag("add.png"), :action=>"unimplemented" %>
+				<%= link_to image_tag("go_left.png"), {:action=>"unimplemented"} %>
+			</div>
+			<div class="subject_title">שליחת הודעות</div>
+			<div class="subject_contents">
+				<%= start_form_tag :action=>"unimplemented", :from_action=>"index" %>
+					<table border="0">
+						<tr>
+							<td>נמען</td>
+							<td><%= collection_select 'msg', 'user_id', @users, :id, :hr_name %></td>
+						</tr><tr>
+							<td>שיטה</td>
+							<td><%= collection_select 'msg', 'method', @delivery_methods, :key, :value %></td>
+						</tr>
+						<tr>
+							<td>תוכן</td>
+							<td><%= text_area 'msg', 'body', :rows=>"4", :cols=>"30" %></td>						
+						</tr>
+					</table>
+					<center>
+					<%= submit_tag "שלח" %>
+					</center>
+				<%= end_form_tag %>
+			</div>
+		</td -->
+		<td class="subject_cell">
+			<!-- tasks -->
+			<div class="subject_title">שימושון</div>
+			<div class="subject_contents" style="text-align: center; padding-top: 4px">
+				<button onclick="document.location.href='<%= url_for :action=>"user_add" %>'"><%= image_tag "contact_person_add.png" %><br />הוסף משתמש</button>
+				<button onclick="document.location.href='<%= url_for :action=>"directions" %>'"><%= image_tag "map.png" %><br />איך מגיעים</button>
+				<button onclick="document.location.href='<%= url_for :action=>"mt_company" %>'"><%= image_tag "wrench.png" %><br />חברת אחזקה</button>
+				<br />
+				<button onclick="document.location.href='<%= url_for :action=>"my_details_edit" %>'"><%= image_tag "info.png" %><br />הפרטים שלי</button>
+				<button onclick="document.location.href='<%= url_for :action=>"uc_list" %>'"><%= image_tag "list.png" %><br />רשימת חוזים</button>
+				<%- if @building.show_whose_car -%>
+					<button onclick="document.location.href='<%= url_for :action=>"car_finder" %>'"><%= image_tag "car_find.png" %><br />של מי האוטו?</button>
+				<%- end -%>
+				<button onclick="document.location.href='<%= url_for :action=>"logout" %>'"
+					style="background-color: #FAA"><%= image_tag "logout.png" %><br />יציאה</button>
+				<hr/>
+				<%- IO.foreach( @building.favorite_links_file ) do | line |
+				    parts = line.split(",");
+					url = parts[0].strip;
+					image = parts[1].strip;
+					title = parts[2].strip;
+				-%>
+					<button onClick="window.open('<%= url %>')"><%= image_tag image %><br /><%= title %></button>
+				<%- end -%>
+			</div>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,25 @@
+<h1>Listing suggestions</h1>
+
+<table>
+  	<tr>
+		<th>created</th>
+		<th>title</th>
+		<th>controller</th>
+		<th>action</th>
+  	</tr>
+  
+<% for sgn in @suggestions %>
+  	<tr>
+		<td><%= pp_date(sgn.created_on) %></td>
+		<td><%= h( sgn.title ) %></td>
+		<td><%= sgn.ctrl %></td>
+		<td><%= sgn.actn %></td>
+	</tr>
+	<tr>
+		<td colspan="3"><i><%= crlfs_to_brs( sgn.body ) %></i></td>
+		<td><%= link_to 'Destroy', { :action => 'suggestion_destroy_external', :id => sgn }, :confirm => 'Are you sure?', :post => true %></td>
+	</tr>
+<% end %>
+</table>
+
+

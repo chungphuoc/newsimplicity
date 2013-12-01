@@ -1,0 +1,19 @@
+<%= begin_page_title "בנייני משרדים", true %>
+<%= end_page_title %>
+<%= begin_help_section%>	כל משרד נמצא בבניין משרדים. בחר את הבניין שלך. ניתן ליצור קישור ישיר למשרד, במסך "פרטי משרד".<%= end_help_section %>
+<h4>בחר את הבניין בו נמצא המשרד:</h4>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>עיר</th>
+		<th>רחוב</th>
+		<th class="strecher">מספר</th>
+	</tr>
+	<% for bld in @buildings %>
+	<tr class="<%= cycle('odd_row', 'even_row') %>">
+		<td class="nowrap">
+			<%= link_to h(bld.city),   building_url(:eng_city=>bld.eng_city, :eng_street=>bld.eng_street, :eng_number=>bld.eng_number) %></td>
+		<td><%= link_to h(bld.street), building_url(:eng_city=>bld.eng_city, :eng_street=>bld.eng_street, :eng_number=>bld.eng_number) %></td>
+		<td><%= link_to h(bld.number), building_url(:eng_city=>bld.eng_city, :eng_street=>bld.eng_street, :eng_number=>bld.eng_number) %></td>
+	</tr>
+	<% end -%>
+</table>

@@ -1,0 +1,48 @@
+<%= begin_page_title "שינוי מצב תקלה" %>
+	<%= button_tag "חזרה לרשימה", {:action=>@back},"list",false %>
+<%= end_page_title %>
+<table border="0">
+	<tr>
+		<td class="valign_top">
+			<h2>מצב נוכחי</h2>
+			<%= start_form_tag :action=>"change_mt_request_state", :id=>@req, :back=>@back %>
+				<table border="0">
+					<tr>
+						<td>מצב</td>
+						<td><%= select 'req', 'state', MaintenanceRequest.state_ids.collect{|x| [loc.mt_state(x),x]} %></td>
+					</tr>
+					<tr>
+						<td>על ידי</td>
+						<td><%= collection_select 'req', 'solving_worker_id', @workers, :id, :hr_name, :include_blank=>true %></td>
+					</tr>
+					<tr>
+						<td class="key">עלות קבועה</td>
+						<td class="value"><%= text_field 'req', 'fixed_price_of_fix' %></td>
+					</tr>
+					<tr>
+						<td class="key">עלות חלפים</td>
+						<td class="value"><%= text_field 'req', 'parts_cost_of_fix' %></td>
+					</tr>
+					<tr>
+						<td class="key">זמן תיקון (שעות)</td>
+						<td class="value"><%= text_field 'req', 'hours_of_fix' %></td>
+					</tr>
+					<tr>
+						<td class="key">מחיר לשעת עבודה</td>
+						<td class="value"><%= text_field 'req', 'price_per_hour' %></td>
+					</tr>
+					<tr>
+						<td class="valign_top">הערות</td>
+						<td><%= text_area 'req', 'remarks', :rows=>5 %></td>
+					</tr>
+				</table>
+				<%= submit_tag "שמור שינויים" %>
+			<%= end_form_tag %>
+		</td>
+		<td  class="valign_top" style="padding-right: 2em">
+			<h2>פרטי התקלה</h2>
+			<%= render :partial => 'shared/mt_request/mt_request_data', :object=>@req %>
+		</td>
+	</tr>
+</table>
+	

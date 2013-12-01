@@ -1,0 +1,21 @@
+<h1>ברוכים הבאים למערכת רימון של <%= @building.hr_address %></h1>
+<hr />
+<%- unless @building.welcome_note.blank?  -%>
+<%= crlfs_to_brs @building.welcome_note %>
+<hr />
+<%- end -%>
+	אנא ביחרו את הכניסה המתאימה:
+<center>
+<div class="big_links">
+	<%= link_to "חברי המשק", building_url(:eng_city=>@building.eng_city, :eng_street=>@building.eng_street, :eng_number=>@building.eng_number) %>
+	<%= link_to @mt_company.name,  mt_company_url(:eng_name => @mt_company.eng_name )%>
+	<%= link_to "ניהול", :controller=>"building_owner" %>
+</div>
+</center>
+<%- unless @defaults["links"].blank? -%>
+<br />
+<h3>קישורים</h3>
+<%- for l in @defaults["links"] -%>
+<a href="<%= l["link"] %>"><%= l["title"] %></a><br />
+<%- end -%>
+<%- end -%>

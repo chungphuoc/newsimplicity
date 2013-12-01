@@ -1,0 +1,58 @@
+<%= begin_page_title "עריכת הפרטים שלי" %>
+<%= end_page_title %>
+<%= start_form_tag :action=>"edit_my_details" %>
+
+<!--[form:owner]-->
+<table>
+<tr>
+	<td><label for="owner_first_name">שם פרטי</label></td>
+	<td><%= text_field 'owner', 'first_name'  %></td>
+</tr>
+
+<tr>
+	<td><label for="owner_surname">שם משפחה</label></td>
+	<td><%= text_field 'owner', 'surname'  %></td>
+</tr>
+
+<tr>
+	<td><label for="owner_username">שם משתמש</label></td>
+	<td><span class="ltr"><%= text_field 'owner', 'username'  %></span></td>
+</tr>
+
+<tr>
+	<td><label for="owner_hashed_password">סיסמא</label></td>
+	<td><%= password_field 'owner', 'password'  %><br />
+		<span class="remark">השאר ריק על מנת לשמור על הססמא הקודמת</span></td>
+</tr>
+<tr>
+	<td><label for="owner_hashed_password"> אישור סיסמא</label></td>
+	<td><%= password_field 'owner', 'password_confirmation'  %></td>
+</tr>
+
+<tr>
+	<td><label for="owner_mobile">טלפון נייד</label></td>
+	<td><%= text_field 'owner', 'mobile'  %></td>
+</tr>
+
+<tr>
+	<td><label for="owner_phone">טלפון</label></td>
+	<td><%= text_field 'owner', 'phone'  %></td>
+</tr>
+
+<tr>
+	<td><label for="owner_email">דואר אלקטרוני</label></td>
+	<td><%= text_field 'owner', 'email'  %></td>
+</tr>
+
+<tr>
+	<td><label for="owner_fax">פקס</label></td>
+	<td><%= text_field 'owner', 'fax'  %></td>
+</tr>
+
+<tr>
+	<td class="valign_top"><label for="owner_address">כתובת</label></td>
+	<td><%= text_area 'owner', 'address', :rows=>5  %></td>
+</tr>
+</table>
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>

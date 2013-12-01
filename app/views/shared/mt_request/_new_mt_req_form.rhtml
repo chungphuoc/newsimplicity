@@ -1,0 +1,109 @@
+<%- # General form for creating an mt_request.
+	# If the controller specifies more than one building in @buildings, the buildings menu is shown.
+	# assignees are inferred from the buildings passed.
+	# TODO put the setup/parsing in a module
+	# == locals ==
+	# request name: mt_req (MaintenanceRequest)
+	# buildings: buildings (array)
+	# ============
+	# author: Michael Bar-Sinai
+	# (c) 2007 Rimon Systems
+	
+	if @js_files.nil?
+	 	@js_files = ["new_mt_req_form"]
+	else
+		@js_files << "new_mt_req_form"
+	end 
+	
+-%>
+<table class="report">
+<tr>
+	<td class="key"><label for="mt_req_title">כותרת</label></td>
+	<td class="value"><%= text_field 'mt_req', 'title'  %></td>
+</tr>
+<%- if ( buildings.size > 1 ) -%>
+<tr>
+	<td class="key">בניין</td>
+	<td class="value">
+		<%= collection_select 'mt_req', :building_id, buildings, :id, :hr_address, {}, {:onClick=>"updatePlaceVisibility();"} %>
+	</td>
+</tr>
+<%- end -%>
+<tr>
+	<td class="key">עסק</td>
+	<td class="value">
+		<%- if ( buildings.size == 1 ) -%>
+		<%= hidden_field_tag("mt_req[building_id]", buildings[0].id.to_s, {:id=>"mt_req_building_id"}) %>
+		<%- end -%>
+		<%- buildings.each do | a_building | -%>
+		<select name="mt_req[biz_select_<%= a_building.id %>]" 
+				id="biz_select_<%= a_building.id %>"
+				onClick="updatePlaceVisibility();"<% if a_building != buildings[0]%> style="display: none"<% end %>>
+			<option>&nbsp;</option>
+			<%= options_for_select a_building.businesses.collect{|b| [b.name, b.id]} %>
+		</select>
+		<%- end -%>
+	</td>
+</tr><tr>
+	<td class="key valign_top">מיקום</td>
+	<td class="value">
+		<%= hidden_field_tag("initial_visible_place_div", buildings[0].id) %>
+		<%- buildings.each do | a_building |
+				# each business in each building gets its very own place list.
+				biz = [ nil, a_building.businesses ].flatten;
+				biz.each do | b |
+					div_suffix = "#{a_building.id}_";
+					div_suffix << b.id.to_s unless b.nil?
+					div_name = "place_div_#{div_suffix}"
+				-%>
+				<div id="<%= div_name %>"<% unless ( (a_building==buildings[0]) && (b.nil?) ) %> style="display: none"<% end %>>
+					<%= mt_request_place_menu("mt_req[place_#{div_suffix}]", mt_req, b, a_building, "mt_req[other_place_#{div_suffix}]") %>
+				</div>
+		<%- 	end 
+			end 
+		-%>
+		<br/>פירוט: <%= text_field 'mt_req', 'place_free_text' %>
+	</td>
+</tr><tr>
+	<td class="key">דחיפות</td>
+	<td class="value"><%= collection_select 'mt_req', 'urgency', MaintenanceRequest.urgencies, :key, :value %></td>
+</tr>
+<tr>
+	<td class="key">נמען</td>
+	<td class="value">
+		<%- buildings.each do | a_building | -%>
+		<div id="assignee_div_<%= a_building.id %>"<% if a_building != buildings[0]%> style="display: none"<% end %>>
+		<%= assignee_menu mt_req, a_building, "mt_req[assignee_#{a_building.id}]" %>
+		</div>
+		<%- end -%>
+	</td>
+</tr><tr>
+	<td class="key">הצעת מחיר</td>
+	<td class="value">
+		<%= labeled_checkbox_tag( "סמן כהצעת מחיר", "mt_req_service_type", "mt_req[service_type]",
+		 			MaintenanceRequest::SERVICE_TYPE_QOUTE.to_s,
+					(@mt_req.service_type==MaintenanceRequest::SERVICE_TYPE_QOUTE) ) -%>
+	</td>
+</tr><tr>
+	<td class="key valign_top"><label for="mt_req_body">פרטי בקשת השירות</label></td>
+	<td class="value"><%= text_area 'mt_req', 'body', :rows=>"3", :cols=>"30"  %></td>
+</tr><tr>
+	<td class="key">תקציב</td>
+	<td class="value"><%= text_field "mt_req", "budget_name" %></td>
+</tr><tr>
+	<td class="key valign_top"><label for="mt_req_remarks">הערות</label></td>
+	<td class="value"><%= text_area 'mt_req', 'remarks', :rows=>"3", :cols=>"30"  %></td>
+</tr><tr>
+	<td class="key valign_top">קבצים</td>
+	<td class="value">
+		<table border="0">
+		<%- for i in (0..1) -%>
+			<tr>
+				<td>כותרת: <input id="file_<%= i.to_s %>_title" name="file[<%= i.to_s %>][title]" type="text" /></td>
+				<td><input id="file_<%= i.to_s %>_file" name="file[<%= i.to_s %>][file]" type="file" /></td>
+			</tr>
+		<%- end -%>
+		</table>
+	</td>
+</tr>
+</table>

@@ -1,0 +1,11 @@
+<%= error_messages_for 'suggestion' %>
+
+<!--[form:suggestion]-->
+<p><label for="suggestion_title">כותרת</label><br/>
+<%= text_field 'suggestion', 'title'  %></p>
+
+<p><label for="suggestion_body">פירוט</label><br/>
+<%= text_area 'suggestion', 'body', :rows=>5 %></p>
+
+<!--[eoform:suggestion]-->
+

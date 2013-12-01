@@ -1,0 +1,11 @@
+<%= begin_page_title "עריכת פרטי עסק" %>
+	<%= button_tag "רשימת העסקים",{ :action=>"biz_list" }, "list",false%>
+	<%= button_tag "הוסף משתמש", {:action=>"biz_add_user", :id=>@business},"user_add", false %>
+	<%= button_tag "ניהול משתמשים", {:action=>"biz_list_users", :id=>@business}, "user_edit", false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action => 'biz_update', :id => @business %>
+  <%= render :partial => 'biz_form' %>
+  <%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>
+

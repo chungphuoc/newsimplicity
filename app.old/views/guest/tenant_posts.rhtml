@@ -1,0 +1,43 @@
+<h1>לוח מודעות</h1>
+דיירי הבניין יכולים לפרסם כאן מודעות (אחרי שנרשמו באתר).
+<br/><br/>
+<% if (@psts.size > 0) %>
+
+<table cellspacing="0" class="data_table">
+  <tr>
+  	<th>כותרת</th>
+	<th>תאריך פרסום</th>
+	<th>מפרסם</th>
+	<th>קובץ</th>
+	<th>לינק</th>
+  </tr>
+  
+<% for ann in @psts %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+	<td><%= link_to h(ann.title), {:action=>"show_single_post", :id=>ann} %></td>
+	<td><%= link_to pp_date_time(ann.published_on), {:action=>"show_single_post", :id=>ann} %></td>	
+	<td>
+		<% if ann.tenant %>
+			<a href="mailto:<%=ann.tenant.email%>"><%=ann.tenant.first_name + " " + ann.tenant.surname%> ( <%=ann.tenant.flat.human_description%> )</a>
+		<% else %>
+			?
+		<% end %>
+	</td>
+	<td><% if ann.has_file %>
+			<a href="<%=ann.web_file_path%>" target="_blank"><%= image_tag '/images/file.png' %></a>
+		<% else %>
+			<%= image_tag '/images/cross.png' %>
+		<% end %></td>
+	
+	<td><% if ann.link != "" %>
+			<a href="<%=ann.link%>" target="_blank"><%= image_tag '/images/link.png' %></a>
+		<% else %>
+			<%= image_tag '/images/cross.png' %>
+		<% end %></td>
+  </tr>
+<% end %>
+
+<% else %>
+<h2>אין הודעות ועד</h2>
+<% end %>
+</table>

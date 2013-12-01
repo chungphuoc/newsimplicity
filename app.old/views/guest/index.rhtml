@@ -1,0 +1,54 @@
+<table width="100%">
+	<tr>
+		<td class="subject_frame" width="40%">
+			<!-- news & updates -->
+			<table cellspacing="0" cellpadding="0" class="subject_title">
+				<tr><td><h2>ברוכים הבאים</h2></td>
+					<td style="text-align: left"><%= button_link 'רימון', "logo_tiny", :action=>'about_us'%></td></tr>
+			</table>
+			<p><%= crlfs_to_brs(@building.welcome_note)%></p>
+		</td>
+		<td style="width:10px" rowspan="3">&nbsp;</td>
+		<td class="tenant_post_frame" rowspan="3" height="100%">
+			<!-- tenant_posts -->
+			<table cellspacing="0" cellpadding="0" class="subject_title">
+				<tr><td><h2>לוח מודעות</h2></td>
+					<td style="text-align: left">
+						<%= button_link 'לכל המודעות', 'tenant_post_list', :action=>'tenant_posts'%>
+					</td></tr>
+			</table>
+			<% if @pst_count > 0 -%>
+			<table class="tenant_post">
+			<% 0.upto @pst_count-1 do |i| %>
+			<% an = @psts[i]%>
+				<tr><th align="right"><%= link_to h(an.title), :action=>'show_single_post', :id=>an %></th>
+					<td><span style="direction: ltr"><%=pp_date_time an.published_on%></span></td></tr>
+			<% end %>
+			</table>
+			<% else -%>
+				<h3>אין מודעות</h3>
+			<% end -%>
+		</td>
+	</tr><tr>
+		<td style="height:10px">&nbsp;</td>
+	</tr><tr>
+		<td class="subject_frame">
+			<!-- news & updates -->
+			<table cellspacing="0" cellpadding="0" class="subject_title">
+				<tr><td><h2>חדשות ועדכונים</h2></td>
+					<td style="text-align: left"><%= button_link 'לכל החדשות', "ann_list", :action=>'announcements'%></td></tr>
+			</table>
+			<% if @ann_count > 0 -%>
+			<table class="announcemet">
+			<% 0.upto @ann_count-1 do |i| %>
+			<% an = @anns[i]%>
+				<tr><th align="right"><%= link_to h(an.title), :action=>'show_single_announcement', :id=>an %></th>
+					<td><span style="direction: ltr"><%=pp_date_time an.published_on%></span></td></tr>
+			<% end %>
+			</table>
+			<% else -%>
+				<h3>אין הודעות</h3>
+			<% end -%>
+		</td>
+	</tr>
+</table>

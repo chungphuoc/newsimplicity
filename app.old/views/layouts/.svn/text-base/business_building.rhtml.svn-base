@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title || "רימון - #{@building.hr_address}" %></title>
+  	<%= stylesheet_link_tag 'vaadnet_base' %>
+  	<%= stylesheet_link_tag 'tables' %>
+	<%= stylesheet_link_tag 'ann_pst' %>
+	<%= javascript_include_tag 'application.js' %>
+	<%= javascript_include_tag 'prototype.js' %>
+	<%= javascript_include_tag 'scriptaculous.js' %>
+	<% if @css_files -%>
+		<% for f in @css_files -%>
+			<%=stylesheet_link_tag f %>
+		<% end -%>
+	<% end -%>
+	<% if @js_files -%>
+		<% for f in @js_files -%>
+			<%=javascript_include_tag f %>
+		<% end -%>
+	<% end -%>
+</head>
+<%- if @refresh == true -%>
+<body onload="setTimeout('window.location.reload(true);',1000*60*30)">
+<%- else -%>
+<body>
+<%- end -%>
+<center>
+<table id="main_table" cellspacing="0" cellpadding="0">
+<%= render :partial=>"/layouts/beta_note_tr" %>
+<tr class="banner">
+	<td class="banner" colspan="2">
+<table class="top_bar" width="100%" border="0">
+	<tr>
+		<td><div style="margin:4px 0px 4px 0px;">
+			<%- if @user.nil? -%>
+			<span class="building_name">&nbsp;<%=@building.hr_address%>&nbsp;</span>
+			<%- else -%>
+			<span class="building_name">&nbsp;<%=@user.business.name%>&nbsp;<span style="font-size: 0.7em">(<%= @building.hr_address %>)</span></span>
+			<%- end -%>
+			</div></td>
+		<td><div class="vaadnet_logo"><%=link_to image_tag("logo_top.gif"), :controller=>"general"%></div></td>
+	</tr><tr>
+		<td colspan="2" align="center">
+			<% if @user != nil -%>
+			<div class="login_name">שלום 
+				<span class="hr_name"> <%=@user.hr_name%></span>
+			</div>
+			<% end %>
+		</td>
+	</tr><tr>
+		<td colspan="2" class="top_ruler">
+			<!-- white ruler at the top -->
+			<table width="100%" border="0">
+				<tr>
+					<td class="messages_area"><%= render :partial=>"/layouts/messages" %></td>
+					<td class="top_buttons_area">
+						<% if @user.nil? -%>
+							<%= button_tag "התחבר למשרד", {:action=>:login}, "login", false -%>
+						<% else -%>
+							<%= button_tag "יציאה", {:action=>:logout}, "logout", false -%>
+						<% end -%>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</td></tr>
+<tr><td id="side_bar">
+	<div class="title top"><%=@building.hr_address%></div>
+	<%= link_to 'דף הבית', :action=>'index' %>
+	<%#= link_to '&times; לוח מודעות', :action=>'unimplemented' %>
+	<%= link_to 'איך מגיעים', :action=>'directions' %>
+	<%- if @building.show_whose_car -%>
+	<%= link_to 'של מי האוטו?', :action=>'car_finder' %>
+	<%- end -%>
+	<%- if @building.has_mt_company? -%>
+		<%= link_to 'חברת אחזקה', :action=>'mt_company'%>
+	<%- end -%>
+	<% if @user.nil? -%>
+	<div class="title">כניסה למערכת</div>
+	<%= link_to 'משרד', :action=>'login'%>
+	<%= link_to 'מנהל/בעלים', :controller=>'building_owner'%>
+	<% else -%>
+	<div class="title">יחידות</div>
+	<%= link_to 'רשימת חוזים', :action=>'uc_list'%>
+	<div class="title">בקשות שירות</div>
+	<%= link_to 'בקשת שירות חדשה', :action=>'mt_req_add'%>
+	<%= link_to 'בקשות שירות פתוחות', :action=>'mt_req_list', :type=>BusinessBuildingController::MT_QUERY_TYPE_PENDING%>
+	<%= link_to 'דו"חות', :action=>'mt_req_report'%>
+	<div class="title">משתמשים</div>
+	<%= link_to 'ניהול משתמשים', :action=>'user_list'%>
+	<%= link_to 'הוספת משתמש', :action=>'user_add'%>
+	<div class="title">ניהול חשבון</div>
+	<%= link_to 'פרטי העסק', :action=>'business_details'%>
+	<%= link_to 'הפרטים שלי', :action=>'my_details'%>
+	<%= link_to 'יציאה', {:action=>'logout'}, {:class=>'bottom'}%>
+	<% end -%>
+</td>
+<td id="main">
+<%= @content_for_layout %>
+</td></tr></table>
+<%= render :partial=>"/layouts/footer" %>
+</center>
+</body>
+</html>

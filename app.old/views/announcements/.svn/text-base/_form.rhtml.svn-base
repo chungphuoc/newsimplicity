@@ -1,0 +1,25 @@
+<!--[form:announcement]-->
+<p><label for="announcement_title">כותרת</label><br/>
+<%= text_field 'announcement', 'title'  %></p>
+
+<p><label for="announcement_body">גוף ההודעה</label><br/>
+<%= text_area 'announcement', 'body', "rows"=>10  %></p>
+
+<p>
+	<%= labeled_checkbox "הצג באתר", @announcement.display_on_site, "announcement", "display_on_site" %>
+</p>
+
+<p><label for="announcement_link">לינק</label><br/>
+<span style="direction: ltr"><%= text_field 'announcement', 'link'  %></span></p>
+
+<p><label for="afile">קובץ</label><br/>
+<input type="file" name="afile" size="30" />
+<% if @announcement.has_file %>
+	<br />
+	<span class="remark">העלאת קובץ חדש תמחוק את הקובץ הקיים</span>
+	<br />
+	<input type="checkbox" name="remove_file" id="cbDelFile" /><a class="hidden_link" href="javascript:toggleCheckBox('cbDelFile')">מחק קובץ קיים</a><br />
+	<a href="<%=@announcement.web_file_path%>" target="_blank">צפה בקובץ הקיים</a>
+<% end %></p>
+<!--[eoform:announcement]-->
+

@@ -1,0 +1,25 @@
+<h1>Listing super_users</h1>
+
+<table>
+  <tr>
+    <th>username</th>
+  </tr>
+  
+<% for super_user in @super_users %>
+  <tr>
+
+    <td><%=h super_user.username %></td>
+
+    <td><%= link_to 'Show', :action => 'show', :id => super_user %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => super_user %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => super_user }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @super_user_pages.current.previous } if @super_user_pages.current.previous %>
+<%= link_to 'Next page', { :page => @super_user_pages.current.next } if @super_user_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New super_user', :action => 'new' %>

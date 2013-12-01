@@ -1,0 +1,8 @@
+<%= begin_page_title "יצירת משתמש חדש" %>
+	<%= button_tag 'חזרה לרשימת משתמשים', {:action => 'list'}, 'user_list', false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action => 'create' %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "צור משתמש חדש" %>
+<%= end_form_tag %>

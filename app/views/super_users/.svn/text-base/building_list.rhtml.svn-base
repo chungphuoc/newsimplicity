@@ -1,0 +1,28 @@
+<h1>Listing buildings</h1>
+
+<table class="data_table" cellspacing="0">
+  <tr>
+	<th>כתובת</th>
+	<th>vaadnet path</th>
+	<th>type</th>
+	<th colspan="3">פעולות</th>
+  </tr>
+  
+<% for building in @buildings %>
+  <tr class="<%=cycle('evenRow', 'oddRow')%>">
+  	<td><%=building.hr_address%></td>
+	<td><%=building.vaadnet_path%></td>
+	<td><%=building.type%></td>
+    <td><%= link_to 'Show', :action => 'building_show', :id => building %></td>
+    <td><%= link_to 'Edit', :action => 'building_edit', :id => building %></td>
+    <td><%= link_to 'Destroy', { :action => 'building_destroy', :id => building }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @building_pages.current.previous } if @building_pages.current.previous %>
+<%= link_to 'Next page', { :page => @building_pages.current.next } if @building_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New building', :action => 'building_new' %>

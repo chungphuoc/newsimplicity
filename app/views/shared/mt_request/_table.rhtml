@@ -1,0 +1,105 @@
+<%- #TODO depricate. Move to contextlessTable
+	blds = @query.many_buildings?
+	mtcs = @query.many_mt_companies?
+	stps = @query.many_service_types?
+	table_width = 4;
+	table_width += 1 if blds;
+	table_width += 1 if mtcs;
+	table_width += 1 if stps;
+	
+-%>
+<%- if @mt_requests.size == 0 -%>
+	<h3>לא נמצאו תקלות המתאימות לתיאור.</h3>
+<%- else -%>
+<table class="data_table" cellspacing="0" width="100%">
+	<%- unless @print_mode -%>
+		<tr>
+			<%- if blds -%>
+			<th><%= link_to "נכס",         :sort_by=>MtRequestQuery::KEY_BUILDING     %></th>
+			<%- end -%><%- if mtcs -%>
+			<th><%= link_to "חברת אחזקה",  :sort_by=>MtRequestQuery::KEY_MT_COMPANY   %></th>
+			<%- end -%>
+			<th><%= link_to "תיאור",       :sort_by=>MtRequestQuery::KEY_TITLE        %></th>
+			<th><%= link_to "תאריך דיווח", :sort_by=>MtRequestQuery::KEY_CREATED_ON   %></th>
+			<th><%= link_to "תאריך תיקון", :sort_by=>MtRequestQuery::KEY_SOLVED_ON    %></th>
+			<th><%= link_to "דחיפות",      :sort_by=>MtRequestQuery::KEY_URGENCY      %></th>
+			<%- if stps -%>
+			<th><%= link_to "סוג",         :sort_by=>MtRequestQuery::KEY_SERVICE_TYPE %></th>
+			<%- end -%>
+			<th><%= link_to "מצב",         :sort_by=>MtRequestQuery::KEY_STATE        %></th>
+		</tr>
+	<%- else -%>
+		<tr>
+			<%- if blds -%>
+			<th>נכס</th>
+			<%- end -%><%- if mtcs -%>
+			<th>חברת אחזקה</th>
+			<%- end -%>
+			<th>תיאור</th>
+			<th>תאריך דיווח</th>
+			<th>תאריך תיקון</th>
+			<th>דחיפות</th>
+			<%- if stps -%>
+			<th>סוג</th>
+			<%- end -%>
+			<th>מצב</th>
+		</tr>	
+	<%- end -%>
+	<% for req in @mt_requests
+	 	row_class = cycle("odd_row", "even_row") -%>
+	<tr class="<%= row_class %>">
+		<%- if blds -%>
+		<td><%= link_to_function h(req.building.hr_address), "toggleVisibility('req#{req.id}')" %></td>
+		<%- end -%>
+		<%- if mtcs -%>
+		<td><%= link_to_function h(req.mt_copmany.name), "toggleVisibility('req#{req.id}')" %></td>
+		<%- end -%>
+		<td><%= link_to_function h(req.title), "toggleVisibility('req#{req.id}')"  %></td>
+		<td><%= link_to_function pp_date(req.created_on), "toggleVisibility('req#{req.id}')" %></td>
+		<td><%= link_to_function pp_date(req.solved_on), "toggleVisibility('req#{req.id}')" %></td>
+		<td><%= link_to_function image_tag("urgency/#{req.urgency}.gif"), "toggleVisibility('req#{req.id}')" %></td>
+		<%- if stps -%>
+		<td><%= link_to_function icon_service_type(req.service_type), "toggleVisibility('req#{req.id}')" %></td>
+		<%- end -%>
+		<td><%= link_to_function loc.mt_state(req.state), "toggleVisibility('req#{req.id}')" %></td>
+	</tr>
+	<%- unless @print_mode -%>
+		<tr class="hidden_<%= row_class %>" id="req<%= req.id %>">
+			<td colspan="<%= table_width %>">
+				<div class="data_cell">
+					<%= crlfs_to_brs req.body %>
+					<br/>
+					<%= icon_service_type(req.service_type) %>
+					<%= loc.mt_req_service_type(req.service_type) %>,&nbsp;
+					<%= pp_reporter( req.reporter ) %>
+				</div>
+			</td><td>
+				<%= button_link 'פרטים', "zoom", :action=>"mt_req_show", :id=>req, :back=>params[:action]  %>
+				<!-- %= button_link 'שנה מצב', "wrench", :action=>"change_mt_request_state", :id=>req, :back=>@back  % -->
+				<%= button_link 'הדפס', "print", {:action=>"mt_req_print", :id=>req}, :target=>"_blank"%>
+			</td>
+		</tr>
+	<%- else -%>
+		<tr class="hidden_<%= row_class %>" id="req<%= req.id %>">
+			<td colspan="<%= table_width+1 %>">
+				<div class="data_cell">
+					<%= crlfs_to_brs req.body %>
+					<br/>
+					<%= icon_service_type(req.service_type) %> <%= loc.mt_req_service_type( req.service_type ) %>,&nbsp;
+					<%= pp_reporter( req.reporter ) %>
+				</div>
+			</td>
+		</tr>
+	<%- end -%>
+	<% end -%>
+</table>
+<br />
+<%- unless @print_mode -%>
+<%- if params[:show_all].blank? -%>
+<%= pagination_links @pages %>
+<%= link_to( "הכל", :show_all=>"true") if @pages.current.previous || @pages.current.next %>
+<%- else -%>
+<%= link_to "הצג 10 בכל עמוד", :controller=>params[:controller], :action=>params[:action] %>
+<%- end -%>
+<%- end -%>
+<%- end -%>

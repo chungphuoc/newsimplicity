@@ -1,0 +1,33 @@
+<%= begin_page_title "ניהול משתמשים" %>
+	<%= button_tag 'הוסף משתמש', {:action => 'new'}, 'user_add', false %>
+<%= end_page_title %>
+
+<% if @users.size > 0 %>
+<table cellspacing="0" class="data_table">
+  <tr>
+    <th>שם פרטי</th>
+	<th>שם משפחה</th>
+	<th>שם משתמש</th>
+	<th>תפקיד</th>
+	<th colspan="3">פעולות</th>
+  </tr>
+ 
+
+<% for user in @users %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+    <td><%=link_to h(user.first_name), :action => 'show', :id => user%></td>
+	<td><%=link_to h(user.surname), :action => 'show', :id => user%></td>
+	<td><%=link_to h(user.username), :action => 'show', :id => user%></td>
+	<td><%=link_to user.role, :action => 'show', :id => user%></td>
+    <td><%= link_to image_tag('user_edit.png'), :action => 'edit', :id => user %></td>
+    <td><%= link_to image_tag('user_delete.png'), { :action => 'destroy', :id => user }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'משתמשים קודמים', { :page => @user_pages.current.previous } if @user_pages.current.previous %>
+<%= link_to 'עוד משתמשים', { :page => @user_pages.current.next } if @user_pages.current.next %> 
+
+<% else %>
+	<h2>אין משתמשים במערכת</h2>
+<% end %>

@@ -1,0 +1,127 @@
+<table class="multi_subject" cellspacing="5">
+	<tr>
+		<td class="subject_cell">
+			<!-- mt requests-->
+			<div class="subject_navigate"><%= link_to image_tag("go_left.png"), :action=>"mt_req_list" %></div>
+			<div class="subject_title">תקלות אחרונות</div>
+			<div class="subject_contents">
+				<%- for mtr in @mt_reqs -%>
+					<%= link_to "&bull;#{pp_date(mtr.created_on)} #{h mtr.title} (#{h mtr.building.hr_address})", :action=>"mt_req_show", :id=>mtr %>
+				<%- end -%>
+			</div>
+		</td>
+		<td class="subject_cell" colspan="2">
+			<!-- mt_company_tasks -->
+			<div class="subject_navigate">
+				<%= link_to image_tag("add.png"), :action=>"mt_tsk_new" %>
+				<%= link_to image_tag("go_left.png"), :action=>"mt_tsk_list" %>
+			</div>
+			<div class="subject_title">משימות אחזקה</div>
+			<div class="subject_contents">
+				<%- for task in @tasks -%>
+					<%= link_to "#{task_status_image_tag(task)} #{h task.title} (#{pp_date(task.until_date)})", :action=>"mt_tsk_show", :id=>task %>
+				<%- end -%>
+			</div>
+		</td>
+		<td class="subject_cell">
+			<!-- unit contract that are about to expire -->
+			<div class="subject_navigate">
+				<%= link_to image_tag("add.png"), :action=>"uc_add_wizard_1" %>
+				<%= link_to image_tag("go_left.png"), :action=>"uc_list" %>
+			</div>
+			<div class="subject_title">ימים לסיום חוזה</div>
+			<div class="subject_contents">
+				<%- if @contracts.size > 0 -%>
+				<%- for c in @contracts 
+					days = (c.end_date-DateTime.now).ceil();
+					case days 
+					when 0
+						days = "היום";
+					when 1
+						days = "מחר";
+					when 2
+						days = "יומיים";
+					else 
+						days = "#{days} ימים";
+					end
+				-%>
+					<%= link_to "&bull; #{c.business.name} (#{days})", :action=>"uc_show", :id=>c %>
+				<%- end -%>			
+				<%- else -%>אין חוזים המסתיימים תוך פחות מתשעים יום
+				<%- end -%>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="subject_cell">
+			<!-- messaging -->
+			<div class="subject_navigate">
+				<%= link_to image_tag("add.png"), :action=>"unimplemented" %>
+				<%= link_to image_tag("go_left.png"), {:action=>"unimplemented"} %>
+			</div>
+			<div class="subject_title">הודעות</div>
+			<div class="subject_contents">
+				<%= start_form_tag :action=>"unimplemented", :from_action=>"index" %>
+					<table border="0">
+						<tr>
+							<td>נושא:</td>
+							<td><%= text_field "msg", "subject" %></td>
+						</tr>
+						<tr>
+							<td>נמען:</td>
+							<td>
+								<select id="destination" name="destination">
+									<%- for kv in @global_list -%>
+										<option value="<%= kv.key %>"><%= kv.value %></option>
+									<%- end -%>
+									<optgroup label="עסקים">
+										<%- for biz in @businesses -%>
+											<option value="<%= unique_obj_id(biz) %>">- <%= biz.name %></option>
+										<%- end -%>
+									</optgroup>
+									<optgroup label="בניינים">
+										<%- for bld in @buildings -%>
+											<option value="<%= unique_obj_id(bld) %>">- <%= bld.hr_address %></option>
+										<%- end -%>
+									</optgroup>
+									<optgroup label="חברות אחזקה">
+										<%- for mtc in @mt_companies -%>
+											<option value="<%= unique_obj_id(mtc) %>">- <%= mtc.name %></option>
+										<%- end -%>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>תוכן:</td>
+							<td><%= text_area "msg", "body", :rows=>"4" %></td>
+						</tr>
+					</table>
+					<center>
+					<%= submit_tag "שלח" %>
+					</center>
+				<%= end_form_tag %>
+			</div>
+		</td>
+		<td class="subject_cell" colspan="2">
+    		<div class="subject_navigate">
+    			<%= link_to image_tag("go_left.png"), {:action=>"touched_mt_reqs", :clean_state=>true.to_s} %>
+    		</div>
+			<div class="subject_title">בקשות במעקב</div>
+			<div class="subject_contents">
+			    <%- if @touched_mt_reqs.empty? -%>(אין בקשות במעקב)
+	            <%- else -%>
+	                <table border="0" cellpadding="0" cellspacing="1">
+				<%- @touched_mt_reqs.each do | mtr |-%>
+				    <tr><td>
+                    <%= link_to "#{pp_date_time(mtr.updated_on)} #{h mtr.title}", :action=>"mt_req_show", :id=>mtr %>
+                    </td><td>
+                    <%= link_to_function "&nbsp;&larr;", "popResizableWindow('#{url_for({:action=>"mt_req_show", :id=>mtr, :popup=>"true"})}')" %>
+                    </td></tr>
+				<%- end -%>
+				    </table>
+				<%- end -%>
+			</div>
+		</td>
+	</tr>
+</table>

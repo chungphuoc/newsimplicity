@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title || "רימון#{ current_user().nil? ? "" : " -  " << current_user().hr_name}" %></title>
+  	<%= stylesheet_link_tag 'vaadnet_base' %>
+	<%= stylesheet_link_tag 'tables' %>
+	<%= javascript_include_tag 'application.js' %>
+	<%= javascript_include_tag 'date-picker.js' %>
+	<%= javascript_include_tag 'prototype.js' %>
+	<%= javascript_include_tag 'scriptaculous.js' %>
+	<% if @js_files -%>
+		<% for f in @js_files -%>
+			<%=javascript_include_tag f %>
+		<% end -%>
+	<% end -%>
+
+</head>
+<%- if @refresh == true -%>
+<body onload="setTimeout('window.location.reload(true);',1000*60*30)">
+<%- else -%>
+<body>
+<%- end -%>
+<center>
+<table id="main_table" cellspacing="0" cellpadding="0">
+	<%= render :partial=>"/layouts/beta_note_tr" %>
+	<tr class="banner">
+		<td class="banner" colspan="2">
+	<table class="top_bar" width="100%" border="0">
+		<tr>
+			<td><div style="margin:4px 0px 4px 0px;">
+				<span class="building_name">
+				<%- if current_user().nil? -%>
+					&nbsp;רימון&nbsp;
+				<%- else -%>
+					&nbsp;הנכסים של <%= current_user().hr_name %>&nbsp;
+				<%- end -%>
+				</span></div></td>
+			<td><div class="vaadnet_logo"><%=link_to image_tag("logo_top.gif"), :controller=>"general"%></div></td>
+		</tr><tr>
+			<td align="center">
+				<% if current_user() != nil -%>
+				<div class="login_name">שלום 
+					<span class="hr_name"> <%=current_user().hr_name %></span> 
+					(<%= link_to "אני לא #{current_user().hr_name}", :action=>"logout" -%>)
+				</div>
+				<% end -%>
+			</td>
+		</tr><tr>
+			<td colspan="2" class="top_ruler">
+				<table width="100%" border="0">
+					<tr>
+						<td class="messages_area">
+							<%= render :partial=>"/layouts/messages" %>
+						</td>
+						<td class="top_buttons_area">
+							<%- unless current_user().nil? -%>
+								<%= button_tag "יציאה", {:action=>:logout}, "logout", false %>
+							<%- end -%>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+<tr>
+<td id="side_bar">
+	<div class="title top">ניהול אתר</div>
+	<%= link_to 'דף ראשי', :action=>'index' %>
+	<div class="title">נכסים</div>
+	<%= link_to 'נכסים', :action=>'my_buildings' %>
+	<%= link_to 'עסקים', :action=>'biz_list'%>
+	<%= link_to 'חוזים', :action=>'uc_list'%>
+	<%= link_to 'יחידות', :action=>'bu_list'%>
+	<%= link_to 'סוגי יחידות', :action=>'ut_list'%>
+	<!--<div class="title">ניהול תוכן</div>
+	<%= link_to '&times; הודעות', :action=>'unimplemented'%>
+	<%= link_to '&times; מסמכים', :action=>'unimplemented'%>-->
+	<div class="title">בקשות שירות</div>
+	<%= link_to 'בקשות שירות פתוחות', :action=>'mt_req_list', :find=>"unresolved"%>
+	<%= link_to 'בניית דו"ח', :action=>'mt_req_report_build'%>
+	<%= link_to 'מעקב אוטומטי', :action=>'touched_mt_reqs', :clean_state=>true.to_s %>
+	<%= link_to 'בקשת שירות חדשה', :action=>'mt_req_new' %>
+	<div class="title">משימות לחברת האחזקה</div>
+	<%= link_to "רשימת משימות", :action=>"mt_tsk_list" %>
+	<%= link_to "הוסף משימה", :action=>"mt_tsk_new" %>
+	<div class="title">ניהול חשבון</div>
+	<%= link_to 'הפרטים שלי', :action=>'show_my_details' %>
+	<%= link_to 'יציאה', {:action=>'logout'},{:class=>"bottom"} %>
+</td>
+<td id="main">
+<%= @content_for_layout %>
+</td></tr></table>
+<%= render :partial=>"/layouts/footer" %>
+</center>
+</body>
+</html>

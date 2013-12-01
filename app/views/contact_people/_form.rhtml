@@ -1,0 +1,52 @@
+<!--[form:contact_person]-->
+<table>
+	<tr>
+		<td><label for="contact_person_first_name">שם פרטי</label></td>
+		<td><%= text_field 'contact_person', 'first_name'  %></td>
+
+		<td><label for="contact_person_surname">שם משפחה</label></td>
+		<td><%= text_field 'contact_person', 'surname'  %></td>
+	</tr><tr>
+		<td><label for="contact_person_category">קבוצה</label></td>
+		<td>
+			<%= collection_select 'contact_person', 'cp_category_id',@categories, :id, :name%>
+			<a href="javascript:toggleCategoryMode();">הוסף קבוצה</a>
+			<div id="new_cp_panel" style="display: none">שם:<input type="text" name="new_category_name"/></div>
+			<input type="hidden" name="add_category" id="add_category" value="0" />
+		</td>
+		<td><label for="contact_person_company">חברה</label></td>
+		<td><%= text_field 'contact_person', 'company'  %></td>
+	</tr><tr>
+		<td><label for="contact_person_position">תפקיד</label></td>
+		<td colspan="3"><%= text_field 'contact_person', 'position'  %></td>
+	</tr>
+	<tr><td colspan="4"><hr/></td></tr>
+	<tr>
+		<td><label for="contact_person_phone">טלפון</label></td>
+		<td><span style="direction: ltr"><%= text_field 'contact_person', 'phone'  %></span></td>
+		<td><label for="contact_person_fax">פקס</label></td>
+		<td><span style="direction: ltr"><%= text_field 'contact_person', 'fax'  %></span></td>
+	</tr><tr>
+		<td><label for="contact_person_mobile">נייד</label></td>
+		<td><span style="direction: ltr"><%= text_field 'contact_person', 'mobile'  %></span></td>
+		<td><label for="contact_person_email">דואר אלקטרוני</label></td>
+		<td><span style="direction: ltr"><%= text_field 'contact_person', 'email'  %></span></td>
+	</tr><tr>
+		<td><label for="contact_person_site">אתר</label></td>
+		<td colspan="3"><span style="direction: ltr"><%= text_field 'contact_person', 'site'  %></span></td>
+
+	</tr>
+	<tr><td colspan="4"><hr/></td></tr>
+	<tr>
+		<td colspan="2">
+			<label for="contact_person_address">כתובת</label><br/>
+			<%= text_area 'contact_person', 'address', "rows"=>10  %>
+		</td><td colspan="2">
+			<label for="contact_person_about">הערות</label><br/>
+			<%= text_area 'contact_person', 'about', "rows"=>10  %>
+		</td>
+	</tr>
+</table>
+
+<!--[eoform:contact_person]-->
+

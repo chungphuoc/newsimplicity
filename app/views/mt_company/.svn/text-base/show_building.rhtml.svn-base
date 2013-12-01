@@ -1,0 +1,40 @@
+<%=begin_page_title "פרטי בניין"%>
+	<%= button_tag "חזרה לרשימת הבניינים", {:action=>@back_action}, "list", false %>
+	<% if @worker.role.admin? -%>
+	<%= button_tag "עריכת בניין", {:action=>"edit_building", :id=>@building}, "edit", false %>
+	<% end -%>
+<%= end_page_title %>
+<table border="0" class="report" >
+	<tr>
+		<td class="key">עיר</td>
+		<td class="value"><%=@building.city%></td>
+	</tr><tr>
+		<td class="key">רחוב</td>
+		<td class="value"><%=@building.street%></td>
+	</tr><tr>
+		<td class="key">מספר</td>
+		<td class="value"><%=@building.number%></td>
+	</tr><tr>
+		<td class="key">אב בית</td>
+		<td class="value"><%= crlfs_to_brs @building.has_mt_manager? ? @building.mt_manager.hr_name : nil %></td>
+	</tr><tr>
+		<td class="key">איש קשר</td>
+		<td class="value">
+			<% if @building.get_company_contact.nil? %> (אין) <% else %> <%= crlfs_to_brs @building.get_company_contact.hr_name %><%end%></td>
+	</tr><tr>
+		<td class="key">טקסט פתיחה</td>
+		<td class="value"><%= crlfs_to_brs @building.welcome_note %></td>
+	</tr><tr>
+		<td class="key">הוראות הגעה</td>
+		<td class="value"><%= crlfs_to_brs @building.directions %></td>
+	</tr><tr>
+		<td class="key">מפה</td>
+		<td class="value">
+			<% if @building.has_map? %>
+				<%= link_to( image_tag("map.png") + "הצג מפה", @building.map_address, :target=>"_blank")%>
+			<% else %>
+				אין מפה
+			<% end %>
+		</td>
+	</tr>
+</table>

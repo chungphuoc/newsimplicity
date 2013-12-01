@@ -1,0 +1,42 @@
+<%= begin_page_title "פרטי איש קשר" %>
+	<%= button_tag 'ערוך איש קשר', {:action => 'edit', :id => @contact_person}, 'contact_person_edit', false %>
+	<%= button_tag 'חזרה לרשימה', {:action => 'list'}, 'contact_person_list', false %>
+<%= end_page_title %>
+
+<table class="report">
+	<tr>
+		<td class="key">שם פרטי</td>
+		<td class="value"><%= h @contact_person.first_name  %></td>
+		<td class="key">שם משפחה</td>
+		<td class="value"><%= h @contact_person.surname  %></td>
+	</tr><tr>
+		<td class="key">קבוצה</td>
+		<td class="value"><%= h @contact_person.cp_category.name %></td>
+		<td class="key">חברה</td>
+		<td class="value"><%= h @contact_person.company  %></td>
+	</tr><tr>
+		<td class="key">תפקיד</td>
+		<td colspan="3" class="value"><%= h @contact_person.position  %></td>
+	</tr>
+	<tr>
+		<td class="key">טלפון</td>
+		<td class="value"><span style="direction:ltr"><span style="color:#bbc">a</span><%= h @contact_person.phone %></span></td>
+		<td class="key">פקס</td>
+		<td class="value"><span style="direction:ltr"><span style="color:#bbc">a</span><%= h @contact_person.fax %></span></td>
+	</tr><tr>
+		<td class="key">נייד</td>
+		<td class="value"><span style="direction:ltr"><span style="color:#bbc">a</span><%= h @contact_person.mobile %></span></td>
+		<td class="key">דואר אלקטרוני</td>
+		<td class="value"><span style="direction: ltr"><a href="mailto:<%=h @contact_person.email%>"%><%= h @contact_person.email  %></a></span></td>
+	</tr><tr>
+		<td class="key">אתר</td>
+		<td  class="value"colspan="3"><span style="direction: ltr"><a href="<%=h(@contact_person.site)%>"><%= h @contact_person.site  %></a></span></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="key">כתובת</td>
+		<td class="key" colspan="2">הערות</td>
+	</tr><tr>
+		<td class="value" colspan="2"><%= crlfs_to_brs @contact_person.address %></td>
+		<td class="value" colspan="2"><%= crlfs_to_brs @contact_person.about %></td>
+	</tr>
+</table>

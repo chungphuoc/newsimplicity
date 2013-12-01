@@ -1,0 +1,14 @@
+<%= begin_page_title "איך מגיעים"%><%= end_page_title %>
+<p>
+<%= crlfs_to_brs(@building.directions)%>
+</p>
+<% if @building.has_map? -%>
+	<p>
+	<img src="<%=@building.map_address%>" alt="map" />
+	</p>
+<% end -%>
+
+<p align="center">
+<%=link_to "עותק להדפסה", {:controller=>"guest", :action=>"print_map"}, :target=>"_blank"%>
+</p>
+

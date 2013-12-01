@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title || "רימון - #{@building.hr_address}" %></title>
+  	<%= stylesheet_link_tag 'vaadnet_base' %>
+	<%= stylesheet_link_tag 'tables' %>
+	<%= javascript_include_tag 'application.js' %>
+	<%= javascript_include_tag 'prototype.js' %>
+	<%= javascript_include_tag 'scriptaculous.js' %>
+	<% if @js_files -%>
+		<% for f in @js_files -%>
+			<%=javascript_include_tag f %>
+		<% end -%>
+	<% end -%>
+
+</head>
+<%- if @refresh == true -%>
+<body onload="setTimeout('window.location.reload(true);',1000*60*3)">
+<%- else -%>
+<body>
+<%- end -%>
+<center>
+<table id="main_table" cellspacing="0" cellpadding="0">
+	<%= render :partial=>"/layouts/beta_note_tr" %>
+	<tr class="banner">
+		<td class="banner" colspan="2">
+	<table class="top_bar" width="100%" border="0">
+		<tr>
+			<td><div style="margin:4px 0px 4px 0px;">
+				<span class="building_name">&nbsp;<%=@building.hr_address%>&nbsp;</span></div></td>
+			<td><div class="vaadnet_logo"><%=link_to image_tag("logo_top.gif"), :controller=>"general"%></div></td>
+		</tr><tr>
+			<td align="center">
+				<% if @human != nil -%>
+				<div class="login_name">שלום 
+				<span class="hr_name"> <%=@human.hr_name -%></span> (	אם אינך 
+					<%= @human.hr_name %>, <%= link_to session[:msg_nituk], :action=>"logout", :controller=>"vaad_admin" -%>
+				)</div>
+				<% end %>
+			</td>
+		</tr><tr>
+			<td colspan="2" class="top_ruler">
+				<div style="padding: 4px">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td class="messages_area">
+							<%- if ( messages? ) -%>
+								<%= render :partial=>"/layouts/messages" %>
+							<%- else -%>
+								<%=session[:msg_login_status]%>
+							<%- end -%>
+						</td>
+						<td class="top_buttons_area">
+							<%= button_tag "אתר הדיירים", :controller=>:tenant %>
+							<%= button_tag "יציאה", :action=>:logout %>
+						</td></tr>
+				</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+<tr>
+<td id="side_bar">
+	<div class="top"><%= image_tag "/images/sidebar/sidebar-top.gif" %></div>
+	<div class="title">ניהול אתר</div>
+	<%= link_to 'דף ראשי', 		:action=>'index', :controller=>'vaad_admin' %>
+	<%= link_to 'אנשי קשר', 	:action=>'list', :controller=>'contact_people'%>
+	<%= link_to 'פרטי בניין', 	:action=>'show_general_info', :controller=>'vaad_admin' %>
+	<%= link_to 'דירות', 		:action=>'list', :controller=>'vaad_flat'%>
+	<%= link_to 'דיירים',		:action=>'list', :controller=>'tenants'%>
+	<%= link_to 'משתמשים', 		:action=>'list', :controller=>'users'%>
+	<% if @building.has_mt_company? -%>
+		<%= link_to 'חברת אחזקה', :action=>'mt_company', :controller=>'vaad_admin'%>
+	<% end -%>
+	<div class="title">ניהול תוכן</div>
+	<%= link_to 'הודעות ועד', 			:action=>'list', :controller=>'announcements'%>
+	<%= link_to 'מסמכים משותפים', 		:action=>'list', :controller=>'shared_documents'%>
+	<%= link_to 'לוח מודעות (דיירים)', 	:action=>'list', :controller=>'tenant_posts'%>
+	<div class="title">תקלות</div>
+	<%= link_to 'רשימת תקלות פתוחות', 	:action=>'maintenance_requests', :controller=>'vaad_admin'%>
+	<div class="title">ניהול חשבון</div>
+	<% if @human.is_a?(Tenant) -%>
+	<%= link_to 'אתר הדיירים', 			:action=>'index', :controller=>'tenant' %>
+	<% end -%>
+	<%= link_to 'יציאה', :action=>'logout', :controller=>'vaad_admin' %>
+	<div class="top"><%= image_tag "/images/sidebar/sidebar-bottom.gif" %></div>
+</td>
+<td id="main">
+<%= @content_for_layout %>
+</td></tr></table>
+<%= render :partial=>"/layouts/footer" %>
+</center>
+</body>
+</html>

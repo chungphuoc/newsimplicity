@@ -1,0 +1,24 @@
+<%-
+no_requests = ( @mt_requests.nil? || @mt_requests.size==0 );
+total = 0;
+-%>
+דו"ח חיובים ממתינים לתקופה  <%= pp_date(@query.fixed_from_date) %>-<%= pp_date(@query.fixed_until_date) %>
+<%- if no_requests -%>
+	לא נמצאו חיובים לתקופה.
+<%- else -%>
+#	כותרת	פתיחה	סגירה	נמען	מקום	מחיר כולל	תקציב
+<% for mreq in @mt_requests -%>
+<%= mreq.id -%>
+	<%=mreq.title -%>
+	<%= pp_date( mreq.created_on ).strip()   -%>
+	<%= pp_date( mreq.solved_on ).strip()    -%>
+	<%= pp_assignee( mreq.assignee ).strip() -%>
+	<%= pp_place( mreq.place ).strip()       -%>
+	<%= pp_price( mreq.total_cost).strip()   -%>
+	<%= mreq.budget_name.blank? ? "-" : mreq.budget_name.strip() -%>
+
+<%- total+=mreq.total_cost;
+	end -%>
+סה"כ	<%= pp_price( total ) %>
+<%- end -%>
+הופק על ידי מערכת רימון

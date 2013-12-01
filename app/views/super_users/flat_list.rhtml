@@ -1,0 +1,29 @@
+<h1>רשימת דירות</h1>
+
+<table class="data_table" cellspacing="0">
+  <tr>
+  <% for column in Flat.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+	<th>בניין</th>
+  </tr>
+  
+<% for flat in @flats %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+  <% for column in Flat.content_columns %>
+    <td><%=h flat.send(column.name) %></td>
+  <% end %>
+	<td><%=flat.building.hr_address%></td>
+    <td><%= link_to 'Show', :action => 'flat_show', :id => flat %></td>
+    <td><%= link_to 'Edit', :action => 'flat_edit', :id => flat %></td>
+    <td><%= link_to 'Destroy', { :action => 'flat_destroy', :id => flat }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @flat_pages.current.previous } if @flat_pages.current.previous %>
+<%= link_to 'Next page', { :page => @flat_pages.current.next } if @flat_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New flat', :action => 'flat_new' %>

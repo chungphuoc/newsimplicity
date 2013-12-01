@@ -1,0 +1,46 @@
+<%- if (@new) -%>
+<%= begin_page_title "רשימת משימות חדשות" %>
+<%= button_tag 'כל המשימות', {:action => 'mt_tsk_list'},'list', false %>
+<%- else -%>
+<%= begin_page_title "רשימת משימות" %>
+<%= button_tag 'משימות חדשות', {:action => 'mt_tsk_new_list'},'star', false %>
+<%- end -%>
+<%= button_tag 'הוסף משימה חדשה', {:action => 'mt_tsk_new'},'add', false %>
+<%= end_page_title %>
+
+<%- if @tasks.size == 0 -%>
+	<h3>אין משימות במערכת</h3>
+<%- else -%>
+<table class="data_table" cellspacing="0">
+	<tr>
+		<th>כותרת          	</th>
+		<th>יוצר			</th>
+ 		<th>לא לפני תאריך   </th>
+		<th>לא יאוחר מתאריך </th>
+		<th>מצב             </th>
+		<th>תאריך יצירה     </th>
+		<th colspan="3">פעולות</th>
+	</tr>
+
+	<% for task in @tasks %>
+	<tr class="<%= cycle('odd_row','even_row') %>">	
+		<td><%= link_to h(task.title), :action=>"mt_tsk_show", :id=>task %></td>
+		<td><%= link_to h(task.creator.hr_name),     :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to pp_date(task.from_date),     :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to pp_date(task.until_date),    :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to task_status_image_tag(task) + " " +
+						pp_task_status(task.status), :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to pp_date(task.created_on),    :action=>"mt_tsk_show", 	:id=>task %></td>
+		<td><%= link_to image_tag("edit.png"), 		 :action=>"mt_tsk_edit", 	:id=>task %></td>
+		<td><% if task.maintenance_request.nil? %><%= link_to image_tag("wrench_add.png"), :action=>"mt_tsk_create_request", :id=>task %><%- end -%></td>
+		<td>
+			<%- if task.status==MtCompanyTask::CREATED -%>
+				<%= button_to "אשר קבלה", :action=>"mt_tsk_accept", :id=>task, :return_to=>params[:action] %>
+			<%- else -%>
+				&nbsp;
+			<%- end -%>
+		</td>
+	</tr>
+	<% end -%>
+</table>
+<%- end -%>

@@ -1,0 +1,65 @@
+<%-
+no_requests = ( @mt_requests.nil? || @mt_requests.size==0 );
+total = 0;
+i=0;
+-%>
+<%- if ! @print_mode -%>
+<%= begin_page_title "חיובים ממתינים לתקופה #{pp_date(@query.fixed_from_date)}-#{pp_date(@query.fixed_until_date)}" %>
+	<%= button_tag "הדפס", {:action=>:invoice_report_show, :report_type=>"print"}, "print", false, true %>
+	<%= button_tag "קובץ", {:action=>:invoice_report_show, :report_type=>"text"}, "file", false %>
+	<%= button_tag "אקסל", {:action=>:invoice_report_show, :report_type=>"xls"}, "excel_file", false %>
+	<%= button_tag "בניית דוח", {:action=>:invoice_reports}, "list", false %>
+<%= end_page_title %>
+<%- else -%>
+<h2>
+<%= "חיובים ממתינים לתקופה #{pp_date(@query.fixed_from_date)}-#{pp_date(@query.fixed_until_date)}" %>
+</h2>
+<%- end -%>
+<br />
+<%- if no_requests -%>
+	לא נמצאו חיובים לתקופה.
+<%- else -%>
+<form action="<%= url_for(:action=>"mark_as_debited") %>" id="mtreq_form">
+<table class="data_table" cellspacing="0">
+  <tr>
+	<th>&nbsp;</th>
+	<th>#</th>
+	<th>כותרת</th>
+	<th>פתיחה</th>
+	<th>סגירה</th>
+	<th>נמען</th>
+	<th>מקום</th>
+	<th>מחיר כולל</th>
+	<th>תקציב</th>
+  </tr>
+	<% for mreq in @mt_requests %>
+	<tr class="<%=cycle('evenRow', 'oddRow')%>">
+		<td><%- unless @print_mode -%>
+		<%= check_box_tag "request[#{i}]", mreq.id, false,:id=>"request_#{i}"%>
+		<%- else -%>&nbsp;
+		<%- end -%></td>
+		<td><%= mreq.id %></td>
+		<td><%= link_to h(mreq.title), :action=>:mt_req_show, :id=>mreq, :back=>params[:action] %></td>
+		<td><%= pp_date mreq.created_on %></td>
+		<td><%= pp_date mreq.solved_on %></td>
+		<td><%= pp_assignee mreq.assignee %></td>
+		<td><%= mreq.place.nil? ? "&nbsp;" : pp_place( mreq.place ) %></td>
+		<td><%= pp_price( mreq.total_cost) %></td>
+		<td><%= mreq.budget_name.blank? ? "&nbsp;" : h(mreq.budget_name) %></td>
+	</tr>
+	<%  i += 1
+		total+=mreq.total_cost;
+		end
+	%>
+	<tr>
+		<td colspan="7">&nbsp;</td>
+		<th><b>סה"כ</b></th>
+		<th><b><%= pp_price( total ) %></b></th>
+	</tr>
+</table>
+<%- unless @print_mode -%>
+<br />
+<%= button_function_tag "חיוב התבצע (תקלות מסומנות בלבד)", "$(\"mtreq_form\").submit()", "coins.png", true %>
+<%- end -%>
+<%= end_form_tag %>
+<%- end -%>

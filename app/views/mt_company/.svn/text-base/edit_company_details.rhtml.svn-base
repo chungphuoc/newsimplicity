@@ -1,0 +1,33 @@
+<%= begin_page_title "עריכת פרטי החברה" %>
+	<%= button_tag 'הצג פרטים', {:action => 'company_details'},'accept', false%>
+<%= end_page_title %>
+
+<%= start_form_tag :action => 'company_details_update', :id => @mt_company %>
+<table border="0" cellspacing="5" cellpadding="5">
+<tr>
+	<td><label for="mt_company_name">שם</label></td>
+	<td><%= text_field 'mt_company', 'name'  %></td>
+</tr><tr>
+	<td><label for="mt_company_eng_name">שם אנגלי</label></td>
+	<td><%= text_field 'mt_company', 'eng_name'  %></td>
+</tr><tr>
+	<td><label for="mt_company_site">אתר</label></td>
+	<td><%= text_field 'mt_company', 'site'  %></td>
+</tr><tr>
+	<td><label for="mt_company_phone">טלפון</label></td>
+	<td><%= text_field 'mt_company', 'phone'  %></td>
+</tr><tr>
+	<td><label for="mt_company_contact_info">פרטי התקשרות</label></td>
+	<td><%= text_area 'mt_company', 'contact_info', :rows=>"5" %></td>
+</tr><tr>
+	<td><label for="mt_company_address">כתובת</label></td>
+	<td><%= text_area 'mt_company', 'address', :rows=>"5" %></td>
+</tr><tr>
+	<td><label for="mt_company_about">אודות החברה</label></td>
+	<td><%= text_area 'mt_company', 'about', :rows=>"5" %></td>
+</tr>
+</table>
+
+<%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>
+

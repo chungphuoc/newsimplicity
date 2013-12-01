@@ -1,0 +1,31 @@
+<%= begin_page_title "פרטי הדירה שלי" %>
+<%= end_page_title %>
+<p>פרטי הדירה כפי שהם מופיעים במערכת. אם פרטים אלו אינם נכונים, אנא עדכנו את ועד הבית.</p>
+<table class="report">
+<tr>
+	<td class="key">מספר:</td>
+	<td class="value"><%=@flat.number%></td>
+</tr>
+<tr>
+	<td class="key">קומה:</td>
+	<td class="value"><%=@flat.floor%></td>
+</tr>
+<tr>
+	<td class="key">מצב:</td>
+	<td class="value"><%=@flat.state%></td>
+</tr>
+<tr>
+	<td class="key">שטח:</td>
+	<td class="value"><%=@flat.area%></td>
+</tr>
+<tr>
+	<td class="key">מספר חדרים:</td>
+	<td class="value"><%=@flat.num_of_rooms%></td>
+</tr>
+
+<tr>
+	<td class="key">דמי ועד בסיסיים:</td>
+	<td class="value"><%=@flat.base_payment%></td>
+</tr>
+
+</table>

@@ -1,0 +1,19 @@
+<% @page_title ||="רימון - הבית של הבניין שלך"-%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<title><%= @page_title %></title>
+  	<%= stylesheet_link_tag 'vaadnet_base' %>
+</head>
+<body>
+<h1>הצעה חדשה</h1>
+
+<%= start_form_tag :action => 'create' %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "שלח" %>
+<%= end_form_tag %>
+
+</body>
+</html>

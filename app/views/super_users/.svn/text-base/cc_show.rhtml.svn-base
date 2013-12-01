@@ -1,0 +1,8 @@
+<% for column in CondoQuestion.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @condo_question.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'cc_edit', :id => @condo_question %> |
+<%= link_to 'Back', :action => 'cc_list' %>

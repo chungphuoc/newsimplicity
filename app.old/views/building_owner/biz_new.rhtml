@@ -1,0 +1,10 @@
+<%= begin_page_title "עסק חדש" %>
+	<%= button_tag "חזור לרשימת העסקים", {:action=>"biz_list"}, "list", false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action => 'biz_create' %>
+  <%= render :partial => 'biz_form' %>
+  <%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>
+
+

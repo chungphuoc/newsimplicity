@@ -1,0 +1,29 @@
+<%= begin_page_title "צירוף קבצים" %>
+<%= end_page_title %>
+<%= render :partial=>"shared/wizard_stage", :locals=>{:stages=>@stages, :current_stage=>5} %>
+<%= render :partial=>"/shared/unit_contract", :object=>@uc %>
+<table class="wizard_current_stage">
+<tr>
+	<td>
+		<% form_for( :unit_contract, @uc,  
+					 :url=>{:action=>"uc_add_wizard_upload"}, 
+					 :html => {:multipart=>true} ) do | form | %>
+			<table border="0">
+				<tr>
+					<th>כותרת</th>
+					<th>קובץ</th>
+				</tr>
+				<%- for i in (0..2) -%>
+					<tr>
+						<td><input id="file_<%= i.to_s %>_title" name="file[<%= i.to_s %>][title]" type="text" /></td>
+						<td><input id="file_<%= i.to_s %>_file" name="file[<%= i.to_s %>][file]" type="file" /></td>
+					</tr>
+				<%- end -%>
+				<tr><td colspan="2"><%= submit_tag "העלה קבצים" %></td></tr></table>
+		<% end %>		
+	</td>
+</tr>
+</table>
+
+<%= button_to "חזרה לרשימת החוזים", :action=>"uc_list" %>
+

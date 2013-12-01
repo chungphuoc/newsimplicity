@@ -1,0 +1,60 @@
+<%-
+no_requests = ( @mt_requests.nil? || @mt_requests.size==0 );
+total = 0;
+-%>
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <Styles>
+  <Style ss:ID="sShortDate">
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Table1">
+  <Table>
+   <Row>
+    <Cell><Data ss:Type="String">דו"ח חיובים ממתינים לתקופה  <%= pp_date(@query.fixed_from_date) %>-<%= pp_date(@query.fixed_until_date) %></Data></Cell>
+   </Row>
+<%- if no_requests -%>
+	<Row>
+ 	 <Cell><Data ss:Type="String">לא נמצאו חיובים לתקופה.</Data></Cell>
+	</Row>
+<%- else -%>
+   <Row>
+    <Cell><Data ss:Type="String">מספר מערכת</Data></Cell>
+    <Cell><Data ss:Type="String">כותרת</Data></Cell>
+    <Cell><Data ss:Type="String">ת. פתיחה</Data></Cell>
+    <Cell><Data ss:Type="String">ת. סגירה</Data></Cell>
+    <Cell><Data ss:Type="String">נמען</Data></Cell>
+    <Cell><Data ss:Type="String">מקום</Data></Cell>
+	<Cell><Data ss:Type="String">מחיר כולל</Data></Cell>
+	<Cell><Data ss:Type="String">מטבע</Data></Cell>
+	<Cell><Data ss:Type="String">תקציב</Data></Cell>
+   </Row>
+<% for mreq in @mt_requests -%>
+   <Row>
+    <Cell><Data ss:Type="Number"><%= mreq.id %></Data></Cell>
+    <Cell><Data ss:Type="String"><%=mreq.title %></Data></Cell>
+    <Cell ss:StyleID="sShortDate"><Data ss:Type="String"><%= loc.pp_date( mreq.created_on, true ).strip() %></Data></Cell>
+    <Cell ss:StyleID="sShortDate"><Data ss:Type="String"><%= loc.pp_date( mreq.solved_on, true ).strip() %></Data></Cell>
+    <Cell><Data ss:Type="String"><%= pp_assignee( mreq.assignee ).strip() %></Data></Cell>
+    <Cell><Data ss:Type="String"><%= pp_place( mreq.place ).strip() %></Data></Cell>
+    <Cell><Data ss:Type="Number"><%= mreq.total_cost %></Data></Cell>
+	<Cell><Data ss:Type="String"><%= loc.currency() %></Data></Cell>
+    <Cell><Data ss:Type="String"><%= mreq.budget_name.blank? ? " " : mreq.budget_name.strip() -%></Data></Cell>
+   </Row>
+<%- total+=mreq.total_cost;
+	end -%>
+<%- end -%>
+	<Row>
+		<Cell><Data ss:Type="String">סה"כ</Data></Cell>
+		<Cell><Data ss:Type="Number"><%= total%></Data></Cell>
+	</Row>
+	<Row>
+		<Cell><Data ss:Type="String">הופק על ידי מערכת רימון, <%= pp_date( loc.now() )%></Data></Cell>
+	</Row>
+  </Table>
+ </Worksheet>
+</Workbook>

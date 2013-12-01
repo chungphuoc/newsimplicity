@@ -1,0 +1,8 @@
+<% for column in MtCompany.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @mt_company.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'mt_company_edit', :id => @mt_company %> |
+<%= link_to 'Back', :action => 'mt_company_list' %>

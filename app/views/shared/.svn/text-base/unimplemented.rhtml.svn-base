@@ -1,0 +1,8 @@
+<div style="text-align: center; margin: 3em 1em 0em 1em; border: 2px dotted red; padding: 1em">
+	תכונה זו עדיין אינה מוטמעת. עובדים על זה.
+<br />
+עמכם הסליחה.<br />
+צוות רימון
+<br />
+<%= button_to_function "חזור", "history.back();" %>
+</div>

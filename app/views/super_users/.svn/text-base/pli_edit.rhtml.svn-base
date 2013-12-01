@@ -1,0 +1,9 @@
+<h1>Editing place_list_item</h1>
+
+<%= start_form_tag :action => 'pli_update', :id => @place_list_item %>
+  <%= render :partial => 'pli_form' %>
+  <%= submit_tag 'Edit' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'pli_show', :id => @place_list_item %> |
+<%= link_to 'Back', :action => 'pli_list' %>

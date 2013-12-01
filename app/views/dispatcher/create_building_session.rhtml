@@ -1,0 +1,14 @@
+<html>
+<body>
+<pre>
+<%=@msg%>
+params:
+<%= debug( @params ) %>
+
+@bld:
+<%=debug(@bld)%>
+<% if @bld == nil %>
+bld is nil
+<% end %>
+</pre>
+</body></html>

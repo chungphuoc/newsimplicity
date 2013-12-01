@@ -1,0 +1,58 @@
+<%= begin_page_title "עריכת פרטי עסק" %>
+	<%= button_tag "חזור למסך פרטים", {:action=>:business_details}, "info", false %>
+<%= end_page_title %>
+
+<%= start_form_tag :action=>:business_update, :id=>@business %>
+
+<!--[form:business]-->
+<table>
+<tr>
+	<td><label for="business_name">שם</label></td>
+	<td><%= text_field 'business', 'name'  %></td>
+</tr>
+
+<tr>
+	<td class="valign_top"><label for="business_eng_name">כינוי מערכת</label></td>
+	<td><%= text_field 'business', 'eng_name', :style=>"direction: ltr;"  %><br/>
+		<span class="remark">כינוי המערכת מאפשר לעסקים גישה נוחה יותר לאתר שלהם. הוא חייב להיות ייחודי ומורכב מאותיות אנגליות וקווים תחתיים (_) בלבד.<br/>
+				שדה זה אינו חובה וניתן להשאירו ריק</span>.
+		</td>
+</tr>
+
+<tr>
+	<td>בניין</td>
+	<td><%= @business.building.hr_address %></td>
+</tr>
+
+<tr>
+	<td><label for="business_email">דואר אלקטרוני</label></td>
+	<td class="ltr"><%= text_field 'business', 'email'  %></td>
+</tr>
+
+<tr>
+	<td><label for="business_site">אתר</label></td>
+	<td class="ltr"><%= text_field 'business', 'site'  %></td>
+</tr>
+
+<tr>
+	<td><label for="business_phone">טלפון</label></td>
+	<td><%= text_field 'business', 'phone'  %></td>
+</tr>
+
+<tr>
+	<td><label for="business_fax">פקס</label></td>
+	<td><%= text_field 'business', 'fax'  %></td>
+</tr>
+
+<tr>
+	<td class="valign_top"><label for="business_description">תאור</label></td>
+	<td><%= text_area 'business', 'description', :rows=>5  %></td>
+</tr>
+
+</table>
+<!--[eoform:business]-->
+
+
+
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>

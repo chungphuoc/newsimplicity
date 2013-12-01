@@ -1,0 +1,18 @@
+<h1>תרגום הודעות לעברית</h1>
+<%= start_form_tag %>
+<%= submit_tag "שמור שינויים" %>
+
+<table class="data_table" cellspacing="0" width="100%">
+	<tr>
+		<th>הודעה במחשבית</th>
+		<th>הודעה בעברית</th>
+	</tr>
+<%- for ent in @entries -%>
+	<tr class="<%= cycle("odd_row", "even_row") %>">
+		<td><%= ent.id %></td>
+		<td><%= text_field_tag "entry[#{ent.id}]", ent.value %></td>
+	</tr>
+<%- end -%>
+</table>
+<%= submit_tag "שמור שינויים" %>
+<%= end_form_tag %>

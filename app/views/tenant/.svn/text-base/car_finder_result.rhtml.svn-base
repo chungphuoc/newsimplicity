@@ -1,0 +1,10 @@
+<%= begin_page_title "תוצאות חיפוש" %>
+<%= end_page_title %>
+<% if @car.nil? %>
+	<h3>לא נמצאה מכונית שמספרה
+		<%= pp_car(@car_num) %>
+	</h3>
+<% else %>
+	<%= render :partial=>"/shared/car/data", :object=>@car %>
+<% end %>
+

@@ -1,0 +1,33 @@
+<%=begin_page_title "פרטי תפקיד"%>
+	<%= button_tag "חזרה לרשימת תפקידים", {:action=>"role_list"},"list", false%>
+	<%= button_tag "עריכת פרטים", {:action=>"edit_role", :id=>@role}, "edit", false%>
+<%=end_page_title%>
+<div class="left_floater" style="margin: 2px 0px">
+	<% if @role.count_workers() > 0 -%>
+		<table class="report">
+			<tr><td class="key">עובדים המחזיקים בתפקיד</td></tr>
+		<% for wkr in @role.workers() -%>
+			<tr><td class="value"><%= link_to wkr.hr_name, :action=>"view_worker", :id=>wkr %></td></tr>
+		<% end -%>
+		</table>
+	<% else %>
+		<p>אין עובדים המחזיקים בתפקיד זה</p>
+	<% end -%>
+</div>
+
+<table border="0" class="report" >
+	<tr>
+		<td class="key">שם</td>
+		<td class="value"><%=@role.name%></td>
+	</tr><tr>
+		<td class="key" colspan="2">יכולות</td>
+	</tr><tr>
+		<td class="key">אב-בית</td>
+		<td class="value"><%= image_tag @role.building_manager? ? 'accept.png' : 'no_mark.png'%></td>
+	</tr><tr>
+		<td class="key">בעל מקצוע</td>
+		<td class="value"><%= image_tag @role.professional? ? 'accept.png' : 'no_mark.png'%></td>
+	</tr><tr>
+		<td class="key">מנהל אתר</td>
+		<td class="value"><%= image_tag @role.admin? ? 'accept.png' : 'no_mark.png'%></td>
+</tr></table>

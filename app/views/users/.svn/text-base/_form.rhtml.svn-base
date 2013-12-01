@@ -1,0 +1,26 @@
+<!--[form:user]-->
+<p><label for="user_private_name">שם פרטי</label><br/>
+<%= text_field 'user', 'first_name'  %></p>
+
+<p><label for="user_surname">שם משפחה</label><br/>
+<%= text_field 'user', 'surname'  %></p>
+
+<p><label for="user_username">שם משתמש</label><br/>
+<%= text_field 'user', 'username'  %></p>
+
+<p><label for="user_password">סיסמא</label><br/>
+<%= password_field 'user', 'password'  %></p>
+<% if @user.id != nil -%>
+	<span class="remark">השאר ריק על מנת להשאיר סיסמא קודמת</span>
+<% end -%>
+
+<p><label for="user_type">תפקיד</label><br/>
+	<%= collection_select 'user', 'user_type', User::ROLES, :to_s, :to_s %></p>
+
+<p><label for="user_description">תיאור</label><br/>
+<%= text_area 'user', 'description', "rows"=>5  %></p>
+
+<p><label for="user_contact_info">יצירת קשר</label><br/>
+<%= text_area 'user', 'contact_info', "rows"=>5  %></p>
+<!--[eoform:user]-->
+

@@ -1,0 +1,9 @@
+<table border="0">
+	<tr>
+		<td>מספר</td>
+		<td><%= text_field "car", "number" %></td>
+	</tr><tr>
+		<td>תיאור</td>
+		<td><%= text_field "car", "description" %></td>
+	</tr>
+</table>

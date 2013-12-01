@@ -1,0 +1,5 @@
+<%= begin_page_title "הפרטים שלי"%>
+	<%= button_tag 'ערוך', {:action => 'my_details_edit'},'user_edit',false %>
+<%= end_page_title %>
+
+<%= render :partial=>"user_data", :object=>@user %>

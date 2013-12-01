@@ -1,0 +1,54 @@
+<%= begin_page_title "עריכת דירה" %>
+	<%= button_tag 'חזרה לרשימת הדירות', {:action => 'list'}, 'flat_list', false %>
+<%= end_page_title %>
+
+<table>
+	<tr>
+		<td>
+<%= start_form_tag :action => 'update', :id => @flat %>
+	<h2>פרטי הדירה</h2>
+	<!--[form:flat]-->
+	<p><label for="flat_number">מספר דירה</label><br/>
+	<%= data_label @flat.number  %></p>
+
+	<p><label for="flat_floor">קומה</label><br/>
+	<%= data_label @flat.floor  %></p>
+
+	<p><label for="flat_state">מצב</label><br/>
+	<%= collection_select 'flat', 'state', @states, :key, :value %>
+	</p>
+
+	<p><label for="flat_num_of_rooms">מספר חדרים</label><br/>
+	<%= text_field 'flat', 'num_of_rooms'  %></p>
+
+	<p><label for="flat_area">שטח</label><br/>
+	<%= text_field 'flat', 'area'  %></p>
+
+	<p><label for="flat_base_payment">שכר-ועד בסיסי</label><br/>
+	<%= text_field 'flat', 'base_payment'  %></p>
+	<!--[eoform:flat]-->
+
+	<%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>
+	</td>
+	<td style="vertical-align: top; padding-right: 2em;">
+		<h2>דיירים</h2>
+		<% if @tenants.size > 0 -%>
+		<table>
+		<% i=0; for tnnt in @tenants %>
+			<% i += 1%>
+			<tr>
+				<td><%=i%></td>
+				<td><%= link_to tnnt.first_name + " " + tnnt.surname, :action=>"show", :controller=>"tenants", :id=>tnnt%></td>
+				<td><%= button_link 'מחק דייר', 'user_delete', { :controller=>"tenants", :action => 'destroy', :id=>tnnt, :flat_id=>@flat}, 
+								:confirm => 'הדייר ימחק. להמשיך?', :post => true  %></td>
+			</tr>
+		<% end -%>
+		</table>
+		<% else %>
+			<div><br />לא רשומים דיירים בדירה</div>
+		<% end %>
+		<%= button_link 'הוסף דייר', 'user_add', :action=>"new", :controller=>"tenants", :flat_id=>@flat%>
+	</td>
+</tr>
+</table>

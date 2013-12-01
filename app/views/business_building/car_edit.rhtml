@@ -1,0 +1,6 @@
+<%= begin_page_title "מכונית", true%><%= end_page_title %>
+<%= begin_help_section%>רישום המכוניות במערכת מאפשר לדיירים אחרים להזעיק אותך אם ישנה בעייה במכונית (אורות פתוחים, סימני פריצה וכו').<%= end_help_section %>
+<%= start_form_tag :action=>"car_update", :id=>@car %>
+<%= render :partial=>"/shared/car/car_form" %>
+<%= submit_tag "שמור" %>
+<%= end_form_tag %>

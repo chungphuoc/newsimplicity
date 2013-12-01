@@ -1,0 +1,49 @@
+<%= begin_page_title "ניהול רשימת אנשי קשר" %>
+	<%= button_tag 'הוסף איש קשר', {:action => 'new'}, 'contact_person_add', false %>
+<%= end_page_title %>
+<% if @contact_people.size > 0 %>
+<table cellspacing="0" class="data_table">
+  <tr>
+	<th>קבוצה</th>
+  	<th>שם פרטי</th>
+  	<th>שם משפחה</th>
+	<th>חברה</th>
+	<th>תפקיד</th>
+	<th>טלפון</th>
+	<th>פקס</th>
+	<th>נייד</th>
+	<th>דוא"ל</th>
+	<th>אתר</th>
+	<th colspan="2">פעולות</th>
+  </tr>
+  
+<% for contact_person in @contact_people %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+	<td><%=link_to contact_person.cp_category.name, :action => 'show', :id => contact_person %></td>
+  	<td><%=link_to contact_person.first_name, :action => 'show', :id => contact_person %></td>
+	<td><%=link_to contact_person.surname, :action => 'show', :id => contact_person %></td>
+	<td><%=link_to contact_person.company, :action => 'show', :id => contact_person %></td>
+	<td><%=link_to contact_person.position, :action => 'show', :id => contact_person %></td>
+	<td style="direction: ltr"><%=link_to contact_person.phone, :action => 'show', :id => contact_person %></td>
+	<td style="direction: ltr"><%=link_to contact_person.fax, :action => 'show', :id => contact_person %></td>
+	<td style="direction: ltr"><%=link_to contact_person.mobile, :action => 'show', :id => contact_person %></td>
+	<td><% if contact_person.email.length>0 %>
+			<a href="mailto:<%=contact_person.email%>"><%=contact_person.email%></a>
+		<% end %>
+	</td>
+	<td><% if contact_person.site.length>0 %>
+			<a href="<%=contact_person.site%>" target="_blank"><%=image_tag "/images/link.png"%></a>
+		<% end %>
+	</td>
+	<td><%= link_to image_tag('/images/contact_person_edit.png'), :action => 'edit', :id => contact_person %></td>
+	<td><%= link_to image_tag('/images/contact_person_delete.png'), { :action => 'destroy', :id => contact_person }, :confirm => 'איש הקשר ימחק. להמשיך?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'אנשי קשר נוספים', { :page => @contact_person_pages.current.previous } if @contact_person_pages.current.previous %>
+<%= link_to 'אנשי קשר קודמים', { :page => @contact_person_pages.current.next } if @contact_person_pages.current.next %> 
+
+<% else -%>
+<h2>לא רשומים אנשי קשר</h2>
+<% end -%>

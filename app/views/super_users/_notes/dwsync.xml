@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="suggestion_show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537000000000" />
+<file name="suggestion_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537000000000" />
+<file name="suggestion_edit.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537000000000" />
+<file name="sms_sender.rhtml" server="rimon-systems.com/demo/" local="128322439920000000" remote="128427537000000000" />
+<file name="show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537000000000" />
+<file name="reload_classes.rhtml" server="rimon-systems.com/demo/" local="128362464540000000" remote="128427537000000000" />
+<file name="pli_show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537000000000" />
+<file name="pli_new.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537000000000" />
+<file name="pli_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="pli_edit.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="new.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="mt_company_show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="mt_company_new.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="mt_company_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="mt_company_edit.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="login.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="localized_strings.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="localized_entries_table.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="flat_show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="flat_new.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="flat_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="flat_edit.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="edit.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="cc_show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="cc_new.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="cc_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="cc_edit.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="building_show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="building_new.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="building_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="building_edit.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427537600000000" />
+<file name="bo_show.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="bo_new.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="bo_list.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="bo_edit.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="_suggestion_form.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="_pli_form.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="_mt_company_form.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="_form.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="_flat_form.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="_cc_form.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="_building_form.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+<file name="_bo_form.rhtml" server="rimon-systems.com/demo/" local="128317253880000000" remote="128427538200000000" />
+</dwsync>

@@ -1,0 +1,26 @@
+<%= begin_page_title "אשף הוספת חוזה - שלב 2 מתוך 5" %>
+<%= end_page_title %>
+<%= render :partial=>"shared/wizard_stage", :locals=>{:stages=>@stages, :current_stage=>1} %>
+
+<%= start_form_tag :action=>"uc_add_wizard_3" %>
+
+<table class="report">
+	<tr>
+		<td colspan="2" class="title">נתוני החוזה</td>
+	</tr>
+	<tr>
+		<td class="key">בניין</td>
+		<td class="value"><%= @building.hr_address %></td>
+	</tr>
+</table>
+
+<table class="wizard_current_stage">
+<tr>
+	<td class="valign_top">עסק</td>
+	<td class="value">
+		<%= collection_select 'business', 'id', @businesses, :id, :name %>
+</td></tr></table>
+<br/>
+<%= submit_tag "המשך" %>
+<%= end_form_tag %>
+<%= button_to "חזור", :action=>"uc_add_wizard_1" %>

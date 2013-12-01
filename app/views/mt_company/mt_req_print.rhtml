@@ -1,0 +1,80 @@
+<h1><%= h(@req.title) %></h1>
+<table class="printed_report">
+<tr>
+	<td class="key">מספר זיהוי</td>
+	<td class="value"><%=@req.id%></td>
+	<td class="key">מצב</td>
+	<td class="value"><%= loc.mt_state(@req.state) %>
+	</td>
+</tr>
+<tr>
+	<td class="key">תאריך דיווח</td>
+	<td class="value"><%= pp_date_time @req.created_on %></td>
+	<td class="key">עודכן לאחרונה</td>
+	<td class="value"><%= pp_date_time @req.updated_on %></td>
+</tr>
+<%- unless @req.solved_on.blank? -%>
+<tr>
+	<td class="key">תאריך תיקון</td>
+	<td class="value" colspan="3"><%= pp_date_time @req.solved_on %></td>
+</tr>
+<%- end -%>
+<tr>
+	<td class="key">מדווח</td>
+	<td class="value"><%= render :partial=>"/shared/reporter_one_line", :object=>@req.reporter %></td>
+	<td class="key">נמען</td>
+	<td class="value">
+		<%= pp_assignee( @req.assignee ) %>
+	</td>
+</tr>
+<tr>
+	<td class="key">בניין</td>
+	<td class="value">
+		<%- if @req.has_building? -%>
+			<%= h @req.building.hr_address %>
+			<%- else -%>[אין]<%- end -%>
+	</td>
+	<td class="key">מקום</td>
+	<td class="value">
+		<%= render :partial=>"/shared/place_one_line", :object=>@req %>
+	</td>
+</tr>
+<tr>
+	<td class="key valign_top">פרטי הדיווח</td>
+	<td class="value" colspan="3">
+		<%=crlfs_to_brs( @req.body ) %>
+	</td>
+</tr>
+<% unless @req.remarks.blank? -%>
+<tr>
+	<td class="key">הערות</td>
+	<td class="value" colspan="3"><%= @req.remarks %></td>
+</tr>
+<% end -%>
+</table>
+
+<hr />
+<h2>פרטי תיקון</h2>
+<table class="printed_report" width="100%">
+	<tr>
+		<td class="key">שם מבצע</td>
+		<td class="value underline">&nbsp;</td>
+		<td class="key">תאריך</td>
+		<td class="value underline" style="padding-right: 5em">/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+	</tr>
+	<tr>
+		<td class="value">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="key underline dotted_left">חלק</td>
+		<td class="key underline dotted_left">כמות</td>
+		<td class="key underline" colspan="2">הערות</td>
+	</tr>
+	<%- 5.times do -%>
+	<tr>
+		<td class="underline dotted_left">&nbsp;</td>
+		<td class="underline dotted_left">&nbsp;</td>
+		<td class="underline" colspan="2">&nbsp;</td>
+	</tr>
+	<%- end -%>
+</table>

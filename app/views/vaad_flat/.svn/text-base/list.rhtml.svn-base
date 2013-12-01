@@ -1,0 +1,40 @@
+<%= begin_page_title "ניהול דירות" %>
+	<%=button_tag "ערוך מבנה", {:action=>:edit_building_structure},"edit", false %>
+<%= end_page_title %>
+
+<table cellspacing="0" class="data_table">
+  <tr>
+  	<th>מספר</th>
+	<th>מצב</th>
+	<th>מס' חדרים</th>
+	<th>שטח</th>
+	<th>שכר-ועד בסיסי</th>
+  </tr>
+  
+<%  lastFloor=nil;
+	for flat in @flats 
+		if flat.floor != lastFloor
+			lastFloor = flat.floor
+			if lastFloor == 0 
+				floor_title = "קומת קרקע";
+			elsif lastFloor < 0
+				floor_title = "קומה #{(-lastFloor).to_s()}-";
+			else
+				floor_title = "קומה #{lastFloor}";
+			end -%>
+		 	<tr><td colspan='7' class='table_sub_title'><%=floor_title%></td></tr>
+		<% end -%>
+	
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+	<td><%=link_to flat.number, :action=>:show, :id=>flat%></td>
+	<td><%=link_to flat.state, :action=>:show, :id=>flat%></td>
+	<td><%=link_to flat.num_of_rooms, :action=>:show, :id=>flat%></td>
+	<td><%=link_to flat.area, :action=>:show, :id=>flat%></td>
+	<td><%=link_to flat.base_payment, :action=>:show, :id=>flat%></td>
+  </tr>
+<% end %>
+</table>
+<p>
+	<%= link_to 'דירות קודמות', { :page => @flat_pages.current.previous } if @flat_pages.current.previous %>
+	<%= link_to 'דירות נוספות', { :page => @flat_pages.current.next } if @flat_pages.current.next %> 
+</p>

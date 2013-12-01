@@ -1,0 +1,7 @@
+<%= begin_page_title "תקלות בבניינים שלי"%>
+<% unless @print_mode -%>
+	<%= button_link "הדפס", "print",{:action=>"my_mt_requests", :sort_by=>@sort_by, :print=>true}, :target=>"_blank" %>
+<% end -%>
+<%= end_page_title %>
+<%= render :partial => 'mt_requests_table' %>
+

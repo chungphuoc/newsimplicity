@@ -1,0 +1,11 @@
+<%= begin_page_title "הוספת משתמש", true %>
+	<%= button_tag "פרטי העסק", {:action=>"biz_show", :id=>@business}, "view", false %>
+	<%= button_tag "ניהול משתמשים", {:action=>"biz_list_users", :id=>@business}, "user_edit", false %>
+<%= end_page_title %>
+
+<%= begin_help_section%>במקרה ואנשי העסק שכחו את הססמאות שלהם, ניתן להשתמש במסך זה על מנת ליצור עבורם שם משתמש חדש, שיאפשר להם להכנס לאתר שלהם.<%= end_help_section %>
+
+<%= start_form_tag :action=>"biz_add_user", :id=>@business %>
+<%= render :partial=>"/shared/new_user" %>
+<%= submit_tag "צור משתמש חדש" %>
+<%= end_form_tag %>

@@ -1,0 +1,56 @@
+<%= begin_page_title "ניהול מודעות דיירים" %>
+<%= end_page_title %>
+
+<% if @has_posts %>
+<table cellspacing="0" class="data_table">
+	<tr>
+		<th>כותרת</th>
+		<th>תאריך פרסום</th>
+		<th>מוצג באתר</th>
+		<th>קובץ</th>
+		<th>לינק</th>
+		<th>מפרסם</th>
+		<th colspan="2">פעולות</th>
+	</tr>
+  
+<% for tenant_post in @tenant_posts %>
+  <tr class=<%= cycle("evenRow", "oddRow")%>>
+ 	<td><%= link_to h(tenant_post.title), :action => 'show', :id => tenant_post %></td>
+	<td><%= link_to pp_date_time(tenant_post.published_on), :action => 'show', :id => tenant_post %></td>
+	<td><% if tenant_post.display_on_site %>
+			<%= link_to image_tag('/images/tick.png'), :action => 'show', :id => tenant_post  %>
+		<% else %>
+			<%= link_to image_tag('/images/cross.png'), :action => 'show', :id => tenant_post  %>
+		<% end %></td>
+
+	<td><% if tenant_post.has_file %>
+			<a href="<%=tenant_post.web_file_path%>"  target="_blank"><%= image_tag '/images/file.png' %></a>
+		<% else %>
+			<%= link_to image_tag('/images/cross.png'), :action => 'show', :id => tenant_post  %>
+		<% end %></td>
+
+	<td><% if tenant_post.link != "" %>
+			<a href="<%=tenant_post.link%>" target="_blank"><%= image_tag '/images/link.png' %></a>
+		<% else %>
+			<%= link_to image_tag('/images/cross.png'), :action => 'show', :id => tenant_post  %>
+		<% end %></td>
+		
+	<td>
+		<% if tenant_post.tenant %>
+			<%=email_tenant(tenant_post.tenant)%>
+		<% else %>
+			?
+		<% end %>
+		</td>
+    <td><%= link_to image_tag("/images/tenant_post_edit.png"), :action => 'edit', :id => tenant_post %></td>
+    <td><%= link_to image_tag("/images/tenant_post_delete.png"), { :action => 'destroy', :id => tenant_post }, :confirm => 'ההודעה תימחק. להמשיך?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+<p>
+<%= link_to 'לעמוד הבא', { :page => @tenant_post_pages.current.previous } if @tenant_post_pages.current.previous %>
+<%= link_to 'לעמוד הקודם', { :page => @tenant_post_pages.current.next } if @tenant_post_pages.current.next %> 
+</p>
+<% else %>
+<h2>אין הודעות</h2>
+<% end %>

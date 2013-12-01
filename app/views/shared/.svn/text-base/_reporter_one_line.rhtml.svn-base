@@ -1,0 +1,16 @@
+<%- if reporter_one_line.kind_of? Tenant -%>
+	<%= reporter_one_line.hr_name %> (<%= pp_flat(reporter_one_line.flat) %> <%= pp_contact_info( reporter_one_line) %>)
+<%- elsif reporter_one_line.kind_of? User -%>
+	<%- unless reporter_one_line.hr_name.blank? -%>
+		<%= reporter_one_line.hr_name %>&nbsp;
+	<%- end -%>
+	<% unless reporter_one_line.business.nil? %>(<%= reporter_one_line.business.name %>)&nbsp;<% end %>
+	<%= pp_contact_info( reporter_one_line ) %>
+<%- elsif reporter_one_line.kind_of? MtCompanyWorker -%>
+	<%= reporter_one_line.hr_name %>
+<%- elsif reporter_one_line.kind_of? BuildingOwner -%>
+		<%= reporter_one_line.hr_name %> (בעל בניין)
+<%- else -%>
+	<%= h reporter_one_line.to_s %>
+	<%= pp_contact_info( reporter_one_line) %>
+<%- end -%>

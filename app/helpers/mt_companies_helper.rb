@@ -1,0 +1,2 @@
+module MtCompaniesHelper
+end

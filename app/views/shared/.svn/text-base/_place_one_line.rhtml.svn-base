@@ -1,0 +1,19 @@
+<%- if place_one_line.kind_of? MaintenanceRequest
+	 	freetext = place_one_line.place_free_text;
+		p_text = " (#{place_one_line.reporter.hr_name})";
+		place_one_line = place_one_line.place;
+		# p_text = " (#{place_one_line.unit_type.name})"
+	else
+		p_text = "";
+	end
+-%>
+<%- if place_one_line.nil? -%>
+	-
+<%- elsif place_one_line.kind_of?(BuildingUnit) -%>
+	<%= place_one_line.hr_name %><%= p_text %>
+<%- else -%>
+	<%= h place_one_line.to_s %><!--  <%= place_one_line.class.name %>-->
+<%- end -%>
+<%- unless freetext.blank? -%>
+, <%= h( freetext ) %> 
+<%- end -%>

@@ -1,0 +1,8 @@
+<table class="error_list">
+<%- for err in error_list -%>
+<tr>
+	<td><%= image_tag "error.png" %></td>
+	<td><%= loc().request_error( err ) %></td>
+</tr>
+<%- end -%>
+</table>

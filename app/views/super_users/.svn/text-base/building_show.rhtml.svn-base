@@ -1,0 +1,8 @@
+<% for column in Building.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @building.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'building_edit', :id => @building %> |
+<%= link_to 'Back', :action => 'building_list' %>

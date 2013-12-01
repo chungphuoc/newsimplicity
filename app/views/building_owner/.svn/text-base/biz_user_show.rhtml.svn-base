@@ -1,0 +1,44 @@
+<%= begin_page_title "פרטי משתמש", true %>
+	<%= button_tag "פרטי העסק", {:action=>"biz_show", :id=>@business}, "view", false %>
+	<%= button_tag "ניהול משתמשים", {:action=>"biz_list_users", :id=>@business}, "user_edit", false %>
+	<%= button_tag "איפוס ססמא", {:action=>"biz_user_reset_password", :id=>@biz_user},"key", false %>
+<%= end_page_title %>
+<%= begin_help_section%>מסך זה מציג את הפרטים של משתמש בודד. לא ניתן לערוך פרטים אלו. ניתן לשנות את ססמת המשתמש על ידי לחיצה על כפתור "איפוס ססמא" בסרגל הכלים.<%= end_help_section %>
+<table class="report">
+<tr>
+	<td class="key">שם פרטי</td>
+	<td class="value"><%= h( @biz_user.first_name )  %></td>
+</tr>
+<tr>
+	<td class="key">שם משפחה</td>
+	<td class="value"><%= h( @biz_user.surname )  %></td>
+</tr>
+<tr>
+	<td class="key">עסק</td>
+	<td class="value"><%= link_to @business.name, :action=>"biz_show", :id=>@business  %></td>
+</tr>
+<tr>
+	<td class="key">טלפון</td>
+	<td class="value"><%= h( @biz_user.phone )  %></td>
+</tr>
+<tr>
+	<td class="key">טלפון נייד</td>
+	<td class="value"><%= h( @biz_user.mobile )  %></td>
+</tr>
+<tr>
+	<td class="key">דואר אלקטרוני</td>
+	<td class="value"><%= h( @biz_user.email )  %></td>
+</tr>
+<tr>
+	<td class="key">שם משתמש</td>
+	<td class="value"><%= h( @biz_user.username )  %></td>
+</tr>
+<tr>
+	<td class="key valign_top">פרטים</td>
+	<td class="value"><%= crlfs_to_brs @biz_user.description %></td>
+</tr>
+<tr>
+	<td class="key valign_top">יצירת קשר</td>
+	<td class="value"><%= crlfs_to_brs @biz_user.contact_info %></td>
+</tr>
+</table>

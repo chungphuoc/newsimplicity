@@ -1,0 +1,48 @@
+<%= begin_page_title "עריכת פרטי הנכס"%>
+	<%= button_tag "חזור לרשימת נכסים", {:action=>"my_buildings"}, "list",false %>
+<%= end_page_title %>
+
+<%= start_form_tag( {:action => 'building_update', :id=>@building },  :multipart => true) %>
+<table border="0" class="report">
+	<tr>
+		<td class="key">עיר</td>
+		<td class="value"><%=text_field 'building', 'city'%></td>
+	</tr><tr>
+		<td class="key">רחוב</td>
+		<td class="value"><%=text_field 'building', 'street'%></td>
+	</tr><tr>
+		<td class="key">מספר</td>
+		<td class="value"><%=text_field 'building', 'number'%></td>
+	</tr><tr>
+		<td class="key valign_top">טקסט פתיחה</td>
+		<td class="value"><%= text_area 'building', 'welcome_note', {:rows=>5}%></td>
+	</tr><tr>
+		<td class="key valign_top">הוראות הגעה</td>
+		<td class="value"><%= text_area 'building', 'directions', {:rows=>5}%></td>
+	</tr><tr>
+		<td class="key">סוג יחידות אוטומטי</td>
+		<td class="value"><%= collection_select 'building', 'default_public_unit_type_id', @building.owner.public_unit_types, :id, :name%></td>
+	</tr><tr>
+		<td class="key">קומה נמוכה ביותר</td>
+		<td class="value"><span class="ltr"><%= text_field 'building', 'lowest_floor', :size=>"5" %></span><br/>
+			<div class="remark">קומה 0 היא קומת הקרקע. יש לציין אותה.</div></td>
+	</tr><tr>
+		 <td class="key">קומה גבוהה ביותר</td>
+		 <td class="value"><span class="ltr"><%= text_field 'building', 'highest_floor', :size=>"5" %></span></td>
+	</tr><tr>
+		<td class="key">מפה</td>
+		<td class="value"><input type="file" name="afile" size="30" />
+			<% if @building.has_map? %>
+				<br />
+				<span class="remark">העלאת קובץ חדש תמחוק את הקובץ הקיים</span>
+				<br />
+				<input type="checkbox" name="remove_file" id="cbDelFile" /><a class="hidden_link" href="javascript:toggleCheckBox('cbDelFile')">מחק מפה קיימת</a><br />
+				<a href="<%=@building.map_address%>" target="_blank">הצג מפה קיימת</a>
+			<% end %>
+		</td>
+	</tr>
+</table>
+
+	<%= submit_tag 'שמור שינויים' %>
+<%= end_form_tag %>
+

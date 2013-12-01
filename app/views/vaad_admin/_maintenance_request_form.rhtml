@@ -1,0 +1,29 @@
+<!--[form:maintenance_request]-->
+<table>
+	<tr>
+		<td><label for="maintenance_request_title">כותרת</label></td>
+		<td><%= text_field 'maintenance_request', 'title'  %></td>
+</tr><tr>
+	<td>מיקום</td>
+	<td>
+		<select name="place" id="maintenance_request_place_list_item_id" onchange="updatePlaceVisibility()">
+			<%- for p in @places -%>
+				<option value="<%= p.id %>" <% if @maintenance_request.place == p %>selected<%end%>><%= p.place %></option>
+			<%- end -%>
+			<option value="-1">אחר...</option>
+		</select>
+	</td>
+</tr><tr>
+	<td><div id="other_place_div1" style="display: none"><label for="other_place">פירוט:</label></div></td>
+	<td><div id="other_place_div2" style="display: none"><input type="text" name="other_place" id="other_place" /></div></td>
+</tr><tr>
+	<td>דחיפות</td>
+	<td><%= collection_select 'maintenance_request', 'urgency', MaintenanceRequest.urgencies, :key, :value %></td>
+</tr><tr>
+	<td class="valign_top"><label for="maintenance_request_body">פירוט</label></td>
+	<td><%= text_area 'maintenance_request', 'body', :rows=>"5"  %></td>
+</tr>
+</table>
+
+<!--[eoform:maintenance_request]-->
+

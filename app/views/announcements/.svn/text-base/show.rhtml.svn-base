@@ -1,0 +1,32 @@
+<%= begin_page_title "הודעת ועד" %>
+	<%= button_tag 'ערוך הודעה', {:action => 'edit', :id => @announcement}, 'ann_edit', false %>
+	<%= button_tag 'חזרה לרשימת ההודעות', {:action => 'list'}, 'ann_list', false %>
+<%= end_page_title %>
+
+<table class="report">
+	<tr>
+		<td class="key">כותרת</td>
+		<td class="value"><%=h @announcement.title %></td>
+	</tr>
+	<tr>
+		<td class="key">תאריך פרסום</td>
+		<td class="value"><%=@announcement.published_on %></td>
+	</tr>
+	<% if ! @announcement.link.blank? -%>
+	<tr>
+		<td class="key">קישור</td>
+		<td class="value"><a href="<%=h @announcement.link%>"><%=h @announcement.link%></a></td>
+	</tr>
+	<% end -%>
+	<% if ! @announcement.file.blank? -%>
+	<tr>
+		<td class="key">קובץ</td>
+		<td class="value"><a href="<%=ann.web_file_path%>" target="_blank"><%= image_tag '/images/file.png' %></a></td>
+	</tr>
+	<% end -%>
+	<tr>
+		<td colspan="2" class="key">גוף ההודעה</td>
+	</tr>
+		<td colspan="2" class="value"><%= crlfs_to_brs @announcement.body %></td>
+	</tr>
+</table>

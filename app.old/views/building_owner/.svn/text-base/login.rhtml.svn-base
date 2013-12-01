@@ -1,0 +1,7 @@
+<%= begin_page_title "כניסה למערכת - בעלי נכסים" %>
+<%= end_page_title %>
+<p>
+	<%= start_form_tag :action=>"login", :method=>"post" %>
+	<%= render :partial=>"shared/login_form"%>
+	<%= end_form_tag %>
+</p>

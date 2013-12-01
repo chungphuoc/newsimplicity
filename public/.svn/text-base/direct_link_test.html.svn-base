@@ -1,0 +1,16 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	<title>Direct link test</title>
+</head>
+<body>
+	<a href="http://localhost:3000/dispatcher/direct_link/W8%23%A0%91%B1%01%D2%8Da%3C%03e%95%3C%F30%26Kn%D9%CF%0D%81%D7%9B%BD%A3%E3%0F%7D%1D%A7%F4%A8K%F8%A8c%19%26%1DTMu%BF%40%D3%F3C%17pq%90%8D%EA%ECj%13%09%C4%DA%C5%09">
+		http://localhost:3000/dispatcher/direct_link/W8%23%A0%91%B1%01%D2%8Da%3C%03e%95%3C%F30%26Kn%D9%CF%0D%81%D7%9B%BD%A3%E3%0F%7D%1D%A7%F4%A8K%F8%A8c%19%26%1DTMu%BF%40%D3%F3C%17pq%90%8D%EA%ECj%13%09%C4%DA%C5%09</a>
+<br />
+<pre>
+	{:U=>"MtCompanyWorker|47",
+	 :A=>"mt_req_show",
+	 :C=>"mt_company",
+	 :P=>{:id=>"330"}}
+</pre>
+</body>
